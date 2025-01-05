@@ -6,8 +6,8 @@ export default function Home() {
   return (
     <>
       <div>
-        {/* <Banner></Banner>    */}
-        {/* <WelcomeSection></WelcomeSection> */}
+        <Banner></Banner>   
+        <WelcomeSection></WelcomeSection>
         <CreatePersonalWhy></CreatePersonalWhy>
       </div>
     </>

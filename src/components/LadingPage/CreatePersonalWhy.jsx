@@ -1,28 +1,28 @@
 'use-client'
 import React from 'react';
 import SectionHeader from '../SectionHeader/SectionHeader';
-
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 const datas = [
     {
         img: '/image/image1.png',
         alt: 'Create Your Why',
-        title: 'Take the Seps to create Your Personal -',
+        title: 'Take the Seps to create Your Personal - ‘WHY’',
         description: 'Start by answering a series of thoughtful questions designed to help you discover what truly drives you. Your answers will guide you toward finding your "Why."',
         buttonText: 'Learn More'
     },
     {
         img: '/image/image2.png',
         alt: 'Create Your Why',
-        title: 'Take the Seps to create Your Personal -',
-        description: 'Start by answering a series of thoughtful questions designed to help you discover what truly drives you. Your answers will guide you toward finding your "Why."',
+        title: 'Personalize Your ‘WHY’',
+        description: 'As you continue, additional questions help refine your journey by gathering key insights about your values and aspirations to craft a personalized experience. By finding your WHY, we can better align your goals with meaningful actions.',
         buttonText: 'Learn More'
     },
     {
         img: '/image/image3.png',
         alt: 'Create Your Why',
-        title: 'Take the Seps to create Your Personal -',
-        description: 'Start by answering a series of thoughtful questions designed to help you discover what truly drives you. Your answers will guide you toward finding your "Why."',
+        title: 'Share Your ‘WHY’ Story',
+        description: 'Once you’ve found your "Why," you can make a public declaration and share your journey with others, inspiring those who are on their own path of self-discovery and finding their "Why."',
         buttonText: 'Learn More'
     },
 ]
@@ -33,15 +33,20 @@ function CreatePersonalWhy() {
                 title="Discover Your WHY Through a Step-by-Step Process"
                 subTitle="Uncover Your 'Why' with Personalized Support, Thoughtful Insights, and Actionable Steps Tailored to Assist You Find Your Life's WHY."
             />
-            <div className='flex md:flex-row flex-col items-center gap-3 justify-center'>
-                <div>
+            <div className='flex md:flex-row flex-col items-center gap-12 justify-between'>
+                <div className='flex flex-col gap-12'>
                     {
                         datas.map((data, idx) => (
-                            <div className={`flex ${idx % 2 === 0 ? '' : 'flex-row-reverse'} items-center gap-12 justify-center`}>
-                                <img className='w-full flex-1' src={data.img} alt={data.alt} />
-                                <div className='flex-1'>
-                                    <h1 className='text-4xl font-bold'>{data.title}</h1>
-                                    <p className='opacity-75'>{data.description}</p>
+                            <div key={idx} className={`flex ${idx % 2 === 0 ? 'md:flex-row flex-col' : 'flex-col md:flex-row-reverse'} items-center gap-16 justify-center `}>
+                                <img className='flex-1' src={data.img} alt={data.alt} />
+                                <div className='flex-1 gap-6 items-start flex flex-col relative z-9'>
+                                    <div className={`-top-6 -left-4 -z-[999] w-12 h-12 ${idx % 2 !== 0 ? 'bg-[#1D355799]' : 'bg-[#2196F399]/50'} rounded-full  absolute`}></div>
+                                    <div className="bottom-0 right-12 -z-[999] w-8 h-8  rounded-full bg-[#00B0F2] absolute"></div>
+                                    <h1 className='text-4xl z-[999] text-[#1D3557] font-bold'>{data.title}</h1>
+                                    <p className='opacity-75 z-[999]'>{data.description}</p>
+                                    <div className='flex px-6 py-3 items-center border-[#00B0F2] rounded-md border-2 gap-2'>
+                                        <button className='cursor-pointer'>Learn more</button><MdOutlineKeyboardArrowRight />
+                                    </div>
                                 </div>
                             </div>
                         ))
