@@ -8,6 +8,7 @@ export default function Home() {
     <>
       <div className="flex flex-col items-center md:gap-28">
         {/* MAKE THE LANDING PAGE RESPONSIVE */}
+        {/* MAKE THE LANDING PAGE RESPONSIVE */}
         <Banner></Banner>   
         <WelcomeSection></WelcomeSection>
         <CreatePersonalWhy></CreatePersonalWhy>
