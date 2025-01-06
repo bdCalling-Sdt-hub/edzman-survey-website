@@ -1,6 +1,7 @@
 import React from 'react';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import WhyQuestions from './WhyQuestions';
+import PrimaryButton from '@/lib/button/PrimaryButton';
 function Reflect() {
   const data = [
     {
@@ -139,7 +140,7 @@ function Reflect() {
               alt="icon"
               className="w-8 h-8"
             />
-            <h1 className="text-base md:text-2xl font-bold text-[#000E4F]">
+            <h1 className="text-base md:text-xl font-bold text-[#000E4F]">
               {section.title}
             </h1>
           </div>
@@ -147,10 +148,10 @@ function Reflect() {
           <ul className="space-y-4 ml-3 md:ml-12">
             {section.items.map((item, index) => (
               <li key={index}>
-                <h2 className="text-base md:text-2xl font-normal text-[#000E4F]">
+                <h2 className="text-base md:text-xl font-normal text-[#000E4F]">
                   • {item.subTitle} ——
                 </h2>
-                <p className="text-sm md:text-xl md:ml-28 tracking-wider text-[#232F65] mt-1 leading-relaxed">
+                <p className="text-sm md:text-base md:ml-28 tracking-wider text-[#232F65] mt-1 leading-relaxed">
                   {item.details}
                 </p>
               </li>
@@ -167,13 +168,13 @@ function Reflect() {
                 alt="icon"
                 className="w-8 h-8"
               />
-              <h1 className="text-base md:text-2xl font-bold text-[#000E4F]">
+              <h1 className="text-base md:text-xl font-bold text-[#000E4F]">
                 {item.title}
               </h1>
             </div>
             {
               item.question.map((dets, idx) => (
-                <p className="text-sm md:text-xl md:ml-28 tracking-wider text-[#232F65] mt-1 leading-relaxed" key={idx}>• {dets}</p>
+                <p className="text-sm md:text-base md:ml-28 tracking-wider text-[#232F65] mt-1 leading-relaxed" key={idx}>• {dets}</p>
               ))
             }
           </li>
@@ -190,7 +191,7 @@ function Reflect() {
               alt="icon"
               className="w-8 h-8"
             />
-            <h1 className="text-base md:text-2xl font-bold text-[#000E4F]">
+            <h1 className="text-base md:text-xl font-bold text-[#000E4F]">
               {section.title}
             </h1>
           </div>
@@ -198,10 +199,10 @@ function Reflect() {
           <ul className="space-y-4 ml-3 md:ml-12">
             {section.items.map((item, index) => (
               <li key={index}>
-                <h2 className="text-base md:text-2xl font-normal text-[#000E4F]">
+                <h2 className="text-base md:text-xl font-normal text-[#000E4F]">
                   • {item.subTitle} ——
                 </h2>
-                <p className="text-sm md:text-xl md:ml-28 tracking-wider text-[#232F65] mt-1 leading-relaxed">
+                <p className="text-sm md:text-base md:ml-28 tracking-wider text-[#232F65] mt-1 leading-relaxed">
                   {item.details}
                 </p>
               </li>
@@ -221,7 +222,7 @@ function Reflect() {
               alt="icon"
               className="w-8 h-8"
             />
-            <h1 className="text-base md:text-2xl font-bold text-[#000E4F]">
+            <h1 className="text-base md:text-xl font-bold text-[#000E4F]">
               {section.title}
             </h1>
           </div>
@@ -229,10 +230,10 @@ function Reflect() {
           <ul className="space-y-4 ml-3 md:ml-12">
             {section.items.map((item, index) => (
               <li key={index}>
-                <h2 className="text-base md:text-2xl font-normal text-[#000E4F]">
+                <h2 className="text-base md:text-xl font-normal text-[#000E4F]">
                   • {item.subTitle} ——
                 </h2>
-                <p className="text-sm md:text-xl md:ml-28 tracking-wider text-[#232F65] mt-1 leading-relaxed">
+                <p className="text-sm md:text-base md:ml-28 tracking-wider text-[#232F65] mt-1 leading-relaxed">
                   {item.details}
                 </p>
               </li>
@@ -250,6 +251,31 @@ function Reflect() {
         subTitle={`Finding your "Why" in life—your purpose or deeper sense of meaning—can be a transformative and fulfilling journey. Here are some items and tools that can help guide you on that path. You may use one, a few or all of them to create your Why.`}
       ></SectionHeader>
       <WhyQuestions></WhyQuestions>
+      <div className="w-full h-[1px] bg-[#dadada] my-12"></div>
+      <div className='flex items-center justify-center flex-col mb-12'>
+        <p className='text-sm px-2 md:text-base text-center md:w-7/12'>By combining these items, tools, and practices, you can embark on a meaningful quest to uncover your "Why" and live a life that feels aligned with your values, passions, and strengths.</p>
+      </div>
+      <div className="flex max-w-screen-xl mx-auto flex-wrap flex-col md:flex-row mb-12 items-center gap-6 md:gap-12 justify-center">
+        <div className="flex-1 flex items-center justify-center max-w-xs md:max-w-md lg:max-w-lg">
+          <img
+            src="/fwy/Image.png"
+            alt="Find Your Why image"
+            className="basis-2/12 object-contain"
+          />
+        </div>
+
+        <div className="relative  flex-1 py-6 flex flex-col items-center md:items-start  md:py-12 text-center md:text-left">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#252b42] leading-tight">
+            YOU are now ready to begin to Create which will FIND YOUR <span className='text-[#00b0f2]'>WHY!</span>
+          </h1>
+          <div className="flex flex-row items-center gap-4 mt-6">
+            <h3 className="text-base md:text-lg">Click Here to Create –</h3>
+            <PrimaryButton text="Find Your Why" />
+          </div>
+          <div className="absolute top-0 left-0 bg-[#00b0f2]/60 w-20 sm:w-28 rounded-br-full h-2"></div>
+        </div>
+      </div>
+
     </div>
   );
 }
