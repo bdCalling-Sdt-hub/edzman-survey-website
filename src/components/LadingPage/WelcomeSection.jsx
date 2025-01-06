@@ -50,15 +50,6 @@ function WelcomeSection() {
                             <div key={idx} className='flex items-start gap-3'>
                                 <span className='text-[#00B0F2] text-lg'>{item.icon}</span>
                                  <p className='text-sm md:text-base text-gray-700'>{item.details}</p>
-                                {/* <p className='text-sm md:text-base text-gray-700'>
-                                    {item.details.split(' ').map((word, index) => (
-                                        word.toLowerCase() === 'why' ? (
-                                            <span key={index} className='text-[#00B0F2]'>{word} </span>
-                                        ) : (
-                                            <span key={index}>{word} </span>
-                                        )
-                                    ))}
-                                </p> */}
                             </div>
                         ))}
                     </div>

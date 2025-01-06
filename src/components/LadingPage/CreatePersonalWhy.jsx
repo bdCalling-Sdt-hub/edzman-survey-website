@@ -36,7 +36,7 @@ function CreatePersonalWhy() {
                 ></SectionHeader>
             </div>
             <div className='flex md:flex-row flex-col items-center gap-12 justify-between'>
-                <div className='flex flex-col gap-12'>
+                <div className='flex flex-col gap-12 px-2'>
                     {
                         datas.map((data, idx) => (
                             <div key={idx} className={`flex ${idx % 2 === 0 ? 'md:flex-row flex-col' : 'flex-col md:flex-row-reverse'} items-center gap-16 justify-center `}>
