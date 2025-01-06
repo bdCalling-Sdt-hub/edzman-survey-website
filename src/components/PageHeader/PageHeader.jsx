@@ -6,7 +6,7 @@ function PageHeader({title,subTitle}) {
             <div className="container mx-auto">
                 <img className='absolute top-0 left-0 w-full h-full object-cover' src="/image/mask.png" alt="" />
                 <h1 className='text-3xl md:text-5xl font-semibold text-[#1d3557]'>{title}</h1>
-                <p className='text-white text-sm w-3/4 md:text-base md:w-1/2'>{subTitle}</p>
+                <p className='text-white text-sm w-3/4 md:text-xl opacity-80 md:w-1/2'>{subTitle}</p>
             </div>
         </div>
     )
