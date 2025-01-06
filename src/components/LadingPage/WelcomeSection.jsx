@@ -24,8 +24,8 @@ const data = [
 
 function WelcomeSection() {
     return (
-        <div className='w-full flex flex-col md:flex-col lg:flex-row items-center justify-center gap-6 px-4 lg:px-16 py-8'>
-            <div className='flex-1 flex items-center justify-center'>
+        <div className='container mx-auto flex flex-col md:flex-col lg:flex-row items-center justify-center gap-6 px-4 lg:px-16 py-8'>
+            <div className='flex-1 flex items-center justify-start'>
                 <img
                     src='/image/Group.png'
                     alt='landing page image'

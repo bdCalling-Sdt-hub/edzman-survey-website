@@ -39,7 +39,7 @@ function Navbar() {
     const user = true
 
     return (
-        <div className='flex items-center justify-between p-4 bg-gray-100'>
+        <div className='container mx-auto flex items-center justify-between p-4'>
             <div>
                 <img src="/logo/brandLogo.png" alt="brandLogo" className='h-10' />
             </div>
@@ -54,7 +54,7 @@ function Navbar() {
                                     className={`${isActive ? 'text-[#00b0f2] font-bold' : 'text-gray-600'
                                         } hover:text-[#00b0f2] transition`}
                                 >
-                                    <Link href={link.path}>{link.title}</Link>
+                                    <Link href={link.path} className='px-2'>{link.title}</Link>
                                     <div className={`${isActive ? 'block w-full h-1 bg-[#00b0f2] rounded-tl-full rounded-tr-full' : 'hidden'
                                         } hover:text-[#00b0f2] transition`}></div>
                                 </li>

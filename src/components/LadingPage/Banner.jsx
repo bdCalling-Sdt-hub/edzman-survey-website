@@ -4,7 +4,7 @@ import React from 'react';
 
 function Banner() {
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-center px-4 lg:px-16 py-8 lg:py-16 gap-2 md:gap-8">
+    <div className="container mx-auto  flex flex-col lg:flex-row items-center justify-center  py-8 px-2 lg:py-16 gap-2 md:gap-8">
       {/* Left Content */}
       <div className="flex-1 flex flex-col gap-3 text-center lg:text-start">
         <h1 className="text-[#1D3557] text-2xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold leading-tight">

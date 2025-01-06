@@ -28,18 +28,18 @@ const datas = [
 ]
 function CreatePersonalWhy() {
     return (
-        <div>
-            <div className='md:w-8/12 mx-auto'>
+        <div className='container mx-auto'>
+            <div className=' lg:w-8/12 mx-auto'>
                 <SectionHeader
                     title="Discover Your WHY Through a Step-by-Step Process"
                     subTitle="Uncover Your 'Why' with Personalized Support, Thoughtful Insights, and Actionable Steps Tailored to Assist You Find Your Life's WHY."
                 ></SectionHeader>
             </div>
-            <div className='flex md:flex-row flex-col items-center gap-12 justify-between'>
+            <div className='flex lg:flex-row flex-col items-center gap-12 justify-between'>
                 <div className='flex flex-col gap-12 px-2'>
                     {
                         datas.map((data, idx) => (
-                            <div key={idx} className={`flex ${idx % 2 === 0 ? 'md:flex-row flex-col' : 'flex-col md:flex-row-reverse'} items-center gap-16 justify-center `}>
+                            <div key={idx} className={`flex ${idx % 2 === 0 ? 'lg:flex-row flex-col' : 'flex-col lg:flex-row-reverse'} items-center gap-16 justify-center `}>
                                 <img className='flex-1' src={data.img} alt={data.alt} />
                                 <div className='flex-1 gap-6 items-start flex flex-col relative z-9'>
                                     <div className={`-top-6 -left-4 -z-[999] w-12 h-12 ${idx % 2 !== 0 ? 'bg-[#1D355799]' : 'bg-[#2196F399]/50'} rounded-full  absolute`}></div>

@@ -2,8 +2,8 @@ import React from 'react';
 
 function DonateSection() {
     return (
-        <div className="flex w-full mt-12 items-center bg-gradient-to-r from-[#2397f3] to-[#acd7e7] justify-center text-center py-10 px-4">
-            <div className="max-w-screen-lg mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+        <div className=" flex w-full py-16 mt-12 items-center bg-gradient-to-r from-[#2397f3] to-[#acd7e7] justify-center text-center px-4">
+            <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-center">
                 <img 
                     src="/icon/icon.png" 
                     alt="Donate Icon" 
