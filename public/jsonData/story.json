@@ -1,0 +1,122 @@
+[
+    {
+        "bannerImage": "https://anidreams.com/wp-content/uploads/2024/07/badass-anime-characters-featured-image.webp",
+        "title": "Discovering My True Purpose: A Journey of Trust and Self-Discovery.",
+        "description": "Your empathetic nature is a powerful asset, enabling you to build meaningful relationships and understand others deeply. However, it can also lead to emotional fatigue if boundaries aren't maintained.",
+        "author": {
+            "image": "https://anidreams.com/wp-content/uploads/2024/07/badass-anime-characters-featured-image.webp",
+            "name": "Hosain Ali"
+        },
+        "date": "2025-01-07"
+    },
+    {
+        "bannerImage": "https://wallpapers.com/images/hd/badass-anime-46hmg1egmu2j120x.jpg",
+        "title": "Mastering React: Tips & Tricks",
+        "description": "A deep dive into the world of React, offering practical tips and tricks for building scalable and performant applications.",
+        "author": {
+            "image": "https://wallpapers.com/images/hd/badass-anime-46hmg1egmu2j120x.jpg",
+            "name": "John Doe"
+        },
+        "date": "2025-01-05"
+    },
+    {
+        "bannerImage": "https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/12/aaea3bed-a0c7-48c1-b110-ffbd9e6b5299.jpeg",
+        "title": "Understanding CSS Flexbox",
+        "description": "Learn how to effectively use Flexbox for creating responsive and well-aligned layouts in web design.",
+        "author": {
+            "image": "https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/12/aaea3bed-a0c7-48c1-b110-ffbd9e6b5299.jpeg",
+            "name": "Jane Smith"
+        },
+        "date": "2025-01-03"
+    },
+    {
+        "bannerImage": "https://wallpapercave.com/wp/wp2610327.jpg",
+        "title": "JavaScript Async Programming Explained",
+        "description": "An introduction to asynchronous programming in JavaScript, including Promises, async/await, and handling errors.",
+        "author": {
+            "image": "https://wallpapercave.com/wp/wp2610327.jpg",
+            "name": "Robert Brown"
+        },
+        "date": "2025-01-02"
+    },
+    {
+        "bannerImage": "https://example.com/banner5.jpg",
+        "title": "The Power of Tailwind CSS",
+        "description": "Explore the utility-first approach to designing modern web interfaces with Tailwind CSS and why it's so popular.",
+        "author": {
+            "image": "https://example.com/author5.jpg",
+            "name": "Emily Johnson"
+        },
+        "date": "2025-01-01"
+    },
+    {
+        "bannerImage": "https://example.com/banner6.jpg",
+        "title": "Building RESTful APIs with Node.js",
+        "description": "Learn how to build scalable and efficient RESTful APIs using Node.js, Express.js, and MongoDB.",
+        "author": {
+            "image": "https://example.com/author6.jpg",
+            "name": "David Lee"
+        },
+        "date": "2024-12-30"
+    },
+    {
+        "bannerImage": "https://anidreams.com/wp-content/uploads/2024/07/badass-anime-characters-featured-image.webp",
+        "title": "The Journey of Front-End Development",
+        "description": "Explore the exciting world of front-end development, from HTML to modern frameworks like React, and the challenges and rewards along the way.",
+        "author": {
+            "image": "https://anidreams.com/wp-content/uploads/2024/07/badass-anime-characters-featured-image.webp",
+            "name": "Hosain Ali"
+        },
+        "date": "2025-01-07"
+    },
+    {
+        "bannerImage": "https://wallpapers.com/images/hd/badass-anime-46hmg1egmu2j120x.jpg",
+        "title": "Mastering React: Tips & Tricks",
+        "description": "A deep dive into the world of React, offering practical tips and tricks for building scalable and performant applications.",
+        "author": {
+            "image": "https://wallpapers.com/images/hd/badass-anime-46hmg1egmu2j120x.jpg",
+            "name": "John Doe"
+        },
+        "date": "2025-01-05"
+    },
+    {
+        "bannerImage": "https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/12/aaea3bed-a0c7-48c1-b110-ffbd9e6b5299.jpeg",
+        "title": "Understanding CSS Flexbox",
+        "description": "Learn how to effectively use Flexbox for creating responsive and well-aligned layouts in web design.",
+        "author": {
+            "image": "https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/12/aaea3bed-a0c7-48c1-b110-ffbd9e6b5299.jpeg",
+            "name": "Jane Smith"
+        },
+        "date": "2025-01-03"
+    },
+    {
+        "bannerImage": "https://wallpapercave.com/wp/wp2610327.jpg",
+        "title": "JavaScript Async Programming Explained",
+        "description": "An introduction to asynchronous programming in JavaScript, including Promises, async/await, and handling errors.",
+        "author": {
+            "image": "https://wallpapercave.com/wp/wp2610327.jpg",
+            "name": "Robert Brown"
+        },
+        "date": "2025-01-02"
+    },
+    {
+        "bannerImage": "https://example.com/banner5.jpg",
+        "title": "The Power of Tailwind CSS",
+        "description": "Explore the utility-first approach to designing modern web interfaces with Tailwind CSS and why it's so popular.",
+        "author": {
+            "image": "https://example.com/author5.jpg",
+            "name": "Emily Johnson"
+        },
+        "date": "2025-01-01"
+    },
+    {
+        "bannerImage": "https://example.com/banner6.jpg",
+        "title": "Building RESTful APIs with Node.js",
+        "description": "Learn how to build scalable and efficient RESTful APIs using Node.js, Express.js, and MongoDB.",
+        "author": {
+            "image": "https://example.com/author6.jpg",
+            "name": "David Lee"
+        },
+        "date": "2024-12-30"
+    }
+]
