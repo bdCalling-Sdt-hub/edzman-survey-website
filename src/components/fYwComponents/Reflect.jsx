@@ -141,18 +141,18 @@ function Reflect() {
               className="w-8 h-8"
             />
             <h1 className="text-base md:text-xl font-bold text-[#000E4F]">
-              {section.title}
+              {section?.title}
             </h1>
           </div>
 
           <ul className="space-y-4 ml-3 md:ml-12">
-            {section.items.map((item, index) => (
+            {section?.items.map((item, index) => (
               <li key={index}>
                 <h2 className="text-base md:text-xl font-normal text-[#000E4F]">
-                  • {item.subTitle} ——
+                  • {item?.subTitle} ——
                 </h2>
                 <p className="text-sm md:text-base md:ml-28 tracking-wider text-[#232F65] mt-1 leading-relaxed">
-                  {item.details}
+                  {item?.details}
                 </p>
               </li>
             ))}
@@ -169,11 +169,11 @@ function Reflect() {
                 className="w-8 h-8"
               />
               <h1 className="text-base md:text-xl font-bold text-[#000E4F]">
-                {item.title}
+                {item?.title}
               </h1>
             </div>
             {
-              item.question.map((dets, idx) => (
+              item?.question.map((dets, idx) => (
                 <p className="text-sm md:text-base md:ml-28 tracking-wider text-[#232F65] mt-1 leading-relaxed" key={idx}>• {dets}</p>
               ))
             }
@@ -192,18 +192,18 @@ function Reflect() {
               className="w-8 h-8"
             />
             <h1 className="text-base md:text-xl font-bold text-[#000E4F]">
-              {section.title}
+              {section?.title}
             </h1>
           </div>
 
           <ul className="space-y-4 ml-3 md:ml-12">
-            {section.items.map((item, index) => (
+            {section?.items.map((item, index) => (
               <li key={index}>
                 <h2 className="text-base md:text-xl font-normal text-[#000E4F]">
-                  • {item.subTitle} ——
+                  • {item?.subTitle} ——
                 </h2>
                 <p className="text-sm md:text-base md:ml-28 tracking-wider text-[#232F65] mt-1 leading-relaxed">
-                  {item.details}
+                  {item?.details}
                 </p>
               </li>
             ))}
@@ -223,18 +223,18 @@ function Reflect() {
               className="w-8 h-8"
             />
             <h1 className="text-base md:text-xl font-bold text-[#000E4F]">
-              {section.title}
+              {section?.title}
             </h1>
           </div>
 
           <ul className="space-y-4 ml-3 md:ml-12">
-            {section.items.map((item, index) => (
+            {section?.items.map((item, index) => (
               <li key={index}>
                 <h2 className="text-base md:text-xl font-normal text-[#000E4F]">
-                  • {item.subTitle} ——
+                  • {item?.subTitle} ——
                 </h2>
                 <p className="text-sm md:text-base md:ml-28 tracking-wider text-[#232F65] mt-1 leading-relaxed">
-                  {item.details}
+                  {item?.details}
                 </p>
               </li>
             ))}

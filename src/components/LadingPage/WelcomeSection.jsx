@@ -48,8 +48,8 @@ function WelcomeSection() {
                     <div className='mt-4 space-y-3'>
                         {data.map((item, idx) => (
                             <div key={idx} className='flex items-start gap-3'>
-                                <span className='text-[#00B0F2] text-lg'>{item.icon}</span>
-                                 <p className='text-sm md:text-base text-gray-700'>{item.details}</p>
+                                <span className='text-[#00B0F2] text-lg'>{item?.icon}</span>
+                                 <p className='text-sm md:text-base text-gray-700'>{item?.details}</p>
                             </div>
                         ))}
                     </div>

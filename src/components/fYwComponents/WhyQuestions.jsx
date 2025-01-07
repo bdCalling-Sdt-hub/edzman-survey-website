@@ -168,24 +168,24 @@ function WhyQuestions() {
                             className="w-8 h-8"
                         />
                         <h1 className="text-base md:text-xl font-bold text-[#000E4F]">
-                            {section.title}
+                            {section?.title}
                         </h1>
                     </div>
 
                     <ul className="space-y-4 ml-3 md:ml-12">
-                        {section.items.map((item, index) => (
+                        {section?.items.map((item, index) => (
                             <li key={index}>
                                 <h2 className="text-base mt-6 md:text-xl font-normal text-[#000E4F]">
-                                    • {item.subTitle} ——
+                                    • {item?.subTitle} ——
                                 </h2>
                                 {
-                                    item.info &&
+                                    item?.info &&
                                     <h2 className="text-base md:text-xl md:ml-12 font-normal text-[#000E4F]">
-                                        {item.info}
+                                        {item?.info}
                                     </h2>
                                 }
                                 <ul className='px-3'>
-                                    {item.details.map((detail, idx) => (
+                                    {item?.details.map((detail, idx) => (
                                         <li key={idx} className={`text-sm  ${idx > 0 ? "list-disc":""} md:text-base md:ml-28 tracking-wider text-[#232F65] mt-1 leading-relaxed`}>
                                             {detail}
                                         </li>

@@ -46,7 +46,7 @@ function CreatePersonalWhy() {
                                     <div className="bottom-0 right-12 -z-[999] w-8 h-8  rounded-full bg-[#00B0F2] absolute"></div>
                                     <p className='text-4xl z-[999] text-[#1D3557] font-bold'>
                                         {data.title.split(' ').map((word, index) => (
-                                            word.toLowerCase() === "‘why’" || word.toLowerCase() === "story"  || word.toLowerCase() === "your" ? (
+                                            word?.toLowerCase() === "‘why’" || word?.toLowerCase() === "story"  || word?.toLowerCase() === "your" ? (
                                                 <span key={index} className='text-[#00B0F2]'>{word} </span>
                                             ) : (
                                                 <span key={index}>{word} </span>

@@ -1,7 +1,5 @@
 'use client'
-
 import { useEffect, useState } from "react";
-
 function Examples() {
     const [imageSrc, setImageSrc] = useState("/ExampleImage/main.png");
     useEffect(() => {

@@ -30,7 +30,7 @@ function Navbar() {
     ]
 
     const user = {
-        login:true,
+        login: true,
         photoURL: 'https://github.com/shadcn.png',
         displayName: 'expmple@mail.com',
         email: 'Hosain ali',
@@ -54,7 +54,7 @@ function Navbar() {
             <div className='hidden md:flex items-center gap-4'>
                 <ul className='flex items-center gap-4'>
                     {navlinks.map((link, idx) => {
-                        const isActive = path === link.path
+                        const isActive = path === link?.path
                         return (
                             <motion.li
                                 key={idx}
@@ -62,7 +62,7 @@ function Navbar() {
                                 whileTap={{ scale: 0.9 }}
                                 className={`${isActive ? 'text-[#00b0f2] font-bold' : 'text-gray-600'} transition`}
                             >
-                                <Link href={link.path} className='px-2'>{link.title}</Link>
+                                <Link href={link?.path} className='px-2'>{link?.title}</Link>
                                 {isActive && (
                                     <motion.div
                                         layoutId="underline"
@@ -78,12 +78,7 @@ function Navbar() {
                         <>
                             <Popover>
                                 <PopoverTrigger asChild>
-                                    <Avatar className="cursor-pointer">
-                                        <AvatarImage className="w-8 rounded-full" src={user?.photoURL} alt="User Avatar" />
-                                        <AvatarFallback>
-                                            <Spin></Spin>
-                                            </AvatarFallback>
-                                    </Avatar>
+                                    <h1>Sort by </h1>
                                 </PopoverTrigger>
                                 <PopoverContent className="p-4">
                                     <Avatar>
@@ -135,7 +130,7 @@ function Navbar() {
                         </button>
                         <ul className='flex flex-col items-start gap-3'>
                             {navlinks.map((link, idx) => {
-                                const isActive = path === link.path
+                                const isActive = path === link?.path
                                 return (
                                     <motion.li
                                         key={idx}
@@ -143,7 +138,7 @@ function Navbar() {
                                         whileTap={{ scale: 0.9 }}
                                         className={`${isActive ? 'text-[#00b0f2] font-bold' : 'text-gray-600'} transition`}
                                     >
-                                        <Link href={link.path}>{link.title}</Link>
+                                        <Link href={link?.path}>{link?.title}</Link>
                                     </motion.li>
                                 )
                             })}
@@ -160,7 +155,7 @@ function Navbar() {
                                     </div>
                                     <AvatarFallback>
                                         <Spin></Spin>
-                                        </AvatarFallback>
+                                    </AvatarFallback>
                                 </Avatar>
                             ) : 'Guest'}
                         </div>

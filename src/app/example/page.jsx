@@ -100,10 +100,10 @@ function FindYourWhyExamples() {
             key={dataIndex}
             className={`flex flex-col ${dataIndex % 2 === 0 ? '' : 'lg:flex-row-reverse'} lg:flex-row justify-between items-start lg:items-center gap-8 mb-16`}
           >
-            <img className="w-full md:w-[400px] lg:w-1/2" src={data.image} alt="image" />
+            <img className="w-full md:w-[400px] lg:w-1/2" src={data?.image} alt="image" />
             {/* Text Section */}
             <div className="basis-2/3 flex flex-col items-start h-full gap-8 justify-between lg:basis-3/4">
-              {data.title.map((title, index) => (
+              {data?.title.map((title, index) => (
                 <div
                   key={index}
                   className="mb-2 flex md:flex-row flex-col items-start md:items-center gap-2"
@@ -111,7 +111,7 @@ function FindYourWhyExamples() {
                   <img className="border-2 p-2 rounded-md  border-[#00b0f2] bg-[#00b0f2]/20" src="/icon/solidarity.png" alt="solidarity icon" />
                   <div>
                     <h2 className="text-lg font-semibold">{title}</h2>
-                    <p className="text-sm lg:text-base"><b>Example :-</b>{data.example[index]}</p>
+                    <p className="text-sm lg:text-base"><b>Example :-</b>{data?.example[index]}</p>
                   </div>
 
                 </div>

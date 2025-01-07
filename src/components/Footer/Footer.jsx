@@ -33,9 +33,9 @@ function Footer() {
           <ul>
             {importantLinks.map((link, index) => (
               <li key={index} className="mb-2 flex items-center gap-2">
-                <Link href={link.path}>
-                  {link.title}
-                </Link><h1 className="text-[#00B0F2] text-xl font-bold">{link.icon}</h1>
+                <Link href={link?.path}>
+                  {link?.title}
+                </Link><h1 className="text-[#00B0F2] text-xl font-bold">{link?.icon}</h1>
               </li>
             ))}
           </ul>
@@ -47,8 +47,8 @@ function Footer() {
           <ul>
             {QuickLinks.map((link, index) => (
               <li key={index} className="mb-2">
-                <Link className="hover:text-[#00B0F2]" href={link.path}>
-                  {link.title}
+                <Link className="hover:text-[#00B0F2]" href={link?.path}>
+                  {link?.title}
                 </Link>
               </li>
             ))}
@@ -62,8 +62,8 @@ function Footer() {
             <ul>
               {impactLinks.map((link, index) => (
                 <li key={index} className="mb-2">
-                  <Link className='hover:text-[#00B0F2]' href={link.path}>
-                    {link.title}
+                  <Link className='hover:text-[#00B0F2]' href={link?.path}>
+                    {link?.title}
                   </Link>
                 </li>
               ))}
