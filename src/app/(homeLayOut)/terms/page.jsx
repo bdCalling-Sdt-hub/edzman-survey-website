@@ -110,7 +110,7 @@ function page() {
                                 {data.description.split(' ').map((word, index) => (
                                     word?.toLowerCase() === "privacy_policy" ? (
                                         <span key={index} className='text-[#00B0F2] hover:underline'>
-                                            <Link href={'/'}>{word}</Link>
+                                            <Link href={'/policy'}>{word}</Link>
                                         </span>
                                     ) : (
                                         <span key={index}>{word} </span>

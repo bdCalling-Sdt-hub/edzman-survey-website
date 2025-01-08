@@ -90,7 +90,7 @@ function Footer() {
       <div className="container mx-auto border-t px-4 flex lg:flex-row flex-col item-start lg:items-center justify-between border-gray-700 mt-8 pt-4 lg:text-center">
         <div className=" flex items-center gap-3">
           <p>A product of</p>
-          <img src="/logo/brandLogo.png" alt="brand logo" />
+          <img src="/brandLogo.svg" alt="brands logo" />
         </div>
         <p>© 2001 FindYourWhy.com. All rights reserved.</p>
       </div>

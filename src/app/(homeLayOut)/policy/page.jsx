@@ -6,7 +6,7 @@ import React from 'react'
 function page() {
     const termsData = [
         {
-            title: 'Information We Collect  ──',
+            title: 'Information We Collect ',
             description: 'We may collect various types of personal information when you use our Website or services, including:',
             pointer: [
                 'Personal Identification Information: Name, email address, phone number, and any other information you provide to us directly.',
@@ -16,7 +16,7 @@ function page() {
             ]
         },
         {
-            title: 'How We Use Your Information   ──',
+            title: 'How We Use Your Information',
             description: 'We use the collected information for various purposes, including:',
             pointer: [
                 'Providing and improving services: To operate and enhance our Website and services.',
@@ -27,7 +27,7 @@ function page() {
             ]
         },
         {
-            title: 'Legal Basis for Processing (Applicable in Certain Jurisdictions)   ──',
+            title: 'Legal Basis for Processing (Applicable in Certain Jurisdictions)',
             description: 'In some jurisdictions, including the European Union, we are required to explain the legal basis for processing personal data. We rely on the following legal bases:',
             pointer: [
                 'Consent: When you provide your consent (e.g., signing up for newsletters).',
@@ -37,7 +37,7 @@ function page() {
             ]
         },
         {
-            title: 'Sharing Your Information   ──',
+            title: 'Sharing Your Information',
             description: 'We may share your information in the following situations:',
             pointer: [
                 'Service providers: We may share your information with trusted third-party vendors who assist us in operating our Website, providing services, or processing payments (e.g., hosting providers, payment processors).',
@@ -47,15 +47,15 @@ function page() {
         },
 
         {
-            title: 'International Data Transfers  ──',
+            title: 'International Data Transfers ',
             description: 'As a global business, your personal information may be transferred, stored, and processed outside of your country of residence, including in countries that may have different data protection laws. By using our services, you consent to such transfers, including to countries that may not offer the same level of data protection as your home country.'
         },
         {
-            title: 'Data Retention  ──',
+            title: 'Data Retention ',
             description: 'We will retain your personal information only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, or as required by law. The retention period may vary depending on the type of information and the purpose for which it was collected.'
         },
         {
-            title: 'Your Rights and Choices   ──',
+            title: 'Your Rights and Choices',
             description: 'Depending on your location, you may have the following rights regarding your personal data:',
             pointer: [
                 'Access: You have the right to request copies of your personal data.',
@@ -68,19 +68,19 @@ function page() {
             ]
         },
         {
-            title: 'Security  ──',
+            title: 'Security ',
             description: 'We take reasonable steps to protect your personal information from unauthorized access, use, disclosure, and alteration. However, no method of transmission over the Internet or electronic storage is completely secure. While we strive to protect your personal data, we cannot guarantee its absolute security.',
         },
         {
-            title: 'Cookies and Tracking Technologies  ──',
+            title: 'Cookies and Tracking Technologies ',
             description: 'Our Website uses cookies and similar tracking technologies to improve your browsing experience, analyze trends, administer the site, and gather demographic information. You can control the use of cookies at the individual browser level. For more information about cookies, please refer to our [ Cookie Policy ].',
         },
         {
-            title: 'Children’s Privacy  ──',
+            title: 'Children’s Privacy ',
             description: 'Our Website is not intended for individuals under the age of 13 (or under 16 in the EU), and we do not knowingly collect personal data from children. If we become aware that we have inadvertently collected personal data from a child, we will take steps to delete such data.',
         },
         {
-            title: 'Contact Us  ──',
+            title: 'Contact Us ',
             description: 'If you have any questions about this Privacy Policy or our privacy practices, please contact us at:',
         },
     ]

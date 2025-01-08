@@ -4,6 +4,7 @@ import DonateSection from "@/components/LadingPage/DonateSection";
 import Testimonials from "@/components/LadingPage/Testimonials";
 
 import WelcomeSection from "@/components/LadingPage/WelcomeSection";
+import ForgetPassword from "../forget-pass/page";
 
 export default function Home() {
   return (
@@ -12,8 +13,8 @@ export default function Home() {
        <Banner></Banner>    
        <WelcomeSection></WelcomeSection> 
        <CreatePersonalWhy></CreatePersonalWhy> 
-       {/* <Testimonials></Testimonials>  */}
-       <DonateSection></DonateSection> 
+       <Testimonials></Testimonials> 
+       <DonateSection></DonateSection>
       </div>
     </>
   );
