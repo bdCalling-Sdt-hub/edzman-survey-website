@@ -13,7 +13,7 @@ export default function Home() {
        <Banner></Banner>    
        <WelcomeSection></WelcomeSection> 
        <CreatePersonalWhy></CreatePersonalWhy> 
-       <Testimonials></Testimonials> 
+       {/* <Testimonials></Testimonials>  */}
        <DonateSection></DonateSection>
       </div>
     </>

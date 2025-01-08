@@ -74,7 +74,7 @@ function Navbar() {
                     })}
                 </ul>
                 <div>
-                    {user.login ? (
+                    {!user.login ? (
                         <>
                             <Popover>
                                 <PopoverTrigger asChild>
@@ -105,7 +105,24 @@ function Navbar() {
                                 </PopoverContent>
                             </Popover>
                         </>
-                    ) : 'Guest'}
+                    ) : (
+                        <>
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                    <Avatar>
+                                        <AvatarImage className='w-8 h-8 rounded-full' src="/icon/Icon button.svg" />
+                                    </Avatar>
+                                </PopoverTrigger>
+                                <PopoverContent className="p-4">
+                                    <ul className='mt-3 flex items-start flex-col gap-3'>
+                                        <li className=' flex items-center gap-2'>Sign Up</li>
+                                        <div className="divider w-full h-[1px] bg-slate-400/40"></div>
+                                        <li className=' flex items-center gap-2'>Login</li>
+                                    </ul>
+                                </PopoverContent>
+                            </Popover>
+                        </>
+                    )}
                 </div>
             </div>
 
@@ -146,7 +163,7 @@ function Navbar() {
                             })}
                         </ul>
                         <div className='mt-6 text-lg font-semibold'>
-                            {user.login ? (
+                            {!user.login ? (
                                 <Avatar>
                                     <div className='flex gap-2'>
                                         <AvatarImage className='w-8 h-8 rounded-full' src={user.photoURL} />
@@ -159,7 +176,24 @@ function Navbar() {
                                         <Spin></Spin>
                                     </AvatarFallback>
                                 </Avatar>
-                            ) : 'Guest'}
+                            ) : (
+                                <>
+                                    <Popover >
+                                        <PopoverTrigger asChild>
+                                            <Avatar>
+                                                <AvatarImage className='w-8 h-8 rounded-full' src="/icon/Icon button.svg" />
+                                            </Avatar>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="p-4 z-[999]">
+                                            <ul className='mt-3 flex items-start flex-col gap-3'>
+                                                <li className=' flex items-center gap-2'>Sign Up</li>
+                                                <div className="divider w-full h-[1px] bg-slate-400/40"></div>
+                                                <li className=' flex items-center gap-2'>Login</li>
+                                            </ul>
+                                        </PopoverContent>
+                                    </Popover>
+                                </>
+                            )}
                         </div>
                     </motion.div>
                 </>
