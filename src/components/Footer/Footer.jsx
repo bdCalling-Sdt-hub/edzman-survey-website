@@ -19,7 +19,7 @@ function Footer() {
 
   const importantLinks = [
     { title: "support@FindYourWhy.com", path: "/" },
-    { title: "Privacy Policy", path: "/privacy", icon: <GoArrowUpRight /> },
+    { title: "Privacy Policy", path: "/policy", icon: <GoArrowUpRight /> },
     { title: "Terms and Conditions", path: "/terms", icon: <GoArrowUpRight /> },
     { title: "Cookie Policy", path: "/cookies", icon: <GoArrowUpRight /> },
   ];

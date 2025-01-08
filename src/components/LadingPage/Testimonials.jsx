@@ -1,5 +1,12 @@
+'use client';
 import React from 'react';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation, Pagination } from 'swiper';
+import 'swiper/swiper-bundle.css';
+
+// Register Swiper modules
+SwiperCore.use([Navigation, Pagination]);
+
 import SectionHeader from '../SectionHeader/SectionHeader';
 
 function Testimonials() {
@@ -25,42 +32,49 @@ function Testimonials() {
   ];
 
   return (
-    <>
+    <div className="md:py-16">
+      {/* Section Header */}
       <SectionHeader
         title={'What Our Clients Are Saying'}
         subTitle={`Discover how our platform has empowered individuals to uncover their FYW, gain clarity, and take actionable steps toward a more meaningful life.`}
       />
-      <div className='max-w-screen-2xl mx-auto py-16 px-4'>
-        <Carousel>
-          <CarouselContent>
-            {
-              testimonials.map((review, idx) => (
-                <CarouselItem key={idx} className="flex flex-col md:flex-row  px-4 md:px-8 justify-center space-x-0 md:space-x-6 py-6">
-                  <div className="w-32 h-32 md:w-48 md:h-48 mb-4 md:mb-0">
-                    <img className="w-full h-full object-cover rounded-full border-4 border-[#00b0f2]" src={review?.avatar} alt={review?.name} />
-                  </div>
-                  <div className="text-start basis-4/12">
-                    <p className="text-lg md:text-2xl text-gray-600 font-semibold">{review?.question}</p>
-                    <ul className="list-disc pl-6 text-gray-700">
-                      <li className="text-sm md:text-base">"{review?.feedback}"</li>
-                    </ul>
-                    <p className="text-lg font-semibold text-[#00b0f2]">- {review?.name}</p>
-                  </div>
-                </CarouselItem>
-              ))
-            }
-          </CarouselContent>
-          <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
-            <CarouselPrevious className="bg-teal-600 text-white rounded-full p-3 shadow-lg hover:bg-teal-700 transition duration-300" />
-          </div>
-          <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
-            <CarouselNext className="bg-teal-600 text-white rounded-full p-3 shadow-lg hover:bg-teal-700 transition duration-300" />
-          </div>
-        </Carousel>
+
+      <div className="max-w-screen-xl mx-auto px-6">
+        {/* Swiper Carousel */}
+        <Swiper
+        swipeHandler={false}
+          spaceBetween={30}
+          slidesPerView={1}
+          navigation
+          pagination={{ clickable: true }}
+          className="mt-12"
+        >
+          {testimonials.map((review, idx) => (
+            <SwiperSlide key={idx}>
+              <div className=" p-8 flex flex-col md:flex-row items-center gap-6">
+                {/* Avatar */}
+                <div className="w-32 h-32 md:w-40 md:h-40 flex-shrink-0">
+                  <img
+                    className="w-full h-full object-cover rounded-full border-4 border-[#00b0f2]"
+                    src={review?.avatar}
+                    alt={review?.name}
+                  />
+                </div>
+                {/* Testimonial Content */}
+                <div className="text-center md:text-left flex-grow">
+                  <p className="text-lg font-semibold text-gray-800">{review?.question}</p>
+                  <p className="text-gray-600 italic mt-2">"{review?.feedback}"</p>
+                  <p className="text-blue-500 font-bold mt-4">- {review?.name}</p>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
-    </>
+    </div>
   );
 }
 
 export default Testimonials;
-// TODO: new try
+
+//TODO : make swiper more style
