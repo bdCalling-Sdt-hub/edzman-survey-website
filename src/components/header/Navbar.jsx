@@ -47,11 +47,11 @@ function Navbar() {
     return (
         <div className='container mx-auto flex items-center justify-between p-4'>
             <div>
-                <img src="/logo/brandLogo.png" alt="brandLogo" className='h-10' />
+                <img src="/brandLogo.svg" alt="brandLogo" className='h-10' />
             </div>
 
             {/* Desktop Menu */}
-            <div className='hidden md:flex items-center gap-4'>
+            <div className='hidden lg:flex lg:text-sm items-center gap-4'>
                 <ul className='flex items-center gap-4'>
                     {navlinks.map((link, idx) => {
                         const isActive = path === link?.path
@@ -78,7 +78,9 @@ function Navbar() {
                         <>
                             <Popover>
                                 <PopoverTrigger asChild>
-                                    <h1>Sort by </h1>
+                                    <Avatar>
+                                        <AvatarImage className='w-8 h-8 rounded-full' src={user.photoURL} />
+                                    </Avatar>
                                 </PopoverTrigger>
                                 <PopoverContent className="p-4">
                                     <Avatar>
@@ -108,7 +110,7 @@ function Navbar() {
             </div>
 
             {/* Hamburger Menu Icon for Mobile */}
-            <div className='md:hidden flex items-center'>
+            <div className='lg:hidden flex items-center'>
                 <button onClick={() => setIsMenuOpen(!isMenuOpen)} className='text-2xl'>
                     {isMenuOpen ? <FaTimes /> : <FaBars />}
                 </button>
@@ -122,7 +124,7 @@ function Navbar() {
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className='fixed  z-[999] top-0 right-0 w-full h-screen bg-white flex flex-col items-start pl-12  justify-center gap-4 md:hidden'
+                        className='fixed  z-[999] top-0 right-0 w-full h-screen bg-white flex flex-col items-start pl-12  justify-center gap-4 lg:hidden'
                     >
                         <img src="/logo/FYW.png" alt="logo" />
                         <button onClick={() => setIsMenuOpen(false)} className='text-3xl absolute top-4 right-4'>

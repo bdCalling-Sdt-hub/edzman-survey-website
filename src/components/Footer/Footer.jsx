@@ -29,7 +29,7 @@ function Footer() {
       <div className="container mx-auto px-4 flex lg:flex-row flex-col justify-between gap-8">
         {/* Important Links */}
         <div>
-          <img src="/logo/brandLogo.png" alt="brand logo" />
+          <img src="/brandLogo.svg" alt="brand logo" />
           <ul>
             {importantLinks.map((link, index) => (
               <li key={index} className="mb-2 flex items-center gap-2">

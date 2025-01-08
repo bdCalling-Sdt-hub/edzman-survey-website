@@ -2,6 +2,7 @@ import React from 'react';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import WhyQuestions from './WhyQuestions';
 import PrimaryButton from '@/lib/button/PrimaryButton';
+import Link from 'next/link';
 function Reflect() {
   const data = [
     {
@@ -270,7 +271,9 @@ function Reflect() {
           </h1>
           <div className="flex flex-row items-center gap-4 mt-6">
             <h3 className="text-base md:text-lg">Click Here to Create –</h3>
-            <PrimaryButton text="Find Your Why" />
+            <Link href={'/find-why'}>
+              <PrimaryButton text="Find Your Why" />
+              </Link>
           </div>
           <div className="absolute top-0 left-0 bg-[#00b0f2]/60 w-20 sm:w-28 rounded-br-full h-2"></div>
         </div>

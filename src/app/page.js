@@ -9,11 +9,11 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-col items-center md:gap-28">
-        {/* <Banner></Banner>    */}
-        {/* <WelcomeSection></WelcomeSection> */}
-        {/* <CreatePersonalWhy></CreatePersonalWhy> */}
-        <Testimonials></Testimonials>
-        {/* <DonateSection></DonateSection> */}
+       <Banner></Banner>    
+       <WelcomeSection></WelcomeSection> 
+       <CreatePersonalWhy></CreatePersonalWhy> 
+       {/* <Testimonials></Testimonials>  */}
+       <DonateSection></DonateSection> 
       </div>
     </>
   );
