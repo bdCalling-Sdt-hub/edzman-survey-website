@@ -6,90 +6,102 @@ import React from 'react'
 function page() {
     const termsData = [
         {
-            title: 'Acceptance of Terms',
-            description: 'By accessing or using the Site, you agree to comply with and be bound by these Terms, as well as any additional guidelines, rules, or policies that may apply to specific sections of the Site. If you do not agree to these Terms, please discontinue your use of the Site immediately.'
-        },
-        {
-            title: 'Eligibility',
-            description: 'You must be at least 18 years old to use this Site. By using this Site, you represent and warrant that you are at least the minimum age required by law in your jurisdiction to use the services provided on the Site.'
-        },
-        {
-            title: 'Account Registration',
-            description: 'To access certain features of the Site, you may be required to create an account. You agree to provide accurate, complete, and current information during the registration process and to keep your account details up to date. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.'
-        },
-        {
-            title: 'Use of the Site',
-            description: 'You agree to use the Site only for lawful purposes and in accordance with these Terms. You will not engage in any activity that may harm, disrupt, or interfere with the operation of the Site or the enjoyment of other users. Prohibited actions include, but are not limited to:',
+            title: 'Information We Collect  ──',
+            description: 'We may collect various types of personal information when you use our Website or services, including:',
             pointer: [
-                'Violating applicable laws or regulations',
-                'Uploading or transmitting viruses, malware, or other harmful code',
-                'Attempting to gain unauthorized access to the Site or its systems',
-                'Engaging in any fraudulent or deceptive activities',
+                'Personal Identification Information: Name, email address, phone number, and any other information you provide to us directly.',
+                'Technical Data: IP address, browser type and version, operating system, referral sources, visit times, pages viewed, and device identifiers.',
+                'Cookies and Tracking Technologies: We use cookies, web beacons, and similar technologies to collect information about your interactions with our Website. This includes information on your preferences, behavior, and how you use our services.',
+                'Payment Information: If you make a purchase, we collect billing information, credit card details, and transaction history (payment data is processed through secure third-party services).',
             ]
         },
         {
-            title: 'Intellectual Property',
-            description: 'The content, design, text, graphics, logos, images, and other materials on the Site are owned by or licensed to [Website Name] and are protected by intellectual property laws. You may not copy, reproduce, distribute, transmit, display, or create derivative works based on any part of the Site without prior written consent from us, except as permitted by applicable law or as expressly authorized on the Site.',
+            title: 'How We Use Your Information   ──',
+            description: 'We use the collected information for various purposes, including:',
+            pointer: [
+                'Providing and improving services: To operate and enhance our Website and services.',
+                'Customer support: To respond to your inquiries, provide customer service, and process requests.',
+                'Personalization: To personalize your experience and offer content or services that may be of interest to you.',
+                'Marketing and communications: To send you updates, promotions, and other marketing materials, if you have opted-in to receive them.',
+                'Legal compliance: To comply with applicable laws and regulations, and to respond to legal requests.',
+            ]
         },
         {
-            title: 'Privacy and Data Collection',
-            description: 'Your use of the Site is governed by our [ Privacy_Policy ], which outlines how we collect, use, and protect your personal information. By using the Site, you consent to our data collection practices as described in the Privacy Policy.',
+            title: 'Legal Basis for Processing (Applicable in Certain Jurisdictions)   ──',
+            description: 'In some jurisdictions, including the European Union, we are required to explain the legal basis for processing personal data. We rely on the following legal bases:',
+            pointer: [
+                'Consent: When you provide your consent (e.g., signing up for newsletters).',
+                'Contractual necessity: To fulfill the contract between you and us, such as providing requested services or processing payments.',
+                'Legal obligation: When we are legally required to process your data, such as for tax or accounting purposes.',
+                'Legitimate interests: Where processing is necessary for our legitimate business interests, such as improving our services, fraud prevention, and direct marketing.',
+            ]
         },
         {
-            title: 'Third-Party Links and Content',
-            description: 'The Site may contain links to third-party websites, advertisements, or content. We do not control, endorse, or assume responsibility for the content, privacy practices, or practices of any third-party website. You agree that your use of any third-party content is at your own risk.',
+            title: 'Sharing Your Information   ──',
+            description: 'We may share your information in the following situations:',
+            pointer: [
+                'Service providers: We may share your information with trusted third-party vendors who assist us in operating our Website, providing services, or processing payments (e.g., hosting providers, payment processors).',
+                'Business transfers: If we merge with or are acquired by another company, your information may be transferred as part of the transaction.',
+                'Legal compliance: We may disclose your information if required by law, court order, or government request, or to protect our rights and property.',
+            ]
+        },
+
+        {
+            title: 'International Data Transfers  ──',
+            description: 'As a global business, your personal information may be transferred, stored, and processed outside of your country of residence, including in countries that may have different data protection laws. By using our services, you consent to such transfers, including to countries that may not offer the same level of data protection as your home country.'
         },
         {
-            title: 'Disclaimers',
-            description: 'The Site and its content are provided "as is" and "as available" without warranties of any kind, either express or implied. We do not guarantee that the Site will be free from errors, interruptions, or security breaches. We disclaim all warranties, including but not limited to, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement.',
+            title: 'Data Retention  ──',
+            description: 'We will retain your personal information only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, or as required by law. The retention period may vary depending on the type of information and the purpose for which it was collected.'
         },
         {
-            title: 'Limitation of Liability',
-            description: 'To the fullest extent permitted by law, FindYourWhy.com shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising out of or in connection with your use of the Site, including but not limited to any loss of data, loss of business, or damages caused by viruses or other harmful components.',
+            title: 'Your Rights and Choices   ──',
+            description: 'Depending on your location, you may have the following rights regarding your personal data:',
+            pointer: [
+                'Access: You have the right to request copies of your personal data.',
+                'Correction: You have the right to correct any inaccuracies in your personal data.',
+                'Deletion: You have the right to request the deletion of your personal data, subject to certain conditions.',
+                'Portability: You have the right to request the transfer of your personal data to another service provider, where applicable.',
+                'Opt-out of marketing: You can opt-out of receiving marketing communications at any time by following the unsubscribe instructions in the emails or contacting us directly.',
+                'Restriction of processing: You can request the restriction of processing of your personal data under certain conditions.',
+                'To exercise your rights, please contact us at support@findyourwhy.com We will respond to your request in accordance with applicable law.',
+            ]
         },
         {
-            title: 'Indemnification',
-            description: 'You agree to indemnify, defend, and hold harmless FindYourWhy.com its affiliates, directors, officers, employees, agents, and licensors from and against any claims, damages, losses, liabilities, costs, or expenses (including legal fees) arising from your use of the Site, your violation of these Terms, or your infringement of any third-party rights.',
+            title: 'Security  ──',
+            description: 'We take reasonable steps to protect your personal information from unauthorized access, use, disclosure, and alteration. However, no method of transmission over the Internet or electronic storage is completely secure. While we strive to protect your personal data, we cannot guarantee its absolute security.',
         },
         {
-            title: 'Termination',
-            description: 'We reserve the right to suspend or terminate your access to the Site at our sole discretion, without notice, for any violation of these Terms or for any other reason. Upon termination, your right to use the Site will immediately cease, and you must promptly stop using the Site.',
+            title: 'Cookies and Tracking Technologies  ──',
+            description: 'Our Website uses cookies and similar tracking technologies to improve your browsing experience, analyze trends, administer the site, and gather demographic information. You can control the use of cookies at the individual browser level. For more information about cookies, please refer to our [ Cookie Policy ].',
         },
         {
-            title: 'Governing Law',
-            description: 'These Terms shall be governed by and construed in accordance with the laws of Florida. Any dispute arising from or relating to these Terms or your use of the Site shall be subject to the exclusive jurisdiction of the courts in Sarasota County.',
+            title: 'Children’s Privacy  ──',
+            description: 'Our Website is not intended for individuals under the age of 13 (or under 16 in the EU), and we do not knowingly collect personal data from children. If we become aware that we have inadvertently collected personal data from a child, we will take steps to delete such data.',
         },
         {
-            title: 'Dispute Resolution',
-            description: 'Any disputes between you and FindYourWhy.com arising out of or in connection with these Terms shall be resolved through mediation/arbitration before filing any legal action. ',
-        },
-        {
-            title: 'Severability',
-            description: 'If any provision of these Terms is found to be invalid, illegal, or unenforceable, the remaining provisions shall remain in full force and effect.',
-        },
-        {
-            title: 'Changes to Terms',
-            description: 'We reserve the right to update, modify, or revise these Terms at any time. Any changes will be posted on this page with an updated effective date. Your continued use of the Site after the effective date of any changes constitutes your acceptance of the revised Terms.',
-        },
-        {
-            title: 'Contact Information',
-            description: 'If you have any questions or concerns about these Terms, please contact us at:',
+            title: 'Contact Us  ──',
+            description: 'If you have any questions about this Privacy Policy or our privacy practices, please contact us at:',
         },
     ]
+
 
     return (
         <div>
             <PageHeader
-                title={`Terms and Conditions`}
+                title={`Privacy Policy`}
             />
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center my-12">
                     <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold">
-                        <span className="text-[#00b0f2]">FindYourWhy.com</span> General Terms and Conditions
+                        <span className="text-[#00b0f2]">FindYourWhy.com</span>Privacy Policy
                     </h1>
                     <p className="text-base mt-4">Effective Date: <span className="text-[#00b0f2]">Updated 12-24-2024</span></p>
                     <p className="mt-4 text-sm sm:text-base leading-relaxed">
-                        Welcome to FindYourWhy.com ("we", "us", "our"). By accessing and using this website (the "Site"), you agree to comply with and be bound by the following terms and conditions ("Terms"). If you do not agree to these Terms, please do not use or access the Site. We reserve the right to change, modify, or revise these Terms at any time, and such changes will be effective immediately upon posting. You should review these Terms regularly to stay informed of any updates.
+                        FindYourWhy.com ("we", "our", or "us") values your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your personal data when you visit our website www.findyourwhy.com ("the Website") and use our services. This policy applies to all visitors, users, and others who access the Website or use our services, regardless of location.
+                    </p>
+                    <p className="mt-4 text-sm sm:text-base leading-relaxed">
+                        By using our Website or services, you agree to the collection and use of information in accordance with this Privacy Policy.
                     </p>
                 </div>
                 <div>
