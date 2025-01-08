@@ -1,7 +1,7 @@
-'use-client'
+'use client'
 import React from 'react';
-import SectionHeader from '../SectionHeader/SectionHeader';
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import SectionHeader from '../SectionHeader/SectionHeader';
 
 const datas = [
     {

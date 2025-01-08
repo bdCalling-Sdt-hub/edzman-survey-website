@@ -25,7 +25,7 @@ function Navbar() {
         { title: 'How to FTW', path: '/ftw' },
         { title: 'Client Why', path: '/client-why' },
         { title: 'Blog', path: '/blog' },
-        { title: 'Donate', path: '/donate' },
+        { title: 'Donate', path: '/donate-page' },
         { title: 'About Us', path: '/about' },
     ]
 
