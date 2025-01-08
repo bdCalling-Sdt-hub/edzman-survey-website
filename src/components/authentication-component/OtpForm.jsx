@@ -1,34 +1,46 @@
 'use client'
 import { useState } from "react";
 import { Input, Button } from "antd";
+import { useRouter } from "next/navigation"; // For navigation in Next.js
 import "antd/dist/reset.css";
 
 const OtpForm = () => {
   const [otp, setOtp] = useState(["", "", "", "", ""]);
+  const router = useRouter(); // Initialize Next.js router
+
+  // Update OTP array on input change
   const handleChange = (value, index) => {
     const newOtp = [...otp];
-    newOtp[index] = value.slice(0, 1);
+    newOtp[index] = value.slice(0, 1); // Allow only one character
     setOtp(newOtp);
 
-
+    // Auto-focus next input
     if (value && index < 4) {
       document.getElementById(`otp-input-${index + 1}`).focus();
     }
   };
 
+  // Handle backspace and navigation
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace" && index > 0 && !otp[index]) {
       document.getElementById(`otp-input-${index - 1}`).focus();
     }
   };
 
+  // Check if all OTP fields are filled
+  const isOtpComplete = otp.every((digit) => digit !== "");
+
+  // Handle verification and navigation
   const handleVerify = () => {
-    alert(`Your OTP: ${otp.join("")}`);
+    if (isOtpComplete) {
+      alert(`Your OTP: ${otp.join("")}`);
+      router.push("/find-why/answer-Questions"); 
+    }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-12">
-      <div className="bg-white p-6 flex flex-col md:gap-12 py-12 rounded-xl shadow-md max-w-md w-full">
+    <div className="flex flex-col items-center justify-center">
+      <div className="bg-white p-6 flex flex-col md:gap-12 py-12 rounded-xl max-w-md w-full">
         <h2 className="text-center text-2xl font-bold mb-6">Check your email</h2>
         <p className="text-center text-gray-600 mb-6">
           We sent a reset link to <strong>contact@dscode.com</strong>. Enter the 5-digit code mentioned in the email.
@@ -50,6 +62,7 @@ const OtpForm = () => {
           type="primary"
           className="w-full py-2 rounded-sm text-white bg-[#00b0f2] hover:bg-[#00b0f2]/70"
           onClick={handleVerify}
+          disabled={!isOtpComplete}
         >
           Verify
         </Button>

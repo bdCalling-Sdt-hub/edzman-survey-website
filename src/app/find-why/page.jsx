@@ -16,7 +16,7 @@ function Page() {
                 {/* Introduction Section */}
                 <div className="flex flex-col items-center gap-6 sm:gap-4">
                     <img
-                        className="w-12 sm:w-10 md:w-14 lg:w-16"
+                        className="w-12 mt-12 sm:w-10 md:w-14 lg:w-16"
                         src="/bullet-point 1.svg"
                         alt="bullet-point icon"
                     />
