@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { motion } from 'framer-motion';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import Link from 'next/link';
 
 const LoginRegister = () => {
     const [isSignUp, setIsSignUp] = useState(false); // Toggle between Sign In and Sign Up
@@ -118,9 +119,9 @@ const LoginRegister = () => {
                     {/* Remember Password and Forget Password */}
                     <div className="flex justify-between items-center">
                         <Checkbox className="text-sm">Remember Password</Checkbox>
-                        <a href="#" className="text-sm text-blue-500 hover:underline">
+                        <Link href="/login/email-confirm" className="text-sm text-blue-500 hover:underline">
                             Forget Password?
-                        </a>
+                        </Link>
                     </div>
 
                     {/* Submit Button */}

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button, Input, Progress } from 'antd';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Link from 'next/link';
+import Swal from 'sweetalert2';
 
 const questions = [
     {
@@ -208,8 +209,25 @@ const AnswerQuestions = () => {
     };
 
     const handleSubmit = () => {
-        console.log('User Answers:', answers);
-        alert('Answers Submitted! Check console for details.');
+        if (answers) {
+            Swal.fire({
+                title: "OTP Verified!",
+                text: `Your OTP: ${otp.join("")}`,
+                icon: "success",
+                confirmButtonText: "Continue",
+                confirmButtonColor: "#00b0f2",
+            }).then(() => {
+                router.push("/find-why/answer-Questions");
+            });
+        } else {
+            Swal.fire({
+                title: "Error",
+                text: "Please complete the OTP before verifying.",
+                icon: "error",
+                confirmButtonText: "Try Again",
+                confirmButtonColor: "#00b0f2",
+            });
+        }
     };
 
     return (

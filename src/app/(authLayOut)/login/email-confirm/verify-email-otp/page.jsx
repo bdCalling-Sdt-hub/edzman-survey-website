@@ -1,7 +1,8 @@
-'use client'
+"use client";
 import { useState } from "react";
 import { Input, Button } from "antd";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 import "antd/dist/reset.css";
 
 const VerifyEmailOtp = () => {
@@ -13,12 +14,10 @@ const VerifyEmailOtp = () => {
         newOtp[index] = value.slice(0, 1);
         setOtp(newOtp);
 
-
         if (value && index < 4) {
             document.getElementById(`otp-input-${index + 1}`).focus();
         }
     };
-
 
     const handleKeyDown = (e, index) => {
         if (e.key === "Backspace" && index > 0 && !otp[index]) {
@@ -26,12 +25,26 @@ const VerifyEmailOtp = () => {
         }
     };
 
-
     const isOtpComplete = otp.every((digit) => digit !== "");
     const handleVerify = () => {
         if (isOtpComplete) {
-            alert(`Your OTP: ${otp.join("")}`);
-            router.push("/find-why/answer-Questions");
+            Swal.fire({
+                title: "OTP Verified!",
+                text: `Your OTP: ${otp.join("")}`,
+                icon: "success",
+                confirmButtonText: "Continue",
+                confirmButtonColor: "#00b0f2",
+            }).then(() => {
+                router.push("/login/email-confirm/verify-email-otp/reset-password");
+            });
+        } else {
+            Swal.fire({
+                title: "Error",
+                text: "Please complete the OTP before verifying.",
+                icon: "error",
+                confirmButtonText: "Try Again",
+                confirmButtonColor: "#00b0f2",
+            });
         }
     };
 

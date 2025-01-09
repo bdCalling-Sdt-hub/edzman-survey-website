@@ -6,6 +6,7 @@ import moment from 'moment'; // Ensure moment is imported
 import PageHeader from '@/components/PageHeader/PageHeader';
 import ShareYourWhy from '@/lib/modalcard/ShareYourWhy';
 import DonateSection from '@/components/LadingPage/DonateSection';
+import WhyHistory from '@/lib/modalcard/WhyHistory';
 
 const { Option } = Select;
 
@@ -34,6 +35,7 @@ const InputField = ({ label, value, onChange, type = 'text', options, Component 
 
 export default function Profile() {
     const [showModal, setShowModal] = useState(false)
+    const [WhyHistoryShow, setWhyHistoryShow] = useState(false)
     const [profile, setProfile] = useState({
         firstName: 'Mojahid',
         surname: 'Islam',
@@ -109,7 +111,7 @@ export default function Profile() {
                                 "Unlock Your Potential: Discover, Embrace, and Share Your 'Why'"
                             </p>
                             <div className="flex gap-4 mt-4">
-                                <Button className="bg-[#00b0f2] rounded-md text-white hover:bg-[#00b0f2]">
+                                <Button onClick={() => setWhyHistoryShow(!WhyHistoryShow)} className="bg-[#00b0f2] rounded-md text-white hover:bg-[#00b0f2]">
                                     WHY Logs History
                                 </Button>
                                 <Button onClick={() => setShowModal(!showModal)} className="bg-[#00b0f2] rounded-md text-white hover:bg-[#00b0f2]">
@@ -159,7 +161,7 @@ export default function Profile() {
                     showModal && <ShareYourWhy></ShareYourWhy>
                 }
                 {
-                    showModal && <ShareYourWhy></ShareYourWhy>
+                    WhyHistoryShow && <WhyHistory></WhyHistory>
                 }
                 <DonateSection></DonateSection>
             </div>

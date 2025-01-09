@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { Form, Input, Button } from 'antd';
+import Link from 'next/link';
 
 const ForgetPassword = () => {
     const [form] = Form.useForm();
@@ -38,13 +39,15 @@ const ForgetPassword = () => {
 
                     {/* Submit Button */}
                     <Form.Item>
-                        <Button
-                            type="primary"
-                            htmlType="submit"
-                            className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white text-lg font-bold"
-                        >
-                            Continue
-                        </Button>
+                        <Link href={`/login/email-confirm/verify-email-otp`}>
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white text-lg font-bold"
+                            >
+                                Continue
+                            </Button>
+                        </Link>
                     </Form.Item>
                 </Form>
             </div>

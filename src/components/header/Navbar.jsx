@@ -79,13 +79,13 @@ function Navbar() {
                             <Popover>
                                 <PopoverTrigger asChild>
                                     <Avatar>
-                                        <AvatarImage className='w-8 h-8 rounded-full' src={user.photoURL} />
+                                        <AvatarImage className='w-8 h-8 rounded-full cursor-pointer' src={user.photoURL} />
                                     </Avatar>
                                 </PopoverTrigger>
                                 <PopoverContent className="p-4">
                                     <Avatar>
                                         <div className='flex gap-2'>
-                                            <AvatarImage className='w-8 h-8 rounded-full' src={user.photoURL} />
+                                            <AvatarImage className='w-8 h-8 rounded-full cursor-pointer' src={user.photoURL} />
                                             <div>
                                                 <h1 className='font-semibold text-base'>{user?.email}</h1>
                                                 <h1 className='font-normal opacity-75 text-base'>{user?.displayName}</h1>
@@ -110,7 +110,7 @@ function Navbar() {
                             <Popover>
                                 <PopoverTrigger asChild>
                                     <Avatar>
-                                        <AvatarImage className='w-8 h-8 rounded-full' src="/icon/Icon button.svg" />
+                                        <AvatarImage className='w-8 h-8 rounded-full cursor-pointer' src="/icon/Icon button.svg" />
                                     </Avatar>
                                 </PopoverTrigger>
                                 <PopoverContent className="p-4">
@@ -166,7 +166,7 @@ function Navbar() {
                             {user.login ? (
                                 <Avatar>
                                     <div className='flex gap-2'>
-                                        <AvatarImage className='w-8 h-8 rounded-full' src={user.photoURL} />
+                                        <AvatarImage className='w-8 h-8 rounded-full cursor-pointer' src={user.photoURL} />
                                         <div>
                                             <h1 className='font-semibold text-base'>{user?.email}</h1>
                                             <h1 className='font-normal opacity-75 text-base'>{user?.displayName}</h1>
@@ -180,8 +180,8 @@ function Navbar() {
                                 <>
                                     <Popover >
                                         <PopoverTrigger asChild>
-                                            <Avatar>
-                                                <AvatarImage className='w-8 h-8 rounded-full' src="/icon/Icon button.svg" />
+                                            <Avatar className=''>
+                                                <AvatarImage className='w-8 h-8 rounded-full cursor-pointer' src="/icon/Icon button.svg" />
                                             </Avatar>
                                         </PopoverTrigger>
                                         <PopoverContent className="p-4 z-[999]">

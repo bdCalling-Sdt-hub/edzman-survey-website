@@ -2,12 +2,33 @@
 import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import Swal from 'sweetalert2';
+import { useRouter } from 'next/navigation'; // Import from 'next/navigation'
 
 const ResetPassword = () => {
     const [form] = Form.useForm();
+    const router = useRouter(); // Use router from 'next/navigation'
 
     const onFinish = (values) => {
-        console.log('Submitted Password:', values);
+        if (values) {
+            Swal.fire({
+                title: "Password Reset Successful!",
+                text: "Your password has been reset successfully.",
+                icon: "success",
+                confirmButtonText: "Continue",
+                confirmButtonColor: "#00b0f2",
+            }).then(() => {
+                router.push("/login"); // Navigate to the login page
+            });
+        } else {
+            Swal.fire({
+                title: "Error",
+                text: "Please complete all required fields before submitting.",
+                icon: "error",
+                confirmButtonText: "Try Again",
+                confirmButtonColor: "#00b0f2",
+            });
+        }
     };
 
     return (
@@ -70,7 +91,6 @@ const ResetPassword = () => {
                     {/* Reset Password Button */}
                     <Form.Item>
                         <Button
-
                             htmlType="submit"
                             className="w-full h-12 bg-[#00b0f2] hover:bg-[#00b0f2]/70 text-white text-lg font-bold"
                         >

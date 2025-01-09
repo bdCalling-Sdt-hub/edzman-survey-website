@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Input, Button } from "antd";
 import { useRouter } from "next/navigation"; // For navigation in Next.js
 import "antd/dist/reset.css";
+import Swal from "sweetalert2";
 
 const OtpForm = () => {
   const [otp, setOtp] = useState(["", "", "", "", ""]);
@@ -33,8 +34,23 @@ const OtpForm = () => {
   // Handle verification and navigation
   const handleVerify = () => {
     if (isOtpComplete) {
-      alert(`Your OTP: ${otp.join("")}`);
-      router.push("/find-why/answer-Questions"); 
+      Swal.fire({
+        title: "OTP Verified!",
+        text: `Your OTP: ${otp.join("")}`,
+        icon: "success",
+        confirmButtonText: "Continue",
+        confirmButtonColor: "#00b0f2",
+      }).then(() => {
+        router.push("/find-why/answer-Questions");
+      });
+    } else {
+      Swal.fire({
+        title: "Error",
+        text: "Please complete the OTP before verifying.",
+        icon: "error",
+        confirmButtonText: "Try Again",
+        confirmButtonColor: "#00b0f2",
+      });
     }
   };
 
