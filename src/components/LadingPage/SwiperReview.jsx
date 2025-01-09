@@ -1,62 +1,74 @@
 'use client';
-import { Spin } from 'antd';
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper'; // Import the Pagination module
-import 'swiper/swiper-bundle.min.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import './styles.css';
 
-function SwiperReview() {
+// Import required modules
+import { Pagination } from 'swiper/modules';
+
+export default function Testimonials() {
   const testimonials = [
     {
-      name: 'John Doe',
-      feedback: 'This service is amazing! Highly recommend it to everyone.',
+      name: 'Emma R.',
+      feedback: "FindYourWhy.com helped me uncover my life's purpose. I feel more confident and inspired to achieve my goals.",
       avatar: 'https://static.vecteezy.com/system/resources/previews/038/974/578/non_2x/ai-generated-professional-portrait-of-a-competent-woman-free-photo.jpg',
-      position: 'Software Engineer',
+      question: 'A Life WHY Is About Finding Your FYW',
+    },
+    {
+      name: 'John Doe',
+      feedback: "This platform has transformed my perspective and given me clarity like never before.",
+      avatar: 'https://img.freepik.com/free-photo/smiling-young-male-professional-standing-with-arms-crossed-while-making-eye-contact-against-isolated-background_662251-838.jpg?semt=ais_hybrid',
+      question: 'Software Engineer',
     },
     {
       name: 'Jane Smith',
-      feedback: 'Outstanding experience. Customer service was top-notch!',
-      avatar: 'https://img.freepik.com/free-photo/smiling-young-male-professional-standing-with-arms-crossed-while-making-eye-contact-against-isolated-background_662251-838.jpg?semt=ais_hybrid',
-      position: 'Project Manager',
-    },
-    {
-      name: 'Alice Johnson',
-      feedback: 'Great quality and quick delivery. I am super impressed!',
+      feedback: "Exceptional experience! The insights were eye-opening, and I feel empowered to take actionable steps toward my goals.",
       avatar: 'https://freeparalegal.org/wp-content/uploads/2023/08/July-1536x1024-1.jpg',
-      position: 'UI/UX Designer',
+      question: 'Project Manager',
     },
-    // Add more testimonials here
   ];
 
-  if (testimonials?.length === 0) {
-    return <Spin />;
-  }
-
   return (
-    <div>
-      <div className="w-full">
+    <div className="py-16 bg-gray-50">
+      <div className="max-w-screen-xl mx-auto px-6">
+        <h2 className="text-3xl font-bold text-center text-[#1d3557]">
+          What Our Clients Are Saying
+        </h2>
+        <p className="text-gray-600 text-center mt-4 mb-10">
+          Hear inspiring stories from people who have discovered their "Why" and transformed their lives.
+        </p>
+
         <Swiper
-          modules={[Pagination]}
-          spaceBetween={20}
-          slidesPerView={1}
-          pagination={{ clickable: true }}
-          breakpoints={{
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 1 },
-            1024: { slidesPerView: 1 },
+          pagination={{
+            dynamicBullets: true,
+            clickable: true,
           }}
-          className="swiper-container"
+          modules={[Pagination]}
+          className="mySwiper"
+          spaceBetween={30}
+          slidesPerView={1}
         >
-          {testimonials.map((testimonial, index) => (
-            <SwiperSlide key={index}>
-              <div className="p-6 rounded-lg shadow-lg text-center">
-                <img
-                  src={testimonial?.avatar}
-                  alt={testimonial?.name}
-                  className="w-16 h-16 mx-auto rounded-full mb-4"
-                />
-                <h3 className="text-lg font-semibold">{testimonial?.name}</h3>
-                <p className="text-sm text-gray-500 mb-2">{testimonial?.position}</p>
-                <p className="text-gray-700">{testimonial?.feedback}</p>
+          {testimonials.map((testimonial, idx) => (
+            <SwiperSlide key={idx}>
+              <div className="bg-white shadow-md rounded-lg p-6 md:p-10 flex flex-col md:flex-row items-center gap-6">
+                {/* Avatar Section */}
+                <div className="w-24 h-24 md:w-32 md:h-32 flex-shrink-0">
+                  <img
+                    src={testimonial.avatar}
+                    alt={testimonial.name}
+                    className="w-full h-full object-cover rounded-full border-4 border-[#00b0f2]"
+                  />
+                </div>
+                {/* Content Section */}
+                <div className="flex-grow text-center md:text-left">
+                  <h3 className="text-xl font-semibold text-wrap text-[#1d3557] mb-2">
+                    {testimonial.question}
+                  </h3>
+                  <p className="text-gray-600 italic">{testimonial.feedback}</p>
+                  <p className="text-blue-500 font-bold mt-4">- {testimonial.name}</p>
+                </div>
               </div>
             </SwiperSlide>
           ))}
@@ -65,5 +77,3 @@ function SwiperReview() {
     </div>
   );
 }
-
-export default SwiperReview;

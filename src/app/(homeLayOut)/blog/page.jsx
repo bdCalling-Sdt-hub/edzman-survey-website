@@ -1,56 +1,40 @@
 'use client';
-import PageHeader from '@/components/PageHeader/PageHeader';
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { IoIosArrowUp, IoMdSearch } from "react-icons/io";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { IoMdSearch } from "react-icons/io";
 import { FaSortAlphaDown, FaSortAlphaDownAlt } from 'react-icons/fa';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { BsSortNumericUp } from "react-icons/bs";
+import { ImSortNumbericDesc } from "react-icons/im";
+import { GoArrowUpRight } from 'react-icons/go';
+import PageHeader from '@/components/PageHeader/PageHeader';
+import { Empty } from 'antd';
+import Link from 'next/link';
+
 function SkeletonLoader() {
   return (
-    <div className="animate-pulse">
-      <div className="h-64 w-full bg-gray-300 rounded-lg mb-4"></div>
-      <div className="w-3/4 h-6 bg-gray-300 rounded mb-2"></div>
-      <div className="w-1/2 h-6 bg-gray-300 rounded mb-2"></div>
-      <div className="w-1/4 h-6 bg-gray-300 rounded"></div>
+    <div className="animate-pulse bg-gray-100 p-4 rounded-lg">
+      <div className="h-40 w-full bg-gray-300 rounded-md mb-4"></div>
+      <div className="h-6 w-3/4 bg-gray-300 rounded mb-2"></div>
+      <div className="h-4 w-1/2 bg-gray-300 rounded"></div>
     </div>
   );
 }
 
-function ImageSkeleton({ isLoading, src, alt, className }) {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  return (
-    <div className={`relative ${className}`}>
-      {!imageLoaded && isLoading && (
-        <div className="absolute inset-0 bg-gray-300 animate-pulse rounded-md"></div>
-      )}
-      <img
-        src={src}
-        alt={alt}
-        className={`transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-        onLoad={() => setImageLoaded(true)}
-      />
-    </div>
-  );
-}
-
-function Page() {
+function BlogPage() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
-  const itemsPerPage = 6;
+  const [dateSortOrder, setDateSortOrder] = useState(null);
+  const itemsPerPage = 9;
 
   useEffect(() => {
     axios
-      .get('/jsonData/story.json')
+      .get('/jsonData/blogs.json')
       .then((res) => {
         setData(res.data);
         setLoading(false);
@@ -61,72 +45,72 @@ function Page() {
       });
   }, []);
 
-  const user = {
-    login: true,
-    photoURL: 'https://github.com/shadcn.png',
-    displayName: 'expmple@mail.com',
-    email: 'Hosain ali',
-
-  }
-
   if (loading) {
     return (
-      <div>
-        <PageHeader
-          title={'Uncover Your Why'}
-          subTitle={'Take our free personality WHY\'s to uncover your "Why" and receive personalized guidance and actionable steps to help you live a fulfilling life.'}
-        />
-        <div className="max-w-screen-2xl px-4 mx-auto mt-8">
-          {[...Array(3)].map((_, index) => (
-            <SkeletonLoader key={index} />
+      <div className="container mx-auto py-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[...Array(6)].map((_, idx) => (
+            <SkeletonLoader key={idx} />
           ))}
         </div>
       </div>
     );
   }
 
-  if (error) return <div>Error: {error}</div>;
+  if (error) return <div className="text-red-500 text-center py-8">Error: {error}</div>;
 
-  // Search and filter data
+  // Filter and Sort Logic
   const filteredData = data.filter(item =>
     item?.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Sorting logic
   const sortedData = [...filteredData].sort((a, b) => {
-    if (sortOrder === 'asc') {
-      return a.title.localeCompare(b.title);
+    if (dateSortOrder) {
+      // Sort by date
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateSortOrder === 'newest' ? dateB - dateA : dateA - dateB;
     } else {
-      return b.title.localeCompare(a.title);
+      // Sort alphabetically
+      return sortOrder === 'asc'
+        ? a.title.localeCompare(b.title)
+        : b.title.localeCompare(a.title);
     }
   });
 
-  // Pagination logic
+  // Pagination Logic
   const totalPages = Math.ceil(sortedData.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = sortedData.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
   };
 
-  const handleSortChange = () => {
+  const toggleSortOrder = () => {
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    setDateSortOrder(null); // Reset date sort when toggling alphabetical sort
+  };
+
+  const toggleDateSortOrder = () => {
+    setDateSortOrder(dateSortOrder === 'newest' ? 'oldest' : 'newest');
+    setSortOrder(null); // Reset alphabetical sort when toggling date sort
   };
 
   return (
-    <div className='bg-white'>
+    <div className="bg-gray-50 min-h-screen">
       <PageHeader
-        title={'Find Inspiration in Our Latest Blog Stories'}
-        subTitle={`Take our free personality WHY's to uncover your 'Why' and receive personalized guidance and actionable steps to help you live a fulfilling life.`}
-      />
+        title={`Find Inspiration in Our Latest Blog Stories`}
+        subTitle={`Explore our articles to uncover your "Why" and receive actionable guidance.`}
+      ></PageHeader>
+      <div className="container mx-auto py-8 px-4">
+        {/* Page Header */}
 
-      <div className="max-w-screen-2xl px-1 mx-auto mt-8">
 
-
+        {/* Search and Sort */}
         <div className="mb-4 w-full bg-[#e6f3fe] flex items-center rounded-full">
-          <div className='w-full border-2 rounded-full '>
+          <div className='w-full border-2 rounded-full'>
             <div className='flex pl-4 px-2 rounded-full items-center gap-2 w-full'>
               <IoMdSearch />
               <input
@@ -134,52 +118,67 @@ function Page() {
                 placeholder="Search for Story"
                 className="p-2 w-full outline-none bg-transparent"
                 value={searchTerm}
-              // onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
           </div>
           <Popover>
             <PopoverTrigger asChild>
-              <div className='flex items-center  gap-2 ml p-2  text-nowrap text-white rounded-lg'>
+              <div className='flex items-center gap-2 ml p-2 text-nowrap text-black rounded-lg cursor-pointer'>
                 <button
-                  aria-label="Sort options" className='text-black font-bold'>Sort By</button>
-                <IoIosArrowUp className='text-black font-bold' />
+                  aria-label="Sort options"
+                  className='text-black font-bold'>Sort By</button>
               </div>
             </PopoverTrigger>
             <PopoverContent className="p-4">
-              {
-                sortOrder === 'asc' ?
-                  (
-                    <div className='flex items-center gap-2'>
-                      <FaSortAlphaDown className='text-xl' />
-                      <h1
-                        className="ml p-2 w-full cursor-pointer text-nowrap text-black rounded-lg"
-                        onClick={handleSortChange}
-                      >
-                        Sort A to Z
-                      </h1>
-                    </div>
-                  ) :
-
-                  (
-                    <div className='flex items-center gap-2'>
-                      <FaSortAlphaDownAlt className='text-xl' />
-                      <h1
-                        className="ml p-2 cursor-pointer w-full text-nowrap text-black rounded-lg"
-                        onClick={() => handleSortChange("desc")}
-                      >
-                        Sort Z to A
-                      </h1>
-                    </div>
-                  )
-              }
-
+              <div className="space-y-4">
+                <div className='flex items-center gap-2 cursor-pointer' onClick={toggleSortOrder}>
+                  {sortOrder === 'asc' ? <FaSortAlphaDown className='text-xl' /> : <FaSortAlphaDownAlt className='text-xl' />}
+                  <h1 className="text-black">{sortOrder === 'asc' ? 'Sort A to Z' : 'Sort Z to A'}</h1>
+                </div>
+                <div className='flex items-center gap-2 cursor-pointer' onClick={toggleDateSortOrder}>
+                  {dateSortOrder === 'newest' ? <ImSortNumbericDesc className='text-xl' /> : <BsSortNumericUp className='text-xl' />}
+                  <h1 className="text-black">{dateSortOrder === 'newest' ? 'Newest to Oldest' : 'Oldest to Newest'}</h1>
+                </div>
+              </div>
             </PopoverContent>
           </Popover>
-
-
         </div>
 
+        {/* Blog Items */}
+        {
+          currentItems.length !== 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {currentItems.map((blog) => (
+                <div key={blog.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
+                  <img
+                    src={blog.image}
+                    alt={blog.title}
+                    className="h-64 w-full object-cover"
+                  />
+                  <div className="p-4">
+                    <p className="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded-full inline-block">{blog.category}</p>
+                    <h2 className="text-lg font-semibold text-gray-800 mt-3">{blog.title}</h2>
+                    <Link href={'/blog/single-blog-details'}>
+                      <div className='flex items-center gap-2 mt-4'>
+                        <span className="text-sm ">{blog.date}</span>
+                        <span className="text-sm ml-auto text-[#00b0f2]">see more </span><GoArrowUpRight />
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16">
+              <Empty />
+              <p className="text-lg text-gray-600">No stories found. Try searching for something else!</p>
+            </div>
+          )
+        }
+
+
+        {/* Pagination */}
         <div className="flex justify-between mb-4 mt-8">
           <div>
             <h1 className='font-semibold'>Showing {currentPage} of {totalPages}</h1>
@@ -209,6 +208,6 @@ function Page() {
   );
 }
 
-export default Page;
+export default BlogPage;
 
-// TODO: Question === 0 page styling
+

@@ -2,9 +2,7 @@ import Banner from "@/components/LadingPage/Banner";
 import CreatePersonalWhy from "@/components/LadingPage/CreatePersonalWhy";
 import DonateSection from "@/components/LadingPage/DonateSection";
 import Testimonials from "@/components/LadingPage/Testimonials";
-
 import WelcomeSection from "@/components/LadingPage/WelcomeSection";
-import ForgetPassword from "../forget-pass/page";
 
 export default function Home() {
   return (

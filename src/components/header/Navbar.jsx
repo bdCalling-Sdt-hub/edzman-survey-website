@@ -74,7 +74,7 @@ function Navbar() {
                     })}
                 </ul>
                 <div>
-                    {!user.login ? (
+                    {user.login ? (
                         <>
                             <Popover>
                                 <PopoverTrigger asChild>
@@ -97,10 +97,10 @@ function Navbar() {
                                     </Avatar>
                                     <div className="divider w-full h-[1px] bg-slate-400/40 my-3"></div>
                                     <ul className='mt-3 flex items-start flex-col gap-3'>
-                                        <li className=' flex items-center gap-2'> <GiSettingsKnobs className='text-xl' />Profile Settings</li>
-                                        <li className=' flex items-center gap-2'><MdOutlineQuestionMark className='text-xl' /> About us</li>
+                                        <Link href={'/user-profile'}><li className=' flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2'> <GiSettingsKnobs className='text-xl' />Profile Settings</li></Link>
+                                        <li className=' flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2'><MdOutlineQuestionMark className='text-xl' /> About us</li>
                                         <div className="divider w-full h-[1px] bg-slate-400/40"></div>
-                                        <li className=' flex items-center gap-2'><VscSignOut className='text-xl' />Sign Out</li>
+                                        <li className=' flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2'><VscSignOut className='text-xl' />Sign Out</li>
                                     </ul>
                                 </PopoverContent>
                             </Popover>
@@ -163,7 +163,7 @@ function Navbar() {
                             })}
                         </ul>
                         <div className='mt-6 text-lg font-semibold'>
-                            {!user.login ? (
+                            {user.login ? (
                                 <Avatar>
                                     <div className='flex gap-2'>
                                         <AvatarImage className='w-8 h-8 rounded-full' src={user.photoURL} />

@@ -1,4 +1,4 @@
-'use-client'
+'use client'
 import PrimaryButton from '@/lib/button/PrimaryButton';
 import React from 'react';
 import { FaCheckCircle } from "react-icons/fa";

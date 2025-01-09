@@ -40,16 +40,6 @@
         "date": "2025-01-02"
     },
     {
-        "bannerImage": "https://example.com/banner5.jpg",
-        "title": "The Power of Tailwind CSS",
-        "description": "Your empathetic nature is a powerful asset, enabling you to build meaningful relationships and understand others deeply. However, it can also lead to emotional fatigue if boundaries aren't maintained.",
-        "author": {
-            "image": "https://example.com/author5.jpg",
-            "name": "Emily Johnson"
-        },
-        "date": "2025-01-01"
-    },
-    {
         "bannerImage": "https://media.istockphoto.com/id/1399565382/photo/young-happy-mixed-race-businessman-standing-with-his-arms-crossed-working-alone-in-an-office.jpg?s=612x612&w=0&k=20&c=buXwOYjA_tjt2O3-kcSKqkTp2lxKWJJ_Ttx2PhYe3VM=",
         "title": "Building RESTful APIs with Node.js",
         "description": "Your empathetic nature is a powerful asset, enabling you to build meaningful relationships and understand others deeply. However, it can also lead to emotional fatigue if boundaries aren't maintained.",
@@ -60,36 +50,6 @@
         "date": "2024-12-30"
     },
     {
-        "bannerImage": "https://anidreams.com/wp-content/uploads/2024/07/badass-anime-characters-featured-image.webp",
-        "title": "The Journey of Front-End Development",
-        "description": "Your empathetic nature is a powerful asset, enabling you to build meaningful relationships and understand others deeply. However, it can also lead to emotional fatigue if boundaries aren't maintained.",
-        "author": {
-            "image": "https://anidreams.com/wp-content/uploads/2024/07/badass-anime-characters-featured-image.webp",
-            "name": "Hosain Ali"
-        },
-        "date": "2025-01-07"
-    },
-    {
-        "bannerImage": "https://wallpapers.com/images/hd/badass-anime-46hmg1egmu2j120x.jpg",
-        "title": "Mastering React: Tips & Tricks",
-        "description": "Your empathetic nature is a powerful asset, enabling you to build meaningful relationships and understand others deeply. However, it can also lead to emotional fatigue if boundaries aren't maintained.",
-        "author": {
-            "image": "https://wallpapers.com/images/hd/badass-anime-46hmg1egmu2j120x.jpg",
-            "name": "John Doe"
-        },
-        "date": "2025-01-05"
-    },
-    {
-        "bannerImage": "https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/12/aaea3bed-a0c7-48c1-b110-ffbd9e6b5299.jpeg",
-        "title": "Understanding CSS Flexbox",
-        "description": "Your empathetic nature is a powerful asset, enabling you to build meaningful relationships and understand others deeply. However, it can also lead to emotional fatigue if boundaries aren't maintained.",
-        "author": {
-            "image": "https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/12/aaea3bed-a0c7-48c1-b110-ffbd9e6b5299.jpeg",
-            "name": "Jane Smith"
-        },
-        "date": "2025-01-03"
-    },
-    {
         "bannerImage": "https://static.vecteezy.com/system/resources/previews/038/974/578/non_2x/ai-generated-professional-portrait-of-a-competent-woman-free-photo.jpg",
         "title": "JavaScript Async Programming Explained",
         "description": "Your empathetic nature is a powerful asset, enabling you to build meaningful relationships and understand others deeply. However, it can also lead to emotional fatigue if boundaries aren't maintained.",
@@ -98,16 +58,6 @@
             "name": "Robert Brown"
         },
         "date": "2025-01-02"
-    },
-    {
-        "bannerImage": "https://t3.ftcdn.net/jpg/02/83/12/98/360_F_283129831_MTTjxBv6zrcSREEsmLgvLQJFU0HyW2ui.jpg",
-        "title": "The Power of Tailwind CSS",
-        "description": "Your empathetic nature is a powerful asset, enabling you to build meaningful relationships and understand others deeply. However, it can also lead to emotional fatigue if boundaries aren't maintained.",
-        "author": {
-            "image": "https://t3.ftcdn.net/jpg/02/83/12/98/360_F_283129831_MTTjxBv6zrcSREEsmLgvLQJFU0HyW2ui.jpg",
-            "name": "Emily Johnson"
-        },
-        "date": "2025-01-01"
     },
     {
         "bannerImage": "https://t3.ftcdn.net/jpg/02/83/12/98/360_F_283129831_MTTjxBv6zrcSREEsmLgvLQJFU0HyW2ui.jpg",

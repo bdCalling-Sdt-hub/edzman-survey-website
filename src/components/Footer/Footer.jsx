@@ -78,7 +78,7 @@ function Footer() {
                 placeholder="Enter a Valid Email"
                 className="flex-1 px-4 py-2 rounded-l-lg focus:outline-none"
               />
-              <button className="bg-[#00B0F2] text-white px-4 py-2 rounded-r-lg hover:bg-blue-600">
+              <button className="bg-[#00B0F2] text-white px-4 py-2 rounded-r-lg hover:bg-[#00B0F2]/80">
                 →
               </button>
             </div>

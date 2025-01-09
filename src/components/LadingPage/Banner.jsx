@@ -1,39 +1,85 @@
-'use-client';
+'use client';
 import PrimaryButton from '@/lib/button/PrimaryButton';
 import React from 'react';
+import { motion } from 'framer-motion';
 
 function Banner() {
+  // Animation variants for slice reveal
+  const sliceReveal = {
+    hidden: { y: '100%', opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: 'easeOut'
+      }
+    }
+  };
+
   return (
-    <div className="container mx-auto  flex flex-col lg:flex-row items-center justify-center  py-8 px-2 lg:py-16 gap-2 md:gap-8">
+    <div className="container mx-auto flex flex-col lg:flex-row items-center justify-center py-8 px-2 lg:py-16 gap-2 md:gap-8">
       {/* Left Content */}
       <div className="flex-1 flex flex-col gap-3 text-center lg:text-start">
-        <h1 className="text-[#1D3557] text-2xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold leading-tight">
+        <motion.h1
+          className="text-[#1D3557] text-2xl sm:text-4xl md:text-4xl lg:text-5xl font-semibold leading-tight overflow-hidden"
+          initial="hidden"
+          animate="visible"
+          variants={sliceReveal}
+        >
           Find Your WHY, Transform Your Life
-        </h1>
-        <p className="text-sm sm:text-base lg:text-lg text-gray-600">
+        </motion.h1>
+
+        <motion.p
+          className="text-sm sm:text-base lg:text-lg text-gray-600 overflow-hidden"
+          initial="hidden"
+          animate="visible"
+          variants={sliceReveal}
+        >
           Unlock your potential and Find Your "Why" with personalized guidance and expert insights. Our platform helps you discover the core WHY that drives you, creating a fulfilling and meaningful life journey.
-        </p>
-        <div className="flex gap-6 sm:gap-12 items-center  justify-center lg:justify-start">
+        </motion.p>
+
+        <motion.div
+          className="flex gap-6 sm:gap-12 items-center justify-center lg:justify-start overflow-hidden"
+          initial="hidden"
+          animate="visible"
+          variants={sliceReveal}
+        >
           <div>
             <h1 className="text-[#1D3557] text-2xl sm:text-3xl font-bold">50K+</h1>
-            <p className="text-sm sm:text-base"><b>FYWS</b> Created</p>
+            <p className="text-sm sm:text-base">
+              <b>FYWS</b> Created
+            </p>
           </div>
           <div>
             <h1 className="text-[#1D3557] text-2xl sm:text-3xl font-bold">100K+</h1>
             <p className="text-sm sm:text-base">Lives Impacted</p>
           </div>
-        </div>
-        <PrimaryButton text={'How to Find Your Why'} />
+        </motion.div>
+
+        <motion.div
+          className="overflow-hidden"
+          initial="hidden"
+          animate="visible"
+          variants={sliceReveal}
+        >
+          <PrimaryButton text={'How to Find Your Why'} />
+        </motion.div>
       </div>
 
       {/* Right Content */}
-      <div className="flex-1 flex justify-center animate-bounce items-center">
-        <img 
-          src="/image/landing.png" 
-          alt="landing page image" 
+      <motion.div
+        className="flex-1 flex justify-center items-center"
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+      >
+        <img
+          src="/image/landing.png"
+          alt="landing page image"
           className="w-full max-w-sm md:max-w-md lg:max-w-lg object-contain"
         />
-      </div>
+      </motion.div>
     </div>
   );
 }

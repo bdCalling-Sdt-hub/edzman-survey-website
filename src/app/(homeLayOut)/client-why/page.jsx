@@ -5,47 +5,19 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { SlCalender } from "react-icons/sl";
-import { IoIosArrowUp, IoMdSearch } from "react-icons/io";
-
-//
-import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
-import { GiSettingsKnobs } from "react-icons/gi";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { MdOutlineQuestionMark } from 'react-icons/md'
-import { VscSignOut } from "react-icons/vsc";
-import { Spin } from 'antd'
+import { IoMdSearch } from "react-icons/io";
 import { FaSortAlphaDown, FaSortAlphaDownAlt } from 'react-icons/fa';
-//
+import { BsSortNumericUp } from 'react-icons/bs';
+import { ImSortNumbericDesc } from "react-icons/im";
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Empty } from 'antd';
 
 function SkeletonLoader() {
   return (
     <div className="animate-pulse">
       <div className="h-64 w-full bg-gray-300 rounded-lg mb-4"></div>
       <div className="w-3/4 h-6 bg-gray-300 rounded mb-2"></div>
-      <div className="w-1/2 h-6 bg-gray-300 rounded mb-2"></div>
-      <div className="w-1/4 h-6 bg-gray-300 rounded"></div>
-    </div>
-  );
-}
-
-function ImageSkeleton({ isLoading, src, alt, className }) {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  return (
-    <div className={`relative ${className}`}>
-      {!imageLoaded && isLoading && (
-        <div className="absolute inset-0 bg-gray-300 animate-pulse rounded-md"></div>
-      )}
-      <img
-        src={src}
-        alt={alt}
-        className={`transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-        onLoad={() => setImageLoaded(true)}
-      />
+      <div className="w-1/2 h-6 bg-gray-300 rounded"></div>
     </div>
   );
 }
@@ -56,12 +28,13 @@ function Page() {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortOrder, setSortOrder] = useState('asc');
+  const [sortOrder, setSortOrder] = useState('asc'); // Alphabetical sort
+  const [dateSortOrder, setDateSortOrder] = useState(null); // Date sort
   const itemsPerPage = 6;
 
   useEffect(() => {
     axios
-      .get('/jsonData/story.json')
+      .get('/jsonData/story.json') // Replace with your actual API
       .then((res) => {
         setData(res.data);
         setLoading(false);
@@ -72,13 +45,17 @@ function Page() {
       });
   }, []);
 
-  const user = {
-    login: true,
-    photoURL: 'https://github.com/shadcn.png',
-    displayName: 'expmple@mail.com',
-    email: 'Hosain ali',
+  const handlePageChange = (newPage) => setCurrentPage(newPage);
 
-  }
+  const toggleSortOrder = () => {
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    setDateSortOrder(null); // Reset date sort when toggling alphabetical sort
+  };
+
+  const toggleDateSortOrder = () => {
+    setDateSortOrder(dateSortOrder === 'newest' ? 'oldest' : 'newest');
+    setSortOrder(null); // Reset alphabetical sort when toggling date sort
+  };
 
   if (loading) {
     return (
@@ -87,55 +64,51 @@ function Page() {
           title={'Uncover Your Why'}
           subTitle={'Take our free personality WHY\'s to uncover your "Why" and receive personalized guidance and actionable steps to help you live a fulfilling life.'}
         />
-        <div className="max-w-screen-2xl px-4 mx-auto mt-8">
-          {[...Array(3)].map((_, index) => (
-            <SkeletonLoader key={index} />
+        <div className="max-w-screen-2xl px-4 mx-auto mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[...Array(6)].map((_, idx) => (
+            <SkeletonLoader key={idx} />
           ))}
         </div>
       </div>
     );
   }
 
-  if (error) return <div>Error: {error}</div>;
+  if (error) return <div className="text-red-500 text-center py-8">Error: {error}</div>;
 
-  // Search and filter data
+  // Filter and Sort Logic
   const filteredData = data.filter(item =>
     item?.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Sorting logic
   const sortedData = [...filteredData].sort((a, b) => {
-    if (sortOrder === 'asc') {
-      return a.title.localeCompare(b.title);
+    if (dateSortOrder) {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateSortOrder === 'newest' ? dateB - dateA : dateA - dateB;
     } else {
-      return b.title.localeCompare(a.title);
+      return sortOrder === 'asc'
+        ? a.title.localeCompare(b.title)
+        : b.title.localeCompare(a.title);
     }
   });
 
-  // Pagination logic
+  // Pagination Logic
   const totalPages = Math.ceil(sortedData.length / itemsPerPage);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = sortedData.slice(indexOfFirstItem, indexOfLastItem);
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const handleSortChange = () => {
-    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-  };
+  const currentItems = sortedData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
-    <div className='bg-white'>
+    <div className="bg-white">
       <PageHeader
         title={'Uncover Your Why'}
         subTitle={'Take our free personality WHY\'s to uncover your "Why" and receive personalized guidance and actionable steps to help you live a fulfilling life.'}
       />
-
-      <div className="max-w-screen-2xl px-1 mx-auto mt-8">
+      <div className="max-w-screen-2xl px-4 mx-auto mt-8">
+        {/* Search and Sort */}
         <div className="mb-4 w-full bg-[#e6f3fe] flex items-center rounded-full">
-          <div className='w-full border-2 rounded-full '>
+          <div className='w-full border-2 rounded-full'>
             <div className='flex pl-4 px-2 rounded-full items-center gap-2 w-full'>
               <IoMdSearch />
               <input
@@ -149,95 +122,74 @@ function Page() {
           </div>
           <Popover>
             <PopoverTrigger asChild>
-              <div className='flex items-center  gap-2 ml p-2  text-nowrap text-white rounded-lg'>
+              <div className='flex items-center gap-2 ml p-2 text-nowrap text-black rounded-lg cursor-pointer'>
                 <button
-                  aria-label="Sort options" className='text-black font-bold'>Sort By</button>
-                <IoIosArrowUp className='text-black font-bold' />
+                  aria-label="Sort options"
+                  className='text-black font-bold'>Sort By</button>
               </div>
             </PopoverTrigger>
             <PopoverContent className="p-4">
-              {
-                sortOrder === 'asc' ?
-                  (
-                    <div className='flex items-center gap-2'>
-                      <FaSortAlphaDown className='text-xl' />
-                      <h1
-                        className="ml p-2 w-full cursor-pointer text-nowrap text-black rounded-lg"
-                        onClick={handleSortChange}
-                      >
-                        Sort A to Z
-                      </h1>
-                    </div>
-                  ) :
-
-                  (
-                    <div className='flex items-center gap-2'>
-                      <FaSortAlphaDownAlt className='text-xl' />
-                      <h1
-                        className="ml p-2 cursor-pointer w-full text-nowrap text-black rounded-lg"
-                        onClick={() => handleSortChange("desc")}
-                      >
-                        Sort Z to A
-                      </h1>
-                    </div>
-                  )
-              }
-
+              <div className="space-y-4">
+                <div className='flex items-center gap-2 cursor-pointer' onClick={toggleSortOrder}>
+                  {sortOrder === 'asc' ? <FaSortAlphaDown className='text-xl' /> : <FaSortAlphaDownAlt className='text-xl' />}
+                  <h1 className="text-black">{sortOrder === 'asc' ? 'Sort A to Z' : 'Sort Z to A'}</h1>
+                </div>
+                <div className='flex items-center gap-2 cursor-pointer' onClick={toggleDateSortOrder}>
+                  {dateSortOrder === 'newest' ? <ImSortNumbericDesc className='text-xl' /> : <BsSortNumericUp className='text-xl' />}
+                  <h1 className="text-black">{dateSortOrder === 'newest' ? 'Newest to Oldest' : 'Oldest to Newest'}</h1>
+                </div>
+              </div>
             </PopoverContent>
           </Popover>
-
-
         </div>
 
-        {
-          currentItems.length === 0 ? (
-            <div className="flex items-center justify-center py-28">
-              <div className="text-center p-8 bg-white shadow-md rounded-lg">
-                <h1 className="text-2xl font-semibold text-gray-800">Data Not Found</h1>
-                <p className="text-gray-600 mt-2">Oops! We couldn’t find the data you’re looking for.</p>
-              </div>
-            </div>
-          ) : (
-            currentItems.map((item, index) => (
-              <div key={index}>
-                <div className="flex flex-col lg:flex-row items-start md:items-center gap-16">
-                  {/* Image Section */}
-                  <img
-                    src={item?.bannerImage || 'https://static.thenounproject.com/png/504708-200.png'}
-                    alt={`Banner for ${item?.title}`}
-                    className="w-full lg:w-[50%] h-auto object-cover rounded-md mb-4"
-                  />
-                  {/* Text Content Section */}
-                  <div className="w-full lg:w-[50%]">
-                    <h3 className="text-3xl font-semibold">{item?.title}</h3>
-                    <p className="text-gray-700 mt-2">
-                      {item?.description.length > 200 ? `${item?.description.slice(0, 200)}...` : item?.description}
-                    </p>
-                    <div className="flex items-center mt-4">
-                      <div className='flex items-center pr-2 bg-[#bfe1fc] p-1 rounded-full'>
-                        <img
-                          src={item?.author.image}
-                          alt={item?.author.name}
-                          className="w-6 h-6 object-cover rounded-full mr-3"
-                        />
-                        <p className="text-xs">- {item?.author.name}</p>
-                      </div>
-                      <div className='flex items-center gap-2 ml-3'>
-                        <SlCalender />
-                        <p className="text-sm text-gray-500">{item?.date}</p>
-                      </div>
+        {/* Blog Items */}
+        {currentItems.length > 0 ? (
+          currentItems.map((item, idx) => (
+            <div key={idx}>
+              <div  className="flex flex-col md:flex-row lg:flex-row items-start md:items-center gap-16 mb-8">
+                <img
+                  src={item?.bannerImage}
+                  alt={item?.title}
+                  className="w-full md:w-[50%] lg:w-[40%] h-auto object-cover rounded-md"
+                />
+                <div className="w-full lg:w-[50%]">
+                  <h3 className="text-3xl font-semibold">{item?.title}</h3>
+                  <p className="text-gray-700 mt-2">
+                    {item?.description?.length > 200
+                      ? `${item?.description.slice(0, 200)}...`
+                      : item?.description}
+                  </p>
+                  <div className="flex items-center mt-4">
+                    <div className="flex items-center bg-[#bfe1fc] px-2 py-1 rounded-full">
+                      <img
+                        src={item?.author?.image || 'https://via.placeholder.com/40'}
+                        alt={item?.author?.name || 'Author'}
+                        className="w-6 h-6 rounded-full object-cover mr-2"
+                      />
+                      <p className="text-xs">{item?.author?.name || 'Unknown Author'}</p>
                     </div>
-                    <Button className="bg-[#00b0f2] my-3 hover:bg-[#00b0f2]/70">
-                      Read more <MdOutlineKeyboardArrowRight />
-                    </Button>
+                    <div className="flex items-center gap-2 ml-3 text-gray-500">
+                      <SlCalender />
+                      <p className="text-sm">{item?.date}</p>
+                    </div>
                   </div>
+                  <Button className="bg-[#00b0f2] mt-4 hover:bg-[#00b0f2]/70">
+                    Read More <MdOutlineKeyboardArrowRight />
+                  </Button>
                 </div>
-                <div className="h-[1px] bg-[#222]/50 w-full mb-4"></div>
               </div>
-            ))
-          )
-        }
+              <div className="w-full h-[1px] bg-[#222]/20 my-2"></div>
+            </div>
+          ))
+        ) : (
+          <div className="text-center py-16">
+            <Empty />
+            <p className="text-lg text-gray-600">No Why found. Try searching for something else!</p>
+          </div>
+        )}
 
+        {/* Pagination */}
         <div className="flex justify-between mb-4 mt-8">
           <div>
             <h1 className='font-semibold'>Showing {currentPage} of {totalPages}</h1>
@@ -269,4 +221,4 @@ function Page() {
 
 export default Page;
 
-// TODO: Question === 0 page styling
+// TODO: Question === 0 page styling  
