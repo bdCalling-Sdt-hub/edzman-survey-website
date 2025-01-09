@@ -1,8 +1,11 @@
+import { Spin } from 'antd'
 import React from 'react'
 
 function laoding() {
     return (
-        <div>laoding....</div>
+        <div className='flex items-center justify-center min-h-screen'>
+            <Spin></Spin>
+        </div>
     )
 }
 

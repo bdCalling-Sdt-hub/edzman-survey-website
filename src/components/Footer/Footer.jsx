@@ -12,7 +12,7 @@ function Footer() {
   ];
 
   const impactLinks = [
-    { title: "Donate", path: "/donate" },
+    { title: "Donate", path: "/donate-page" },
     { title: "Create Your WHY", path: "/create-why" },
     { title: "Share Your WHY", path: "/share-why" },
   ];
@@ -23,7 +23,7 @@ function Footer() {
     { title: "Terms and Conditions", path: "/terms", icon: <GoArrowUpRight /> },
     { title: "Cookie Policy", path: "/cookies", icon: <GoArrowUpRight /> },
   ];
-
+  const currentYear = new Date().getFullYear();
   return (
     <footer className="bg-black text-white py-12 lg:px-28">
       <div className="container mx-auto px-4 flex lg:flex-row flex-col justify-between gap-8">
@@ -32,10 +32,10 @@ function Footer() {
           <img src="/brandLogo.svg" alt="brand logo" />
           <ul>
             {importantLinks.map((link, index) => (
-              <li key={index} className="mb-2 flex items-center gap-2">
+              <li key={index} className="mb-2 hover:text-[#00B0F2] flex items-center gap-2">
                 <Link href={link?.path}>
                   {link?.title}
-                </Link><h1 className="text-[#00B0F2] text-xl font-bold">{link?.icon}</h1>
+                </Link><h1 className="text-[#00B0F2]  text-xl font-bold">{link?.icon}</h1>
               </li>
             ))}
           </ul>
@@ -76,7 +76,7 @@ function Footer() {
               <input
                 type="email"
                 placeholder="Enter a Valid Email"
-                className="flex-1 px-4 py-2 rounded-l-lg focus:outline-none"
+                className="flex-1 text-black px-4 py-2 rounded-l-lg focus:outline-none"
               />
               <button className="bg-[#00B0F2] text-white px-4 py-2 rounded-r-lg hover:bg-[#00B0F2]/80">
                 →
@@ -88,11 +88,13 @@ function Footer() {
 
       {/* Footer Bottom */}
       <div className="container mx-auto border-t px-4 flex lg:flex-row flex-col item-start lg:items-center justify-between border-gray-700 mt-8 pt-4 lg:text-center">
-        <div className=" flex items-center gap-3">
+        {/* Brand Info */}
+        <div className="flex items-center gap-3">
           <p>A product of</p>
           <img src="/brandLogo.svg" alt="brands logo" />
         </div>
-        <p>© 2001 FindYourWhy.com. All rights reserved.</p>
+        {/* Copyright Info */}
+        <p>© 2001-{currentYear} FindYourWhy.com. All rights reserved.</p>
       </div>
     </footer>
   );

@@ -159,10 +159,10 @@ function BlogPage() {
                   <div className="p-4">
                     <p className="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded-full inline-block">{blog.category}</p>
                     <h2 className="text-lg font-semibold text-gray-800 mt-3">{blog.title}</h2>
-                    <Link href={'/blog/single-blog-details'}>
-                      <div className='flex items-center gap-2 mt-4'>
+                    <Link href={`/blog/${blog.id}`}>
+                      <div className='flex  items-center gap-2 mt-4'>
                         <span className="text-sm ">{blog.date}</span>
-                        <span className="text-sm ml-auto text-[#00b0f2]">see more </span><GoArrowUpRight />
+                        <span className="text-sm hover:underline ml-auto text-[#00b0f2]">see more </span><GoArrowUpRight />
                       </div>
                     </Link>
                   </div>

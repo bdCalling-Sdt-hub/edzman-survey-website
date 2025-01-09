@@ -1,5 +1,6 @@
 [
     {
+        "id":1,
         "bannerImage": "https://static.vecteezy.com/system/resources/thumbnails/033/168/339/small_2x/a-young-black-man-in-a-suit-and-tie-ai-generative-free-photo.jpg",
         "title": "Discovering My True Purpose: A Journey of Trust and Self-Discovery.",
         "description": "Your empathetic nature is a powerful asset, enabling you to build meaningful relationships and understand others deeply. However, it can also lead to emotional fatigue if boundaries aren't maintained.",
@@ -10,6 +11,7 @@
         "date": "2025-01-07"
     },
     {
+        "id":2,
         "bannerImage": "https://media.istockphoto.com/id/1289220545/photo/beautiful-woman-smiling-with-crossed-arms.jpg?s=612x612&w=0&k=20&c=qmOTkGstKj1qN0zPVWj-n28oRA6_BHQN8uVLIXg0TF8=",
         "title": "Mastering React: Tips & Tricks",
         "description": "Your empathetic nature is a powerful asset, enabling you to build meaningful relationships and understand others deeply. However, it can also lead to emotional fatigue if boundaries aren't maintained.",
@@ -20,6 +22,7 @@
         "date": "2025-01-05"
     },
     {
+        "id":3,
         "bannerImage": "https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=0&k=20&c=tyLvtzutRh22j9GqSGI33Z4HpIwv9vL_MZw_xOE19NQ=",
         "title": "Understanding CSS Flexbox",
         "description": "Your empathetic nature is a powerful asset, enabling you to build meaningful relationships and understand others deeply. However, it can also lead to emotional fatigue if boundaries aren't maintained.",
@@ -30,6 +33,7 @@
         "date": "2025-01-03"
     },
     {
+        "id":4,
         "bannerImage": "https://media.istockphoto.com/id/1317804578/photo/one-businesswoman-headshot-smiling-at-the-camera.jpg?s=612x612&w=0&k=20&c=EqR2Lffp4tkIYzpqYh8aYIPRr-gmZliRHRxcQC5yylY=",
         "title": "JavaScript Async Programming Explained",
         "description": "Your empathetic nature is a powerful asset, enabling you to build meaningful relationships and understand others deeply. However, it can also lead to emotional fatigue if boundaries aren't maintained.",
@@ -40,6 +44,7 @@
         "date": "2025-01-02"
     },
     {
+        "id":5,
         "bannerImage": "https://media.istockphoto.com/id/1399565382/photo/young-happy-mixed-race-businessman-standing-with-his-arms-crossed-working-alone-in-an-office.jpg?s=612x612&w=0&k=20&c=buXwOYjA_tjt2O3-kcSKqkTp2lxKWJJ_Ttx2PhYe3VM=",
         "title": "Building RESTful APIs with Node.js",
         "description": "Your empathetic nature is a powerful asset, enabling you to build meaningful relationships and understand others deeply. However, it can also lead to emotional fatigue if boundaries aren't maintained.",
@@ -50,6 +55,7 @@
         "date": "2024-12-30"
     },
     {
+        "id":6,
         "bannerImage": "https://static.vecteezy.com/system/resources/previews/038/974/578/non_2x/ai-generated-professional-portrait-of-a-competent-woman-free-photo.jpg",
         "title": "JavaScript Async Programming Explained",
         "description": "Your empathetic nature is a powerful asset, enabling you to build meaningful relationships and understand others deeply. However, it can also lead to emotional fatigue if boundaries aren't maintained.",
@@ -60,6 +66,7 @@
         "date": "2025-01-02"
     },
     {
+        "id":7,
         "bannerImage": "https://t3.ftcdn.net/jpg/02/83/12/98/360_F_283129831_MTTjxBv6zrcSREEsmLgvLQJFU0HyW2ui.jpg",
         "title": "Building RESTful APIs with Node.js",
         "description": "Your empathetic nature is a powerful asset, enabling you to build meaningful relationships and understand others deeply. However, it can also lead to emotional fatigue if boundaries aren't maintained.",

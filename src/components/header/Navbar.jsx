@@ -1,5 +1,5 @@
 'use client'
-import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
+import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/popover"
 import { MdOutlineQuestionMark } from 'react-icons/md'
 import { VscSignOut } from "react-icons/vsc";
-import { Spin } from 'antd'
 
 function Navbar() {
     const path = usePathname()
@@ -91,14 +90,13 @@ function Navbar() {
                                                 <h1 className='font-normal opacity-75 text-base'>{user?.displayName}</h1>
                                             </div>
                                         </div>
-                                        <AvatarFallback>
-                                            <Spin></Spin>
-                                        </AvatarFallback>
                                     </Avatar>
                                     <div className="divider w-full h-[1px] bg-slate-400/40 my-3"></div>
                                     <ul className='mt-3 flex items-start flex-col gap-3'>
                                         <Link href={'/user-profile'}><li className=' flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2'> <GiSettingsKnobs className='text-xl' />Profile Settings</li></Link>
-                                        <li className=' flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2'><MdOutlineQuestionMark className='text-xl' /> About us</li>
+                                        <Link href={'/about'}>
+                                            <li className=' flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2'><MdOutlineQuestionMark className='text-xl' /> About us</li>
+                                        </Link>
                                         <div className="divider w-full h-[1px] bg-slate-400/40"></div>
                                         <li className=' flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2'><VscSignOut className='text-xl' />Sign Out</li>
                                     </ul>
@@ -107,17 +105,21 @@ function Navbar() {
                         </>
                     ) : (
                         <>
-                            <Popover>
+                            <Popover >
                                 <PopoverTrigger asChild>
-                                    <Avatar>
+                                    <Avatar className=''>
                                         <AvatarImage className='w-8 h-8 rounded-full cursor-pointer' src="/icon/Icon button.svg" />
                                     </Avatar>
                                 </PopoverTrigger>
-                                <PopoverContent className="p-4">
+                                <PopoverContent className="p-4 z-[999]">
                                     <ul className='mt-3 flex items-start flex-col gap-3'>
-                                        <li className=' flex items-center gap-2'>Sign Up</li>
+                                        <Link href={'/register'}>
+                                            <li className=' flex items-center gap-2'>Sign Up</li>
+                                        </Link>
                                         <div className="divider w-full h-[1px] bg-slate-400/40"></div>
-                                        <li className=' flex items-center gap-2'>Login</li>
+                                        <Link href={'/login'}>
+                                            <li className=' flex items-center gap-2'>Login</li>
+                                        </Link>
                                     </ul>
                                 </PopoverContent>
                             </Popover>
@@ -172,9 +174,6 @@ function Navbar() {
                                             <h1 className='font-normal opacity-75 text-base'>{user?.displayName}</h1>
                                         </div>
                                     </div>
-                                    <AvatarFallback>
-                                        <Spin></Spin>
-                                    </AvatarFallback>
                                 </Avatar>
                             ) : (
                                 <>
@@ -186,9 +185,13 @@ function Navbar() {
                                         </PopoverTrigger>
                                         <PopoverContent className="p-4 z-[999]">
                                             <ul className='mt-3 flex items-start flex-col gap-3'>
-                                                <li className=' flex items-center gap-2'>Sign Up</li>
+                                                <Link href={'/register'}>
+                                                    <li className=' flex items-center gap-2'>Sign Up</li>
+                                                </Link>
                                                 <div className="divider w-full h-[1px] bg-slate-400/40"></div>
-                                                <li className=' flex items-center gap-2'>Login</li>
+                                                <Link href={'/login'}>
+                                                    <li className=' flex items-center gap-2'>Login</li>
+                                                </Link>
                                             </ul>
                                         </PopoverContent>
                                     </Popover>

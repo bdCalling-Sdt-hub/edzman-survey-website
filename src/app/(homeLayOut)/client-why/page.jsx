@@ -11,6 +11,7 @@ import { BsSortNumericUp } from 'react-icons/bs';
 import { ImSortNumbericDesc } from "react-icons/im";
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Empty } from 'antd';
+import Link from 'next/link';
 
 function SkeletonLoader() {
   return (
@@ -145,9 +146,9 @@ function Page() {
 
         {/* Blog Items */}
         {currentItems.length > 0 ? (
-          currentItems.map((item, idx) => (
-            <div key={idx}>
-              <div  className="flex flex-col md:flex-row lg:flex-row items-start md:items-center gap-16 mb-8">
+          currentItems.map((item) => (
+            <div key={item.id}>
+              <div className="flex flex-col md:flex-row lg:flex-row items-start md:items-center gap-16 mb-8">
                 <img
                   src={item?.bannerImage}
                   alt={item?.title}
@@ -174,9 +175,11 @@ function Page() {
                       <p className="text-sm">{item?.date}</p>
                     </div>
                   </div>
-                  <Button className="bg-[#00b0f2] mt-4 hover:bg-[#00b0f2]/70">
-                    Read More <MdOutlineKeyboardArrowRight />
-                  </Button>
+                  <Link href={`/client-why/${item.id}`}>
+                    <Button className="bg-[#00b0f2] mt-4 hover:bg-[#00b0f2]/70">
+                      Read More <MdOutlineKeyboardArrowRight />
+                    </Button>
+                  </Link>
                 </div>
               </div>
               <div className="w-full h-[1px] bg-[#222]/20 my-2"></div>
