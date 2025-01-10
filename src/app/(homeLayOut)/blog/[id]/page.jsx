@@ -1,9 +1,7 @@
 "use client";
-
 import DonateSection from "@/components/LadingPage/DonateSection";
 import PageHeader from "@/components/PageHeader/PageHeader";
 import ShareLink from "@/components/shareLink/ShareLink";
-import { Spin } from "antd";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";

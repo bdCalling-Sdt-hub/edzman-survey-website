@@ -1,24 +1,27 @@
 'use client';
 import { Layout, Menu, Typography } from 'antd';
 import { UserOutlined, DashboardOutlined, SettingOutlined } from '@ant-design/icons';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import 'antd/dist/reset.css';
 import { RiTodoLine } from "react-icons/ri";
 import { BsFillQuestionOctagonFill } from "react-icons/bs";
 import { FaEdit, FaRegBell } from 'react-icons/fa';
 import { IoWalletSharp } from "react-icons/io5";
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
-
+import { Button } from '@/components/ui/button';
+import { IoMdArrowDropdown } from "react-icons/io";
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import Notification from '@/components/notification/Notification';
+import { CiSettings } from "react-icons/ci";
+import { CiLogout } from "react-icons/ci";
 const { Header, Sider, Content } = Layout;
 const { Title } = Typography;
-
-// Menu items for the sidebar with routing paths
 const menuItems = [
     {
         key: '1',
         icon: <DashboardOutlined />,
         label: 'Admin Dashboard',
-        path: '/dashboard', // Default dashboard page
+        path: '/dashboard',
     },
     {
         key: '2',
@@ -60,6 +63,8 @@ const menuItems = [
 
 export default function DashboardLayOut({ children }) {
     const router = useRouter();
+    const pathname = usePathname();
+
     const handleMenuClick = ({ key }) => {
         const selectedItem = menuItems.find((item) => item.key === key);
         if (selectedItem && selectedItem.path) {
@@ -70,8 +75,8 @@ export default function DashboardLayOut({ children }) {
     const user = {
         login: true,
         photoURL: 'https://github.com/shadcn.png',
-        displayName: 'example@mail.com',
-        email: 'Hosain Ali',
+        displayName: 'Hosain Ali',
+        email: 'example@mail.com',
     };
 
     return (
@@ -101,12 +106,12 @@ export default function DashboardLayOut({ children }) {
                 <Menu
                     style={{ background: '#e6f3fe' }}
                     mode="inline"
-                    defaultSelectedKeys={['1']}
                     onClick={handleMenuClick}
                     items={menuItems.map((item) => ({
                         key: item.key,
                         icon: item.icon,
                         label: item.label,
+                        style: pathname === item.path ? { background: '#c0e9fc', color: '#111' } : {},
                     }))}
                 />
             </Sider>
@@ -127,20 +132,51 @@ export default function DashboardLayOut({ children }) {
                         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
                     }}
                 >
-                    <Title level={4}>
-                        <div className="flex items-center justify-between">
-                            <div className="p-2 rounded-full bg-white shadow-md">
-                                <FaRegBell />
+                    <Title level={4} className="w-full">
+                        <div className="flex items-center justify-between w-full">
+                            <div className="flex items-center"></div>
+                            <div className="flex items-center gap-4">
+                                {/* Avatar with Popover */}
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <div className="flex items-center gap-2 cursor-pointer">
+                                            <Avatar className='flex items-center w-8 h-8 justify-center bg-black'>
+                                                <FaRegBell className='text-white' />
+                                            </Avatar>
+                                        </div>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-96 mt-8">
+                                        <Notification />
+                                    </PopoverContent>
+                                </Popover>
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <div className="flex items-center gap-2 cursor-pointer">
+                                            <Avatar>
+                                                <AvatarImage
+                                                    className="w-8 h-8 rounded-full"
+                                                    src={user.photoURL}
+                                                    alt="User Avatar"
+                                                />
+                                            </Avatar>
+                                            <div className="flex items-center gap-1">
+                                                <p className="font-semibold text-sm">{user?.email}</p>
+                                                <IoMdArrowDropdown />
+                                            </div>
+                                        </div>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-48 p-2 mt-8">
+                                        <div className="flex flex-col gap-2">
+                                            <Button variant="ghost" className="justify-start flex items-center gap-2" onClick={() => navigateToSettings()}>
+                                                <CiSettings /> Settings
+                                            </Button>
+                                            <Button variant="ghost" className="justify-start flex items-center gap-2" onClick={() => handleSignOut()}>
+                                                <CiLogout /> Sign Out
+                                            </Button>
+                                        </div>
+                                    </PopoverContent>
+                                </Popover>
                             </div>
-                            <Avatar>
-                                <div className="flex gap-2">
-                                    <AvatarImage className="w-8 h-8 rounded-full cursor-pointer" src={user.photoURL} />
-                                    <div>
-                                        <h1 className="font-semibold text-base">{user?.email}</h1>
-                                        <h1 className="font-normal opacity-75 text-base">{user?.displayName}</h1>
-                                    </div>
-                                </div>
-                            </Avatar>
                         </div>
                     </Title>
                 </Header>

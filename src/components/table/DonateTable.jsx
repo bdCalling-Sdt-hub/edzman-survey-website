@@ -8,14 +8,14 @@ const DonateTable = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const handleMessageClick = (record) => {
-        setIsModalVisible(true); // Show the modal
+        setIsModalVisible(true);
     };
 
     const columns = [
         {
             title: 'SL No',
             width: 100,
-            dataIndex: 'name',
+            dataIndex: 'slNo',
             key: 'name',
             fixed: 'left',
         },
@@ -34,7 +34,7 @@ const DonateTable = () => {
         },
         {
             title: 'Donation Date',
-            dataIndex: 'number',
+            dataIndex: 'date',
             key: '2',
             width: 150,
         },
@@ -66,7 +66,8 @@ const DonateTable = () => {
 
     const dataSource = Array.from({ length: 10 }).map((_, i) => ({
         key: i,
-        name: i + 1,
+        slNo: i,
+        date:'28 Jan, 12:30 AM	',
         age: `User ${i + 1}`,
         address: `user${i + 1}@example.com`,
         number: `$ ${Math.floor(Math.random() * 200)}`,

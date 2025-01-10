@@ -1,10 +1,13 @@
+'use client'
 import GrowthChart from '@/components/Charts/GrowthChart'
 import DonateTable from '@/components/table/DonateTable'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 function page() {
-    
+    const router = useRouter()
 
     const data = [
         {
@@ -33,6 +36,10 @@ function page() {
             number: "$ 144061"
         }
     ]
+
+    const navigateDonation = () => {
+        router.push('/dashboard/donation-manage')
+    }
     return (
         <div className='flex items-center flex-col justify-center gap-12'>
             <div className='flex items-center justify-center gap-12'>
@@ -54,8 +61,13 @@ function page() {
 
 
             </div>
+            
             <GrowthChart></GrowthChart>
-            <DonateTable/>
+            <div className='flex items-center justify-between w-full p-2 rounded-md bg-[#d6f4ff]'>
+                <h1>Transition history</h1>
+                <Button onClick={() => navigateDonation()}>See All History</Button>
+            </div>
+            <DonateTable />
         </div>
     )
 }

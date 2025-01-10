@@ -1,8 +1,11 @@
+import DonateTable from '@/components/table/DonateTable'
 import React from 'react'
 
 function page() {
   return (
-    <div>test page</div>
+    <div>
+      <DonateTable/>
+    </div>
   )
 }
 
