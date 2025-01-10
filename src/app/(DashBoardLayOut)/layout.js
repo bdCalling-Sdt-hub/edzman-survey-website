@@ -151,7 +151,7 @@ export default function DashboardLayOut({ children }) {
                         margin: '16px',
                         padding: '16px',
                         background: '#fff',
-                        height: 'calc(100vh - 64px)', // Full height minus header height
+                        height: 'calc(100vh - 64px)',
                         overflowY: 'auto',
                     }}
                 >
