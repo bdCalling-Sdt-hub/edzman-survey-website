@@ -212,7 +212,7 @@ const AnswerQuestions = () => {
         if (answers) {
             Swal.fire({
                 title: "OTP Verified!",
-                text: `Your OTP: ${otp.join("")}`,
+                text: `Your OTP`,
                 icon: "success",
                 confirmButtonText: "Continue",
                 confirmButtonColor: "#00b0f2",
