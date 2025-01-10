@@ -8,6 +8,7 @@ import { BsFillQuestionOctagonFill } from "react-icons/bs";
 import { FaEdit, FaRegBell } from 'react-icons/fa';
 import { IoWalletSharp } from "react-icons/io5";
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
+
 const { Header, Sider, Content } = Layout;
 const { Title } = Typography;
 
@@ -69,15 +70,24 @@ export default function DashboardLayOut({ children }) {
     const user = {
         login: true,
         photoURL: 'https://github.com/shadcn.png',
-        displayName: 'expmple@mail.com',
-        email: 'Hosain ali',
-
-    }
+        displayName: 'example@mail.com',
+        email: 'Hosain Ali',
+    };
 
     return (
-        <Layout style={{ minHeight: '100vh' }}>
+        <Layout style={{ minHeight: '100vh', overflow: 'hidden' }}>
             {/* Sidebar */}
-            <Sider breakpoint="lg" collapsedWidth="0" style={{ background: '#e6f3fe' }}>
+            <Sider
+                breakpoint="lg"
+                collapsedWidth="0"
+                style={{
+                    background: '#e6f3fe',
+                    position: 'sticky',
+                    top: 0,
+                    height: '100vh',
+                    overflow: 'auto',
+                }}
+            >
                 <div
                     style={{
                         textAlign: 'center',
@@ -102,7 +112,7 @@ export default function DashboardLayOut({ children }) {
             </Sider>
 
             {/* Main Layout */}
-            <Layout>
+            <Layout style={{ overflow: 'hidden' }}>
                 {/* Header */}
                 <Header
                     style={{
@@ -111,19 +121,23 @@ export default function DashboardLayOut({ children }) {
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: 1000,
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
                     }}
                 >
                     <Title level={4}>
-                        <div className='flex items-center justify-between'>
-                            <div className='p-2 rounded-full bg-white shadow-md'>
+                        <div className="flex items-center justify-between">
+                            <div className="p-2 rounded-full bg-white shadow-md">
                                 <FaRegBell />
                             </div>
                             <Avatar>
-                                <div className='flex gap-2'>
-                                    <AvatarImage className='w-8 h-8 rounded-full cursor-pointer' src={user.photoURL} />
+                                <div className="flex gap-2">
+                                    <AvatarImage className="w-8 h-8 rounded-full cursor-pointer" src={user.photoURL} />
                                     <div>
-                                        <h1 className='font-semibold text-base'>{user?.email}</h1>
-                                        <h1 className='font-normal opacity-75 text-base'>{user?.displayName}</h1>
+                                        <h1 className="font-semibold text-base">{user?.email}</h1>
+                                        <h1 className="font-normal opacity-75 text-base">{user?.displayName}</h1>
                                     </div>
                                 </div>
                             </Avatar>
@@ -132,7 +146,15 @@ export default function DashboardLayOut({ children }) {
                 </Header>
 
                 {/* Content */}
-                <Content style={{ margin: '16px', padding: '16px', background: '#fff' }}>
+                <Content
+                    style={{
+                        margin: '16px',
+                        padding: '16px',
+                        background: '#fff',
+                        height: 'calc(100vh - 64px)', // Full height minus header height
+                        overflowY: 'auto',
+                    }}
+                >
                     {children}
                 </Content>
             </Layout>
