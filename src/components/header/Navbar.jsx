@@ -73,7 +73,7 @@ function Navbar() {
                     })}
                 </ul>
                 <div>
-                    {user.login ? (
+                    {!user.login ? (
                         <>
                             <Popover>
                                 <PopoverTrigger asChild>

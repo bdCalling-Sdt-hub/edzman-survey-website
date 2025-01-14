@@ -183,8 +183,9 @@ function page() {
             <div className="flex justify-center gap-4">
               <button
                 onClick={() => alert('Emailing the response...')}
-                className="bg-blue-500 flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-blue-600 transition-colors"
+                className="rounded-md flex gap-2 items-center text-white px-6 py-2 rounded-mdhover:text-[#00b0f2] bg-[#00b0f2]  border-[1px] border-[#00b0f2] transition-colors"
               >
+               
                 <SiMinutemailer style={{fontSize:'20px'}} />
                 Email the response
               </button>

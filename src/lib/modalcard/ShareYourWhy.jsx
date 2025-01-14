@@ -1,8 +1,9 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, Input, Upload, Modal } from 'antd';
+import { Button, Upload, Modal, Input } from 'antd';
 import 'antd/dist/reset.css';
+import JoditEditor from 'jodit-react';
 
 export default function ShareYourWhy() {
   const [fileList, setFileList] = useState([]);
@@ -26,14 +27,26 @@ export default function ShareYourWhy() {
     console.log('Files:', fileList);
     // Add further submission logic here
   };
-
+  const jodit = useMemo(() => {
+    return <JoditEditor
+      value={description}
+      onBlur={(newContent) => setDescription(newContent)}
+      config={{
+        readonly: false,
+        toolbarSticky: false,
+        height: 600,
+        width: '100%',
+      }}
+    />
+  }, [])
   return (
     <Modal
+      destroyOnClose={false}
       title={<span className="text-lg font-bold text-[#1d3557]">Share your WHY</span>}
       open={isModalOpen}
       onCancel={handleCancel}
       footer={null}
-      width={600}
+      width={1200}
       className="rounded-lg shadow-lg p-6"
     >
       <div className="space-y-6">
@@ -75,13 +88,7 @@ export default function ShareYourWhy() {
           <label className="block text-sm font-semibold text-gray-700 mb-2">
             Story Description
           </label>
-          <Input.TextArea
-            rows={5}
-            placeholder="Write a detailed description of your story..."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="p-3 rounded-md border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-          />
+          {jodit}
         </div>
 
         {/* Buttons */}

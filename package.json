@@ -20,6 +20,7 @@
     "embla-carousel-react": "^8.5.1",
     "framer-motion": "^11.16.0",
     "input-otp": "^1.4.2",
+    "jodit-react": "^4.1.2",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.469.0",
     "moment": "^2.30.1",

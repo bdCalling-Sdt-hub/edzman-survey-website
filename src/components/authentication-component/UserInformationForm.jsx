@@ -73,6 +73,7 @@ const UserInformationForm = () => {
                     Please enter your valid email and information to continue
                 </p>
                 <Form
+                requiredMark={false}
                     layout="vertical"
                     onFinish={onFinish}
                     className="space-y-6"

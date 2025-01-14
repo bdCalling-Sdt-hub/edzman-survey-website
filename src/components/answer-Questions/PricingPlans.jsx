@@ -56,12 +56,12 @@ const PricingPlans = () => {
         {plansData.map((plan, index) => (
           <div
             key={index}
-            className={`bg-gradient-to-b flex flex-col ${index % 2 === 0 ? 'md:leading-2' : 'md:leading-8 md:gap-3'} from-[#e2eaef] to-[#7dbef1] text-white shadow-md rounded-lg m-4 p-6 w-full sm:w-80`}
+            className={`bg-gradient-to-b flex-1 flex flex-col ${index % 2 === 0 ? 'md:leading-2' : 'md:leading-8 md:gap-3'} from-[#e2eaef] to-[#7dbef1] text-white shadow-md rounded-lg m-4 p-6 w-full sm:w-80`}
           >
             <h3 className="text-lg font-bold text-gray-800">{plan.title}</h3>
             <p className="text-xl font-bold text-blue-500">{plan.price}</p>
             <p className="mt-2 text-gray-600">{plan.description}</p>
-            <Button className="mt-4 w-full bg-blue-500 text-white hover:bg-blue-600">
+            <Button className="hover:bg-[#f0f8ff] hover:border-[1px] hover:border-[#00b0f2] hover:text-[#00b0f2] bg-[#00b0f2]  border-[1px] border-[#00b0f2] text-white px-4 py-2 rounded-md">
               {plan.buttonText}
             </Button>
             <div className="w-full h-[1px] bg-black/20 my-2"></div>
