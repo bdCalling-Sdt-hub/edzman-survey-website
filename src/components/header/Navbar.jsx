@@ -29,7 +29,7 @@ function Navbar() {
     ]
 
     const user = {
-        login: true,
+        login: false,
         photoURL: 'https://github.com/shadcn.png',
         displayName: 'hosain Ali',
         email: 'exmple@mail.com',
@@ -86,8 +86,8 @@ function Navbar() {
                                         <div className='flex gap-2'>
                                             <AvatarImage className='w-8 h-8 rounded-full cursor-pointer' src={user.photoURL} />
                                             <div>
-                                            <h1 className='font-semibold text-base'>{user?.displayName}</h1>
-                                            <h1 className='font-normal opacity-75 text-base'>{user?.email}</h1>
+                                                <h1 className='font-semibold text-base'>{user?.displayName}</h1>
+                                                <h1 className='font-normal opacity-75 text-base'>{user?.email}</h1>
                                             </div>
                                         </div>
                                     </Avatar>

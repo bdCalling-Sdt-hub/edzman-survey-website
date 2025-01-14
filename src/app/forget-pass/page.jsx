@@ -17,6 +17,7 @@ const ForgetPassword = () => {
                     Please enter your email to get a verification code
                 </p>
                 <Form
+                    requiredMark={false}
                     form={form}
                     layout="vertical"
                     onFinish={onFinish}

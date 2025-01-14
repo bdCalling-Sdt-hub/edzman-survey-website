@@ -4,6 +4,7 @@ import { Button, Input, Progress } from 'antd';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Link from 'next/link';
 import Swal from 'sweetalert2';
+import { useRouter } from 'next/navigation';
 
 const questions = [
     {
@@ -172,9 +173,9 @@ const questions = [
 
 const AnswerQuestions = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answers, setAnswers] = useState({});
+    const [answers, setAnswers] = useState([{}]);
     const currentQuestion = questions[currentQuestionIndex];
-
+    const router = useRouter()
     const handleInputChange = (value, questionId, subQuestionIndex) => {
         setAnswers((prev) => ({
             ...prev,
@@ -209,15 +210,17 @@ const AnswerQuestions = () => {
     };
 
     const handleSubmit = () => {
+        console.log(answers);
+
         if (answers) {
             Swal.fire({
-                title: "OTP Verified!",
+                title: "asda Verified!",
                 text: `Your OTP`,
                 icon: "success",
                 confirmButtonText: "Continue",
                 confirmButtonColor: "#00b0f2",
             }).then(() => {
-                router.push("/find-why/answer-Questions");
+                router.push("/find-why/answer-Questions/resultOfWhy");
             });
         } else {
             Swal.fire({

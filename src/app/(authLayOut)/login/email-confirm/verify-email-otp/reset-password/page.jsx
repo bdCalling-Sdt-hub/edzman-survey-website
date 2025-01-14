@@ -39,6 +39,7 @@ const ResetPassword = () => {
                     Create a new password. Ensure it differs from previous ones for security.
                 </p>
                 <Form
+                    requiredMark={false}
                     form={form}
                     layout="vertical"
                     onFinish={onFinish}

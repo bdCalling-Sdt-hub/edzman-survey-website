@@ -17,7 +17,9 @@ const Register = () => {
                 <p className="text-center text-gray-600 mb-6">
                     Please enter your email and password to register
                 </p>
-                <Form layout="vertical" onFinish={onFinish} className="space-y-6">
+                <Form
+                    requiredMark={false}
+                    layout="vertical" onFinish={onFinish} className="space-y-6">
                     <Form.Item
                         name="email"
                         label="Email address"
