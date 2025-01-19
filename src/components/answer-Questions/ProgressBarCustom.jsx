@@ -36,7 +36,7 @@ function ProgressBarCustom() {
     }, []);
 
     return (
-        <div className='mr-12'>
+        <div className='mr-12 my-12'>
             <Flex vertical gap="small">
                 <p>Passion for Helping Others:</p>
                 <Progress

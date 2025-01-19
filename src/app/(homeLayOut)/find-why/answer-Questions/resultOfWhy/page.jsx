@@ -162,17 +162,17 @@ function page() {
           </div>
         </div>
 
-        <div className="flex my-12 justify-between flex-col p-4 rounded-lg text-center">
+        <div className="flex my-4 md:my-12 justify-between flex-col p-4 rounded-lg text-center">
           <div className="flex items-end">
             <img
               className="w-12 mt-12 sm:w-10 md:w-14 lg:w-16"
               src="/bullet-point 1.svg"
               alt="bullet-point icon"
             />
-            <h2 className="text-2xl font-bold text-gray-800">Share Your WHY Insights and Inspire Change</h2>
+            <h2 className=" md:text-2xl font-bold text-gray-800">Share Your WHY Insights and Inspire Change</h2>
           </div>
-          <div className="flex justify-between w-full mt-12">
-            <div className="flex justify-center  items-center gap-4 mb-6">
+          <div className="flex justify-between md:flex-row flex-col w-full mt-12">
+            <div className="flex justify-center items-center gap-4 mb-6">
               <FaFacebookF className="text-blue-600 text-2xl cursor-pointer hover:scale-110 transition-transform" />
               <FaInstagram className="text-pink-500 text-2xl cursor-pointer hover:scale-110 transition-transform" />
               <FaTiktok className="text-black text-2xl cursor-pointer hover:scale-110 transition-transform" />
@@ -180,7 +180,7 @@ function page() {
               <FaWhatsapp className="text-green-500 text-2xl cursor-pointer hover:scale-110 transition-transform" />
               <FaTelegramPlane className="text-blue-400 text-2xl cursor-pointer hover:scale-110 transition-transform" />
             </div>
-            <div className="flex justify-center gap-4">
+            <div className="flex justify-center md:flex-row flex-col gap-4">
               <button
                 onClick={() => alert('Emailing the response...')}
                 className="rounded-md flex gap-2 items-center text-white px-6 py-2 rounded-mdhover:text-[#00b0f2] bg-[#00b0f2]  border-[1px] border-[#00b0f2] transition-colors"

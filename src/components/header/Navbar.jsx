@@ -29,8 +29,8 @@ function Navbar() {
     ]
 
     const user = {
-        login: false,
-        photoURL: 'https://github.com/shadcn.png',
+        login: true,
+        photoURL: 'https://randomuser.me/api/portraits/men/75.jpg',
         displayName: 'hosain Ali',
         email: 'exmple@mail.com',
 
