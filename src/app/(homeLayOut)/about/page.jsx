@@ -24,7 +24,7 @@ function page() {
           </p>
           <div className="flex items-start gap-4">
             <img
-              src="/icon/rocket.png"
+              src="/Icon/rocket.png"
               alt="mission icon"
               className="w-12 h-12 md:w-16 md:h-16"
             />
@@ -38,7 +38,7 @@ function page() {
           </div>
           <div className="flex items-start gap-4">
             <img
-              src="/icon/idea.png"
+              src="/Icon/idea.png"
               alt="idea icon"
               className="w-12 h-12 md:w-16 md:h-16"
             />

@@ -104,7 +104,7 @@ If you are in the European Economic Area (EEA) or another jurisdiction with data
                         <div key={idx} className="mt-8">
                             <div className="flex items-start gap-3 mb-4">
                                 <img
-                                    src="/icon/bullet-point.png"
+                                    src="/Icon/bullet-point.png"
                                     alt="icon"
                                     className="w-6 h-6 sm:w-8 sm:h-8"
                                 />

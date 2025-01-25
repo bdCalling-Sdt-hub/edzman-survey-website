@@ -163,7 +163,7 @@ function WhyQuestions() {
                 <div key={idx}>
                     <div className="flex mt-12 items-center gap-3 mb-6">
                         <img
-                            src="/icon/bullet-point.png"
+                            src="/Icon/bullet-point.png"
                             alt="icon"
                             className="w-8 h-8"
                         />

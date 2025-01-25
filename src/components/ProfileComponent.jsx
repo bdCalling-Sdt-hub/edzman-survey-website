@@ -77,7 +77,7 @@ const ProfileComponent = () => {
   });
 
   const profileFields = [
-    { key: "Name", label: "First Name" },
+    { key: "Name", label: "Full Name" },
     { key: "profession", label: "Profession" },
     {
       key: "dateOfBirth",

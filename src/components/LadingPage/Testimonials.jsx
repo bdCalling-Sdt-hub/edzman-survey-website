@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useCallback, useRef } from "react";
 import "swiper/css";
@@ -21,37 +21,45 @@ const Testimonial = () => {
   const testimonials = [
     {
       _id: 1212,
-      name: 'Emma R.',
+      name: "Emma R.",
       feedback: `"Flowing The step by step on FindYourWhy.com was an eye-opening journey. The questions were thought-provoking, and the personalized insights truly helped me identify what drives me. I feel more confident and inspired to pursue my goals."`,
-      avatar: 'https://static.vecteezy.com/system/resources/previews/038/974/578/non_2x/ai-generated-professional-portrait-of-a-competent-woman-free-photo.jpg',
-      question: 'A Life WHY Is About Finding Your FYW',
+      avatar:
+        "https://static.vecteezy.com/system/resources/previews/038/974/578/non_2x/ai-generated-professional-portrait-of-a-competent-woman-free-photo.jpg",
+      question: "A Life WHY Is About Finding Your FYW",
     },
     {
       _id: 1221312,
-      name: 'John Doe',
-      feedback: "This platform has transformed my perspective and given me clarity like never before.",
-      avatar: 'https://img.freepik.com/free-photo/smiling-young-male-professional-standing-with-arms-crossed-while-making-eye-contact-against-isolated-background_662251-838.jpg?semt=ais_hybrid',
-      question: 'Software Engineer',
+      name: "John Doe",
+      feedback:
+        "This platform has transformed my perspective and given me clarity like never before.",
+      avatar:
+        "https://img.freepik.com/free-photo/smiling-young-male-professional-standing-with-arms-crossed-while-making-eye-contact-against-isolated-background_662251-838.jpg?semt=ais_hybrid",
+      question: "Software Engineer",
     },
     {
       _id: 134566212,
-      name: 'Jane Smith',
-      feedback: "Exceptional experience! The insights were eye-opening, and I feel empowered to take actionable steps toward my goals.",
-      avatar: 'https://freeparalegal.org/wp-content/uploads/2023/08/July-1536x1024-1.jpg',
-      question: 'Project Manager',
+      name: "Jane Smith",
+      feedback:
+        "Exceptional experience! The insights were eye-opening, and I feel empowered to take actionable steps toward my goals.",
+      avatar:
+        "https://freeparalegal.org/wp-content/uploads/2023/08/July-1536x1024-1.jpg",
+      question: "Project Manager",
     },
   ];
 
   return (
     <>
       <SectionHeader
-        title={'What Our Clients Are Saying'}
+        title={"What Our Clients Are Saying"}
         subTitle={
-          'Discover how our platform has empowered individuals to uncover their FYW, gain clarity, and take actionable steps toward a more meaningful life.'
+          "Discover how our platform has empowered individuals to uncover their FYW, gain clarity, and take actionable steps toward a more meaningful life."
         }
       />
-      <section style={{ backgroundImage: `url(/image/tesimonialBg.png)` }} className=" bg-no-repeat bg-center bg-cover max-w-[90vw] rounded-md pb-20 pt-20 dark:bg-dark lg:pb-[120px] lg:pt-[120px]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section
+        style={{ backgroundImage: `url(/image/tesimonialBg.png)` }}
+        className=" bg-no-repeat bg-center bg-cover max-w-[95vw] rounded-md pb-20 pt-20 dark:bg-dark lg:pb-[120px] lg:pt-[120px]"
+      >
+        <div className="container mx-auto">
           <Swiper
             slidesPerView={1}
             ref={sliderRef}
@@ -84,7 +92,7 @@ const Testimonial = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className="flex justify-center mt-8 gap-4">
+          {/* <div className="flex justify-center mt-8 gap-4">
             <button
               className="h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center"
               onClick={handlePrev}
@@ -121,7 +129,7 @@ const Testimonial = () => {
                 />
               </svg>
             </button>
-          </div>
+          </div> */}
         </div>
       </section>
     </>
@@ -130,20 +138,32 @@ const Testimonial = () => {
 
 export default Testimonial;
 
-const SingleTestimonial = ({ image, reviewImg, reviewAlt, details, name, position }) => {
+const SingleTestimonial = ({ image, details, name, position }) => {
   return (
     <div className="relative w-full flex justify-center">
       <div className="relative w-[90vw] pb-8 md:w-11/12 lg:w-10/12 xl:w-8/12">
         <div className="w-full flex flex-col items-center md:flex-row">
-          <div className="relative mb-8 w-[100px] h-[100px] md:w-[250px]  md:h-[200px] border-4 rounded-full border-[#dadada]">
-            <img src={image} alt="image" className="w-full object-cover  h-full rounded-full" />
+          <div className="relative mb-8 w-full h-full  border-4 rounded-full border-[#dadada]">
+            <img
+              src={image}
+              alt="image"
+              className="w-full object-cover  h-full rounded-full"
+            />
           </div>
           <div className="w-full text-center ml-4 md:text-left">
             <div>
-              <h1 className="md:text-3xl font-semibold text-gray-900 dark:text-white">A Life WHY Is About Finding Your FYW</h1>
-              <p className="mb-4 md:text-xl my-3 italic text-gray-600 dark:text-gray-300">{details}</p>
-              <h4 className="md:text-2xl font-semibold text-gray-900 dark:text-white">{name}</h4>
-              <p className="md:text-xl text-gray-500 dark:text-gray-400">{position}</p>
+              <h1 className="md:text-3xl font-semibold text-gray-900 dark:text-white">
+                A Life WHY Is About Finding Your FYW
+              </h1>
+              <p className="mb-4 md:text-xl my-3 italic text-gray-600 dark:text-gray-300">
+                {details}
+              </p>
+              <h4 className="md:text-2xl font-semibold text-gray-900 dark:text-white">
+                {name}
+              </h4>
+              <p className="md:text-xl text-gray-500 dark:text-gray-400">
+                {position}
+              </p>
             </div>
           </div>
         </div>

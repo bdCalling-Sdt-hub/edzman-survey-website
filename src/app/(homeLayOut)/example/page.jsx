@@ -108,7 +108,7 @@ function FindYourWhyExamples() {
                   key={index}
                   className="mb-2 flex md:flex-row flex-col items-start md:items-center gap-2"
                 >
-                  <img className="border-2 p-2 rounded-md  border-[#00b0f2] bg-[#00b0f2]/20" src="/icon/solidarity.png" alt="solidarity icon" />
+                  <img className="border-2 p-2 rounded-md  border-[#00b0f2] bg-[#00b0f2]/20" src="/Icon/solidarity.png" alt="solidarity icon" />
                   <div>
                     <h2 className="text-lg font-semibold">{title}</h2>
                     <p className="text-sm lg:text-base"><b>Example :-</b>{data?.example[index]}</p>
@@ -118,7 +118,7 @@ function FindYourWhyExamples() {
               ))}
               <div className="flex items-center gap-3">
                 <h1 className="font-semibold">To Find Your Why –</h1><button className="bg-[#00b0f2] font-semibold  text-white px-6 py-2 rounded-md  hover:bg-[#00b0f2]/70 transition">
-                  Start Here
+                  Start HereF
                 </button>
               </div>
 

@@ -6,7 +6,7 @@ function DonateSection() {
         <div className=" flex w-full py-16 mt-12 items-center bg-gradient-to-r from-[#2397f3] to-[#acd7e7] justify-center text-center px-4">
             <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-center">
                 <img
-                    src="/icon/icon.png"
+                    src="/Icon/icon.png"
                     alt="Donate Icon"
                     className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24"
                 />

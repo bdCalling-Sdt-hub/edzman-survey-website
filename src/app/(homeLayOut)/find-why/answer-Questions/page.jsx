@@ -5,19 +5,19 @@ import React from 'react'
 function page() {
   const cardData = [
     {
-      icon: "/icon/answer1.png",
+      icon: "/Icon/answer1.png",
       title: `Copmleate The WHY's`,
       subTitle: 'Be yourself and answer honestly to find out your personality type.',
       styling: 'from-[#17b4ec] to-[#fff]'
     },
     {
-      icon: "/icon/answer2.png",
+      icon: "/Icon/answer2.png",
       title: `View The Detail Result`,
       subTitle: 'Learn how your personality type influences many areas of your life.',
       styling: 'from-[#2397f3] to-[#ced7f6]'
     },
     {
-      icon: "/icon/answer3.png",
+      icon: "/Icon/answer3.png",
       title: `Unlock Your Potential`,
       subTitle: 'Grow into the person you want to be with your optional Premium Suite.',
       styling: 'from-[#2397f3] to-[#ced7f6]'
