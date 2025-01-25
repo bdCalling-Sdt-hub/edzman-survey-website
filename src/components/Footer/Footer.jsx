@@ -32,10 +32,14 @@ function Footer() {
           <img src="/brandLogo.svg" alt="brand logo" />
           <ul>
             {importantLinks.map((link, index) => (
-              <li key={index} className="mb-2 hover:text-[#00B0F2] flex items-center gap-2">
-                <Link href={link?.path}>
-                  {link?.title}
-                </Link><h1 className="text-[#00B0F2]  text-xl font-bold">{link?.icon}</h1>
+              <li
+                key={index}
+                className="mb-2 hover:text-[#00B0F2] flex items-center gap-2"
+              >
+                <Link href={link?.path}>{link?.title}</Link>
+                <h1 className="text-[#00B0F2]  text-xl font-bold">
+                  {link?.icon}
+                </h1>
               </li>
             ))}
           </ul>
@@ -62,7 +66,7 @@ function Footer() {
             <ul>
               {impactLinks.map((link, index) => (
                 <li key={index} className="mb-2">
-                  <Link className='hover:text-[#00B0F2]' href={link?.path}>
+                  <Link className="hover:text-[#00B0F2]" href={link?.path}>
                     {link?.title}
                   </Link>
                 </li>
@@ -71,7 +75,9 @@ function Footer() {
           </div>
           {/* Newsletter Subscription */}
           <div>
-            <p className="mb-2 text-xm lg:text-base ">Get Notified When a New WHY is Shared</p>
+            <p className="mb-2 text-xm lg:text-base ">
+              Get Notified When a New WHY is Shared
+            </p>
             <div className="flex items-center">
               <input
                 type="email"

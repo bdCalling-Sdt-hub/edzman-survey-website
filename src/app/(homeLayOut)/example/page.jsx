@@ -118,7 +118,7 @@ function FindYourWhyExamples() {
               ))}
               <div className="flex items-center gap-3">
                 <h1 className="font-semibold">To Find Your Why –</h1><button className="bg-[#00b0f2] font-semibold  text-white px-6 py-2 rounded-md  hover:bg-[#00b0f2]/70 transition">
-                  Start HereF
+                  Start Here
                 </button>
               </div>
 

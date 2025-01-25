@@ -53,7 +53,9 @@ function Navbar() {
   return (
     <div className="container mx-auto flex items-center justify-between p-4">
       <div>
-        <img src="/brandLogo.svg" alt="brandLogo" className="h-10" />
+        <Link href={"/"}>
+          <img src="/brandLogo.svg" alt="brandLogo" className="h-10" />
+        </Link>
       </div>
 
       {/* Desktop Menu */}
@@ -204,7 +206,7 @@ function Navbar() {
               })}
             </ul>
             <div className="mt-6 text-lg font-semibold">
-              {user.login ? (
+              {!user.login ? (
                 <Avatar>
                   <div className="flex gap-2">
                     <AvatarImage
