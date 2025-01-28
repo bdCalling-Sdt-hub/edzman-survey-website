@@ -55,15 +55,15 @@ export default function ShareYourWhy() {
           multiple
           fileList={fileList}
           onChange={handleUpload}
-          className="border-dashed border-2 flex flex-col border-blue-300 rounded-lg p-6 hover:border-blue-500 transition duration-200"
+          className="border-dashed border-2 flex flex-col border-blue-300 rounded-lg p-6 hover:border-[#21B6F2] transition duration-200"
           accept=".jpg,.png,.pdf,.docx"
           beforeUpload={() => false} // Prevent automatic upload
         >
           <div className="flex flex-col items-center justify-center text-center">
-            <UploadOutlined className="text-blue-500 text-4xl mb-2" />
+            <UploadOutlined className="text-[#21B6F2] text-4xl mb-2" />
             <p className="text-gray-600 font-medium">Drag your file(s) to start uploading</p>
             <p className="text-gray-500 text-sm">OR</p>
-            <Button className="bg-blue-500 hover:bg-blue-600 text-white mt-2">
+            <Button className="bg-[#21B6F2] hover:bg-blue-600 text-white mt-2">
               Browse files
             </Button>
             <p className="text-sm text-gray-400 mt-2">Max 5 files allowed</p>
@@ -79,7 +79,7 @@ export default function ShareYourWhy() {
             placeholder="Enter your story title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="p-3 rounded-md border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            className="p-3 rounded-md border-gray-300 focus:border-[#21B6F2] focus:ring-1 focus:ring-[#21B6F2]"
           />
         </div>
 
@@ -101,7 +101,7 @@ export default function ShareYourWhy() {
           </Button>
           <Button
             onClick={handleSubmit}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md font-medium"
+            className="bg-[#21B6F2] hover:bg-blue-600 text-white px-6 py-2 rounded-md font-medium"
           >
             Request for post
           </Button>

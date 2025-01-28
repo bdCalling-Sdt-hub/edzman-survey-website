@@ -128,10 +128,12 @@ function Navbar() {
                       </li>
                     </Link>
                     <div className="divider w-full h-[1px] bg-slate-400/40"></div>
-                    <li className=" flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2">
-                      <VscSignOut className="text-xl" />
-                      Sign Out
-                    </li>
+                    <Link className="w-full" href={"/login"}>
+                      <li className=" flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2">
+                        <VscSignOut className="text-xl" />
+                        Sign Out
+                      </li>
+                    </Link>
                   </ul>
                 </PopoverContent>
               </Popover>

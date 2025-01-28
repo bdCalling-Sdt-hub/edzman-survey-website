@@ -73,7 +73,7 @@ export default function WhyLogsHistory() {
                     <Link href={`/ftw`}>
                         <Button
                             type="primary"
-                            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md"
+                            className="bg-[#21B6F2] hover:bg-blue-600 text-white px-6 py-2 rounded-md"
                         >
                             Find Your Why
                         </Button>

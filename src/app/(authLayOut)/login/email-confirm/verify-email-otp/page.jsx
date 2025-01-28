@@ -63,7 +63,7 @@ const VerifyEmailOtp = () => {
                             value={digit}
                             onChange={(e) => handleChange(e.target.value, index)}
                             onKeyDown={(e) => handleKeyDown(e, index)}
-                            className="w-12 h-12 text-center text-lg font-bold rounded-md shadow-sm border border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-300"
+                            className="w-12 h-12 text-center text-lg font-bold rounded-md shadow-sm border border-gray-300 focus:border-[#21B6F2] focus:ring focus:ring-blue-300"
                             maxLength={1}
                         />
                     ))}

@@ -1,7 +1,16 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import { GoArrowUpRight } from "react-icons/go";
+import { Button, Form, Input, message, Space } from "antd";
 function Footer() {
+  const [form] = Form.useForm();
+
+  const handleSubmit = (values) => {
+    console.log(values);
+
+    message.success(`Thank you for subscribing, ${values.email}`);
+  };
   const QuickLinks = [
     { title: "Home", path: "/" },
     { title: "Example 'WHY's", path: "/example" },
@@ -24,6 +33,7 @@ function Footer() {
     { title: "Cookie Policy", path: "/cookies", icon: <GoArrowUpRight /> },
   ];
   const currentYear = new Date().getFullYear();
+
   return (
     <footer className="bg-black text-white py-12 lg:px-28">
       <div className="container mx-auto px-4 flex lg:flex-row flex-col justify-between gap-8">
@@ -74,20 +84,46 @@ function Footer() {
             </ul>
           </div>
           {/* Newsletter Subscription */}
+
           <div>
-            <p className="mb-2 text-xm lg:text-base ">
+            <p className="mb-2 text-xm lg:text-base">
               Get Notified When a New WHY is Shared
             </p>
-            <div className="flex items-center">
-              <input
-                type="email"
-                placeholder="Enter a Valid Email"
-                className="flex-1 text-black px-4 py-2 rounded-l-lg focus:outline-none"
-              />
-              <button className="bg-[#00B0F2] text-white px-4 py-2 rounded-r-lg hover:bg-[#00B0F2]/80">
-                →
-              </button>
-            </div>
+            <Form
+              form={form}
+              onFinish={handleSubmit}
+              className="flex items-center"
+            >
+              <Space.Compact style={{ width: "100%" }}>
+                <Form.Item
+                  name="email"
+                  rules={[
+                    { required: true, message: "Email is required!" },
+                    { type: "email", message: "Please enter a valid email!" },
+                  ]}
+                  style={{ marginBottom: 0, flex: 1 }}
+                >
+                  <Input
+                    type="email"
+                    placeholder="Enter a Valid Email"
+                    className="rounded-l-lg rounded-none"
+                    style={{ padding: "10px" }}
+                  />
+                </Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="rounded-r-lg h-full mt-[1px]"
+                  style={{
+                    backgroundColor: "#00B0F2",
+                    borderColor: "#00B0F2",
+                    height: "42px",
+                  }}
+                >
+                  →
+                </Button>
+              </Space.Compact>
+            </Form>
           </div>
         </div>
       </div>
@@ -96,8 +132,10 @@ function Footer() {
       <div className="container mx-auto border-t px-4 flex lg:flex-row flex-col item-start lg:items-center justify-between border-gray-700 mt-8 pt-4 lg:text-center">
         {/* Brand Info */}
         <div className="flex items-center gap-3">
-          <p>A product of</p>
-          <img src="/brandLogo.svg" alt="brands logo" />
+          <div className="flex items-center gap-2">
+            <p className=" mt-4">A product of</p>
+            <img src="/brandLogo.svg" alt="brands logo" />
+          </div>
         </div>
         {/* Copyright Info */}
         <p>© 2001-{currentYear} FindYourWhy.com. All rights reserved.</p>

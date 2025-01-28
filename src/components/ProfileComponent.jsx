@@ -254,7 +254,7 @@ const ProfileComponent = () => {
         <div className="space-y-6">
           {/* Upload Section */}
           <Upload.Dragger
-            className="border-dashed border-2 flex flex-col border-blue-300 rounded-lg p-6 hover:border-blue-500 transition duration-200"
+            className="border-dashed border-2 flex flex-col border-blue-300 rounded-lg p-6 hover:border-[#21B6F2] transition duration-200"
             accept=".jpg,.png" // Restrict to image files
             beforeUpload={(file) => {
               const isImage =
@@ -293,12 +293,12 @@ const ProfileComponent = () => {
               />
             ) : (
               <div className="flex flex-col items-center justify-center text-center">
-                <UploadOutlined className="text-blue-500 text-4xl mb-2" />
+                <UploadOutlined className="text-[#21B6F2] text-4xl mb-2" />
                 <p className="text-gray-600 font-medium">
                   Drag your image here to upload
                 </p>
                 <p className="text-gray-500 text-sm">OR</p>
-                <Button className="bg-blue-500 hover:bg-blue-600 text-white mt-2">
+                <Button className="bg-[#21B6F2] hover:bg-blue-600 text-white mt-2">
                   Browse files
                 </Button>
               </div>

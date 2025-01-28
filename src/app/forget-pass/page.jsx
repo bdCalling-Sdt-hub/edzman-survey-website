@@ -44,7 +44,7 @@ const ForgetPassword = () => {
                             <Button
                                 type="primary"
                                 htmlType="submit"
-                                className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white text-lg font-bold"
+                                className="w-full h-12 bg-[#21B6F2] hover:bg-blue-600 text-white text-lg font-bold"
                             >
                                 Continue
                             </Button>

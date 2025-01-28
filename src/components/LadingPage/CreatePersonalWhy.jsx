@@ -73,7 +73,7 @@ function CreatePersonalWhy() {
                 </p>
                 <p className="opacity-75 z-[999]">{data?.description}</p>
                 <Link href={"/ftw"}>
-                  <div className="flex px-6 py-3 items-center border-[#00B0F2] rounded-md border-2 gap-2">
+                  <div className="flex px-6 py-3 items-center border-[#00B0F2] hover:bg-[#00B0F2] transition-all hover:text-white rounded-md border-2 gap-2">
                     <button className="cursor-pointer">
                       {data?.buttonText}
                     </button>
