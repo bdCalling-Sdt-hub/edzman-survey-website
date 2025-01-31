@@ -1,13 +1,30 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import Link from "next/link";
+import { usePostLoginInfoMutation } from "@/app/provider/redux/services/authApis";
 
 const Login = () => {
-  const onFinish = (values) => {
-    console.log("Login Submitted:", values);
-    // Add login logic here
+  const [login, { isLoading }] = usePostLoginInfoMutation();
+  const [error, setError] = useState("");
+  const onFinish = async (values) => {
+    const data = {
+      email: values?.email,
+      password: values?.password,
+    };
+    try {
+      const response = await login(data).unwrap();
+      if (response.success) {
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+        navigate("/");
+      } else {
+        setError(response.message || "Login failed. Please try again.");
+      }
+    } catch (err) {
+      setError(err?.data?.message || "Login failed. Please try again.");
+    }
   };
 
   return (
@@ -19,11 +36,13 @@ const Login = () => {
         <p className="text-center text-gray-600 mb-6">
           Please enter your email and password to continue
         </p>
+        {error && <div className="mb-4 text-red-500 text-center">{error}</div>}
         <Form
           requiredMark={false}
           layout="vertical"
           onFinish={onFinish}
           className="space-y-6"
+          autoComplete="on"
         >
           <Form.Item
             name="email"
@@ -36,6 +55,7 @@ const Login = () => {
             <Input
               placeholder="example@gmail.com"
               className="h-12 text-gray-700"
+              autoComplete="email"
             />
           </Form.Item>
 
@@ -50,6 +70,7 @@ const Login = () => {
               iconRender={(visible) =>
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
               }
+              autoComplete="current-password"
             />
           </Form.Item>
 

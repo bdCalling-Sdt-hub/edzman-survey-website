@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import baseApi from "./query/baseUrl";
+import baseApis from "./query/baseApis";
 
 const store = configureStore({
   reducer: {
-    [baseApi.reducerPath]: baseApi.reducer,
+    [baseApis.reducerPath]: baseApis.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(baseApi.middleware),
+    getDefaultMiddleware().concat(baseApis.middleware),
 });
 
 export default store;

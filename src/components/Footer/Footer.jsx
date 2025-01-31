@@ -3,13 +3,12 @@ import React from "react";
 import Link from "next/link";
 import { GoArrowUpRight } from "react-icons/go";
 import { Button, Form, Input, message, Space } from "antd";
+import toast from "react-hot-toast";
 function Footer() {
   const [form] = Form.useForm();
-
   const handleSubmit = (values) => {
     console.log(values);
-
-    message.success(`Thank you for subscribing, ${values.email}`);
+    toast.success("Thank you for subscribing");
   };
   const QuickLinks = [
     { title: "Home", path: "/" },
