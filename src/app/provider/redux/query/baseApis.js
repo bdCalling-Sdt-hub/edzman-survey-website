@@ -1,5 +1,5 @@
 import { url } from "@/lib/utils";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";;
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseApis = createApi({
   reducerPath: "api",

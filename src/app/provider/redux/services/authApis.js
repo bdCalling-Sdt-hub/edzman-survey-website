@@ -1,7 +1,5 @@
 import baseApis from "../query/baseApis";
 
-
-
 export const authApis = baseApis.injectEndpoints({
   endpoints: (builder) => ({
     postLoginInfo: builder.mutation({

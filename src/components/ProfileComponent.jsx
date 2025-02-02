@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Input, Button, Select, Modal, Upload } from "antd";
+import { Input, Button, Select, Spin } from "antd";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CameraOutlined, UploadOutlined } from "@ant-design/icons";
@@ -9,6 +9,9 @@ import ShareYourWhy from "@/lib/modalcard/ShareYourWhy";
 import DonateSection from "@/components/LadingPage/DonateSection";
 import WhyHistory from "@/lib/modalcard/WhyHistory";
 import Swal from "sweetalert2";
+import { imageUrl } from "@/lib/utils";
+import { useProfileUpdateMutation } from "@/app/provider/redux/services/userApis";
+import toast from "react-hot-toast";
 
 const { Option } = Select;
 
@@ -16,7 +19,6 @@ const InputField = ({
   label,
   value,
   onChange,
-  type = "text",
   options,
   Component = Input,
   disabled = false,
@@ -56,28 +58,27 @@ const InputField = ({
   </div>
 );
 
-const ProfileComponent = () => {
+const ProfileComponent = ({ userData, isLoading }) => {
+  const user = userData?.data;
+  const [updateProfile, { isLoading: updatingProfile }] =
+    useProfileUpdateMutation();
   const [showModal, setShowModal] = useState(false);
   const [WhyHistoryShow, setWhyHistoryShow] = useState(false);
-  const [imageModalVisible, setImageModalVisible] = useState(false);
-  const [newImage, setNewImage] = useState(null);
-  const [profileImage, setProfileImage] = useState(
-    "https://randomuser.me/api/portraits/men/75.jpg"
-  );
+  const [image, setImage] = useState(null);
+
   const [profile, setProfile] = useState({
-    Name: "Mojahid Islam",
-    surname: "",
-    profession: "Software Engineer",
-    dateOfBirth: "1995-01-15",
-    educationLevel: "Bachelor's Degree",
-    email: "MojahidIslam@example.com",
-    phone: "+8801737705511",
-    country: "Bangladesh",
-    city: "Dhaka",
+    name: user?.name,
+    profession: user?.profession,
+    dateOfBirth: user?.dateOfBirth,
+    education: user?.education,
+    email: user?.email,
+    phone: user?.phone,
+    country: user?.country,
+    city: user?.city,
   });
 
   const profileFields = [
-    { key: "Name", label: "Full Name" },
+    { key: "name", label: "Full Name" },
     { key: "profession", label: "Profession" },
     {
       key: "dateOfBirth",
@@ -85,7 +86,7 @@ const ProfileComponent = () => {
       Component: DatePicker,
     },
     {
-      key: "educationLevel",
+      key: "education",
       label: "Education Level",
       Component: Select,
       options: ["High School", "Bachelor's Degree", "Master's Degree", "PhD"],
@@ -106,13 +107,37 @@ const ProfileComponent = () => {
     }));
   };
 
-  const handleUpdate = () => {
-    console.log("Updated Profile:", profile);
-    Swal.fire({
-      title: "Update Profile!",
-      text: "You clicked the button!",
-      icon: "success",
+  const handleUpdate = async () => {
+    const formData = new FormData();
+    const updateData = {
+      name: profile?.name,
+      profession: profile?.profession,
+      dateOfBirth: profile?.dateOfBirth,
+      education: profile?.education,
+      country: profile?.country,
+      city: profile?.city,
+    };
+    Object.keys(updateData).forEach((key) => {
+      formData.append(key, profile[key]);
     });
+
+    if (image) {
+      formData.append("profile_image", image);
+    }
+
+    try {
+      const res = await updateProfile({ data: formData }).unwrap();
+      Swal.fire({
+        icon: "success",
+        title: "Updated",
+        text: `${res?.message}`,
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      console.error("Failed to update profile:", error);
+      toast.error("An error occurred while updating the profile.");
+    }
   };
 
   const handleDelete = () => {
@@ -135,24 +160,17 @@ const ProfileComponent = () => {
     });
   };
 
-  const handleImageUpload = (file) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      setNewImage(reader.result);
-    };
-    reader.readAsDataURL(file);
-    return false;
+  const handleImageUpload = (e) => {
+    if (e.target.files?.[0]) {
+      setImage(e.target.files[0]);
+    }
   };
 
-  const saveNewImage = () => {
-    setProfileImage(newImage);
-    setImageModalVisible(false);
-    Swal.fire({
-      title: "Profile Image Updated!",
-      text: "Your profile image has been successfully updated.",
-      icon: "success",
-    });
-  };
+  const profileImages = image
+    ? URL.createObjectURL(image)
+    : user?.profile_image
+    ? imageUrl(user?.profile_image)
+    : "/path/to/default-image.jpg";
 
   return (
     <>
@@ -164,22 +182,30 @@ const ProfileComponent = () => {
         {/* Header Section */}
         <div className=" text-[#083a50] py-12 px-4">
           <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-center gap-8">
-            <div className="relative border-4 rounded-full border-[#083a50] w-32 h-32 lg:w-40 lg:h-40">
+            <div className="w-32 border-[1px] border-black h-32 rounded-full relative">
               <img
-                src={profileImage}
-                alt="Profile"
                 className="w-full h-full object-cover rounded-full border-4 border-white"
+                src={profileImages}
+                alt="Profile"
               />
               <div
                 className="absolute bottom-2 right-2 bg-[#00b0f2] text-[#083a50] rounded-full p-1 cursor-pointer"
-                onClick={() => setImageModalVisible(true)}
+                onClick={() => document.getElementById("fileInput")?.click()}
               >
-                <CameraOutlined />
+                <CameraOutlined className="text-white" />
               </div>
+
+              <input
+                id="fileInput"
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                style={{ display: "none" }}
+              />
             </div>
             <div className="flex-grow text-[#083a50]">
               <h1 className="text-3xl font-bold">
-                {profile.Name} {profile.surname}
+                {profile.name} {profile.surname}
               </h1>
               <p className="text-[#083a50] mt-2">
                 "Unlock Your Potential: Discover, Embrace, and Share Your 'Why'"
@@ -236,7 +262,7 @@ const ProfileComponent = () => {
               onClick={handleUpdate}
               className="bg-[#00b0f2] rounded-md text-white hover:bg-[#00b0f2]"
             >
-              Update
+              {updatingProfile ? <Spin size="small"></Spin> : "Update"}
             </Button>
           </div>
         </div>
@@ -244,69 +270,6 @@ const ProfileComponent = () => {
         {WhyHistoryShow && <WhyHistory></WhyHistory>}
         <DonateSection></DonateSection>
       </div>
-      <Modal
-        title="Update Profile Image"
-        open={imageModalVisible}
-        onCancel={() => setImageModalVisible(false)}
-        onOk={saveNewImage}
-        okText="Save"
-      >
-        <div className="space-y-6">
-          {/* Upload Section */}
-          <Upload.Dragger
-            className="border-dashed border-2 flex flex-col border-blue-300 rounded-lg p-6 hover:border-[#21B6F2] transition duration-200"
-            accept=".jpg,.png" // Restrict to image files
-            beforeUpload={(file) => {
-              const isImage =
-                file.type === "image/jpeg" || file.type === "image/png";
-              if (!isImage) {
-                Swal.fire({
-                  title: "Invalid File Type!",
-                  text: "Only JPG/PNG images are allowed.",
-                  icon: "error",
-                });
-                return Upload.LIST_IGNORE;
-              }
-              const isSmallEnough = file.size / 1024 / 1024 < 5; // Restrict to 5MB
-              if (!isSmallEnough) {
-                Swal.fire({
-                  title: "File Too Large!",
-                  text: "File size must be smaller than 5MB.",
-                  icon: "error",
-                });
-                return Upload.LIST_IGNORE;
-              }
-              setNewImage(URL.createObjectURL(file)); // Preview the image
-              return false; // Prevent auto-upload
-            }}
-            maxCount={1} // Allow only one file
-            showUploadList={{
-              showRemoveIcon: true,
-            }}
-            onRemove={() => setNewImage(null)} // Clear the preview on remove
-          >
-            {newImage ? (
-              <img
-                src={newImage}
-                alt="Preview"
-                className="w-full h-48 object-contain rounded"
-              />
-            ) : (
-              <div className="flex flex-col items-center justify-center text-center">
-                <UploadOutlined className="text-[#21B6F2] text-4xl mb-2" />
-                <p className="text-gray-600 font-medium">
-                  Drag your image here to upload
-                </p>
-                <p className="text-gray-500 text-sm">OR</p>
-                <Button className="bg-[#21B6F2] hover:bg-blue-600 text-white mt-2">
-                  Browse files
-                </Button>
-              </div>
-            )}
-          </Upload.Dragger>
-        </div>
-      </Modal>
-      ;
     </>
   );
 };

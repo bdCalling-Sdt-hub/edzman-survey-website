@@ -82,48 +82,48 @@ function Footer() {
               ))}
             </ul>
           </div>
-          {/* Newsletter Subscription */}
+        </div>
+        {/* Newsletter Subscription */}
 
-          <div>
-            <p className="mb-2 text-xm lg:text-base">
-              Get Notified When a New WHY is Shared
-            </p>
-            <Form
-              form={form}
-              onFinish={handleSubmit}
-              className="flex items-center"
-            >
-              <Space.Compact style={{ width: "100%" }}>
-                <Form.Item
-                  name="email"
-                  rules={[
-                    { required: true, message: "Email is required!" },
-                    { type: "email", message: "Please enter a valid email!" },
-                  ]}
-                  style={{ marginBottom: 0, flex: 1 }}
-                >
-                  <Input
-                    type="email"
-                    placeholder="Enter a Valid Email"
-                    className="rounded-l-lg rounded-none"
-                    style={{ padding: "10px" }}
-                  />
-                </Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="rounded-r-lg h-full mt-[1px]"
-                  style={{
-                    backgroundColor: "#00B0F2",
-                    borderColor: "#00B0F2",
-                    height: "42px",
-                  }}
-                >
-                  →
-                </Button>
-              </Space.Compact>
-            </Form>
-          </div>
+        <div className="flex flex-col items-starts justify-center">
+          <p className="mb-2 text-xm lg:text-base">
+            Get Notified When a New WHY is Shared
+          </p>
+          <Form
+            form={form}
+            onFinish={handleSubmit}
+            className="flex items-center w-full"
+          >
+            <Space.Compact style={{ width: "100%" }}>
+              <Form.Item
+                name="email"
+                rules={[
+                  { required: true, message: "Email is required!" },
+                  { type: "email", message: "Please enter a valid email!" },
+                ]}
+                style={{ marginBottom: 0, flex: 1 }}
+              >
+                <Input
+                  type="email"
+                  placeholder="Enter a Valid Email"
+                  className="rounded-l-lg rounded-none"
+                  style={{ padding: "10px" }}
+                />
+              </Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="rounded-r-lg h-full"
+                style={{
+                  backgroundColor: "#00B0F2",
+                  borderColor: "#00B0F2",
+                  height: "44px",
+                }}
+              >
+                →
+              </Button>
+            </Space.Compact>
+          </Form>
         </div>
       </div>
 
@@ -132,7 +132,7 @@ function Footer() {
         {/* Brand Info */}
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <p className=" mt-4">A product of</p>
+            <p>A product of</p>
             <img src="/brandLogo.svg" alt="brands logo" />
           </div>
         </div>

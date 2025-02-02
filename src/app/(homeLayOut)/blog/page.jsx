@@ -15,70 +15,36 @@ import { BsSortNumericUp } from "react-icons/bs";
 import { ImSortNumbericDesc } from "react-icons/im";
 import { GoArrowUpRight } from "react-icons/go";
 import PageHeader from "@/components/PageHeader/PageHeader";
-import { Empty } from "antd";
+import { Button, Empty } from "antd";
 import Link from "next/link";
 import { useGetAllBlogQuery } from "@/app/provider/redux/services/blogApis";
 import { imageUrl } from "@/lib/utils";
 
-function SkeletonLoader() {
-  return (
-    <div className="animate-pulse bg-gray-100 p-4 rounded-lg">
-      <div className="h-40 w-full bg-gray-300 rounded-md mb-4"></div>
-      <div className="h-6 w-3/4 bg-gray-300 rounded mb-2"></div>
-      <div className="h-4 w-1/2 bg-gray-300 rounded"></div>
-    </div>
-  );
-}
-
 function BlogPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortOrder, setSortOrder] = useState("title");
   const [dateSortOrder, setDateSortOrder] = useState(null);
 
-  const { data: blogsData, isLoading } = useGetAllBlogQuery({});
-  const blogs = blogsData?.data?.result || [];
-  const meta = blogsData?.data?.meta || {
-    page: 1,
-    limit: 10,
-    total: 0,
-    totalPage: 1,
-  };
-
-  if (isLoading) {
-    return (
-      <div className="container mx-auto py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[...Array(6)].map((_, idx) => (
-            <SkeletonLoader key={idx} />
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  const filteredBlogs = blogs.filter((blog) =>
-    blog?.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const sortedBlogs = [...filteredBlogs].sort((a, b) => {
-    if (dateSortOrder) {
-      return dateSortOrder === "newest"
-        ? new Date(b.createdAt) - new Date(a.createdAt)
-        : new Date(a.createdAt) - new Date(b.createdAt);
-    } else {
-      return sortOrder === "asc"
-        ? a.title.localeCompare(b.title)
-        : b.title.localeCompare(a.title);
-    }
+  const { data: blogsData, isLoading } = useGetAllBlogQuery({
+    searchTerm,
+    sort: sortOrder,
+    dateSortOrder,
+    page: currentPage,
+    limit: 9,
   });
 
-  // Pagination Logic
-  const totalPages = meta.totalPage;
-  const handlePageChange = (newPage) => setCurrentPage(newPage);
+  const blogs = blogsData?.data?.result || [];
+  const totalPages = blogsData?.data?.meta?.totalPage || 1;
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
 
   const toggleSortOrder = () => {
-    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    setSortOrder(sortOrder === "title" ? "-title" : "title");
     setDateSortOrder(null);
   };
 
@@ -86,7 +52,6 @@ function BlogPage() {
     setDateSortOrder(dateSortOrder === "newest" ? "oldest" : "newest");
     setSortOrder(null);
   };
-  console.log(blogsData?.data?.result);
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -96,7 +61,7 @@ function BlogPage() {
       />
       <div className="container mx-auto py-8 px-4">
         {/* Search and Sort */}
-        <div className="mb-4 w-full bg-[#e6f3fe] flex items-center rounded-full px-3">
+        <div className="mb-4 w-full bg-[#e6f3fe] flex items-center rounded-full">
           <div className="w-full border-2 rounded-full">
             <div className="flex pl-4 px-2 rounded-full items-center gap-2 w-full">
               <IoMdSearch />
@@ -111,7 +76,7 @@ function BlogPage() {
           </div>
           <Popover>
             <PopoverTrigger asChild>
-              <div className="flex items-center gap-2 p-2 text-black rounded-lg cursor-pointer">
+              <div className="flex items-center gap-2 ml p-2 text-nowrap text-black rounded-lg cursor-pointer">
                 <button
                   aria-label="Sort options"
                   className="text-black font-bold"
@@ -126,14 +91,14 @@ function BlogPage() {
                   className="flex items-center gap-2 cursor-pointer"
                   onClick={toggleSortOrder}
                 >
-                  {sortOrder === "asc" ? (
+                  {sortOrder === "title" ? (
                     <FaSortAlphaDown className="text-xl" />
                   ) : (
                     <FaSortAlphaDownAlt className="text-xl" />
                   )}
-                  <h1 className="text-black">
-                    {sortOrder === "asc" ? "Sort A to Z" : "Sort Z to A"}
-                  </h1>
+                  <Button className="text-black w-full border-none ">
+                    {sortOrder === "title" ? "Sort A to Z" : "Sort Z to A"}
+                  </Button>
                 </div>
                 <div
                   className="flex items-center gap-2 cursor-pointer"
@@ -144,11 +109,11 @@ function BlogPage() {
                   ) : (
                     <BsSortNumericUp className="text-xl" />
                   )}
-                  <h1 className="text-black">
+                  <Button className="text-black w-full border-none ">
                     {dateSortOrder === "newest"
                       ? "Newest to Oldest"
                       : "Oldest to Newest"}
-                  </h1>
+                  </Button>
                 </div>
               </div>
             </PopoverContent>
@@ -156,9 +121,9 @@ function BlogPage() {
         </div>
 
         {/* Blog Items */}
-        {sortedBlogs.length > 0 ? (
+        {blogs.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sortedBlogs.map((blog) => (
+            {blogs.map((blog) => (
               <div
                 key={blog._id}
                 className="bg-white rounded-lg shadow-lg overflow-hidden"

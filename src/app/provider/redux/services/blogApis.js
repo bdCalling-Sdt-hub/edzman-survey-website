@@ -3,9 +3,15 @@ import baseApis from "../query/baseApis";
 export const blogApis = baseApis.injectEndpoints({
   endpoints: (builder) => ({
     getAllBlog: builder.query({
-      query: () => ({
+      query: ({ searchTerm, sort, page, limit }) => ({
         url: "/blog/all-blogs",
         method: "GET",
+        params: {
+          searchTerm,
+          sort,
+          page,
+          limit,
+        },
       }),
       providesTags: ["blog"],
     }),
@@ -18,7 +24,7 @@ export const blogApis = baseApis.injectEndpoints({
       invalidatesTags: ["blog"],
     }),
 
-    singleBlogGet: builder.mutation({
+    singleBlogGet: builder.query({
       query: ({ id }) => ({
         url: `/blog/single-blog/${id}`,
         method: "GET",
@@ -49,5 +55,5 @@ export const {
   useGetAllBlogQuery,
   useUpdateBlogMutation,
   useDeleteBlogMutation,
-  useSingleBlogGetMutation,
+  useSingleBlogGetQuery,
 } = blogApis;

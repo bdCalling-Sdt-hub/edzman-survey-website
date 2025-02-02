@@ -1,29 +1,36 @@
 "use client";
 import React, { useState } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, message, Spin } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import Link from "next/link";
 import { usePostLoginInfoMutation } from "@/app/provider/redux/services/authApis";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const [form] = Form.useForm();
   const [login, { isLoading }] = usePostLoginInfoMutation();
   const [error, setError] = useState("");
+  const router = useRouter();
+
   const onFinish = async (values) => {
     const data = {
-      email: values?.email,
-      password: values?.password,
+      email: values.email,
+      password: values.password,
     };
+
     try {
       const response = await login(data).unwrap();
       if (response.success) {
         localStorage.setItem("accessToken", response.data.accessToken);
-        localStorage.setItem("refreshToken", response.data.refreshToken);
-        navigate("/");
+        toast.success("Login successful!");
+        router.push("/");
       } else {
         setError(response.message || "Login failed. Please try again.");
       }
     } catch (err) {
       setError(err?.data?.message || "Login failed. Please try again.");
+      message.error("Login failed. Please try again.");
     }
   };
 
@@ -38,6 +45,7 @@ const Login = () => {
         </p>
         {error && <div className="mb-4 text-red-500 text-center">{error}</div>}
         <Form
+          form={form}
           requiredMark={false}
           layout="vertical"
           onFinish={onFinish}
@@ -56,6 +64,7 @@ const Login = () => {
               placeholder="example@gmail.com"
               className="h-12 text-gray-700"
               autoComplete="email"
+              aria-label="Email address"
             />
           </Form.Item>
 
@@ -71,6 +80,7 @@ const Login = () => {
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
               }
               autoComplete="current-password"
+              aria-label="Password"
             />
           </Form.Item>
 
@@ -88,13 +98,15 @@ const Login = () => {
             <Button
               htmlType="submit"
               className="w-full h-12 bg-[#00b0f2] hover:bg-[#00b0f2]/70 text-white text-lg font-bold"
+              disabled={isLoading}
+              aria-label="Sign In"
             >
-              Sign In
+              {isLoading ? <Spin size="small" /> : "Sign In"}
             </Button>
           </Form.Item>
         </Form>
         <h1 className="text-black mt-6">
-          Dont have an account?
+          Don't have an account?
           <Link
             href="/register"
             className="text-[#00B0F2] underline text-sm md:text-base ml-2"
