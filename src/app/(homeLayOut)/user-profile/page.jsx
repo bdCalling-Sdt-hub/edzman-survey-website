@@ -57,7 +57,6 @@ function page() {
       </div>
     );
   }
-  console.log(userData);
   return <ProfileComponent userData={userData} isLoading={isLoading} />;
 }
 

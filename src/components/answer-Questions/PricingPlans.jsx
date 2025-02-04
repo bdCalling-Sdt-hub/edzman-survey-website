@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "antd";
 import SectionHeader from "../SectionHeader/SectionHeader";
-import { FaCheckCircle } from "react-icons/fa";
+import { CiCircleCheck } from "react-icons/ci";
 
 const plansData = [
   {
@@ -56,7 +56,9 @@ const PricingPlans = () => {
         {plansData.map((plan, index) => (
           <div
             key={index}
-            className={`bg-gradient-to-b flex-1 flex flex-col ${index % 2 === 0 ? 'md:leading-2' : 'md:leading-8 md:gap-3'} from-[#e2eaef] to-[#7dbef1] text-white shadow-md rounded-lg m-4 p-6 w-full sm:w-80`}
+            className={`bg-gradient-to-b flex-1 flex flex-col ${
+              index % 2 === 0 ? "md:leading-2" : "md:leading-8 md:gap-3"
+            } from-[#e2eaef] to-[#7dbef1] text-white shadow-md rounded-lg m-4 p-6 w-full sm:w-80`}
           >
             <h3 className="text-lg font-bold text-gray-800">{plan.title}</h3>
             <p className="text-xl font-bold text-[#21B6F2]">{plan.price}</p>
@@ -67,17 +69,23 @@ const PricingPlans = () => {
             <div className="w-full h-[1px] bg-black/20 my-2"></div>
             <ul className="mt-4 text-gray-600 space-y-2">
               {plan.features.map((feature, featureIndex) => (
-                <li className="flex items-center gap-2" key={featureIndex}> <FaCheckCircle style={{ fontSize: '20px', marginRight: '10px' }} />{feature}</li>
+                <li className="flex items-center gap-2" key={featureIndex}>
+
+                  <CiCircleCheck
+                    className="max-w-6 min-w-6 min-h-6 max-h-6"
+                  />
+                  {feature}
+                </li>
               ))}
             </ul>
           </div>
         ))}
       </div>
-      <div className="text-center mt-6">
+      {/* <div className="text-center mt-6">
         <Button className="bg-[#00b0f2] text-white hover:bg-[#00b0f2]/70 px-6 py-2 rounded-md">
           Explore More
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { Button, Input, Progress } from "antd";
+import { Button, Input, Progress, Spin } from "antd";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { useGenarateWhyMutation } from "@/app/provider/redux/services/whyApis";
 
 const questions = [
   {
@@ -199,6 +200,8 @@ const AnswerQuestions = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([{}]);
   const currentQuestion = questions[currentQuestionIndex];
+  const [genarateWhy, { isLoading: isGenerateWhyLoading }] =
+    useGenarateWhyMutation();
   const router = useRouter();
   const handleInputChange = (value, questionId, subQuestionIndex) => {
     setAnswers((prev) => ({
@@ -243,7 +246,7 @@ const AnswerQuestions = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const formattedAnswers = questions.flatMap((question) => {
       const questionAnswers = answers[question.id] || {};
       return question.subQuestions.map((subQuestion, subQuestionIndex) => ({
@@ -252,22 +255,51 @@ const AnswerQuestions = () => {
       }));
     });
 
-    console.log(formattedAnswers);
+    const result = {
+      questionAnswer: formattedAnswers,
+    };
+    const response = await genarateWhy(result).unwrap();
+    const responseId = response?.data?._id;
+    if (response?.success) {
+      router.push(`/find-why/answer-Questions/resultOfWhy?id=${responseId}`);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong! Please try again.",
+      });
+    }
 
-    Swal.fire({
-      title: "Success!",
-      text: "Your answers have been submitted.",
-      icon: "success",
-      confirmButtonText: "Continue",
-      confirmButtonColor: "#00b0f2",
-    }).then(() => {
-      router.push("/find-why/answer-Questions/resultOfWhy");
-    });
+    return result;
   };
 
+  // const handleSubmit = () => {
+  //   const formattedAnswers = questions.flatMap((question) => {
+  //     const questionAnswers = answers[question.id] || {};
+  //     return question.subQuestions.map((subQuestion, subQuestionIndex) => ({
+  //       question: subQuestion,
+  //       answer: questionAnswers[subQuestionIndex] || "",
+  //     }));
+  //   });
+
+  //   const result = {
+  //     questionAnswer: formattedAnswers,
+  //   };
+
+  //   genarateWhy({ result })
+  //     .unwrap()
+  //     .then((data) => {
+  //       if (data?.success) {
+  //         router.push("/result");
+  //       }
+  //     });
+
+  //   console.log(result);
+  //   return result;
+  // };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-blue-50 px-4 py-8">
-      <div className="-mt-28 container mx-auto">
+      <div className="-mt-28 md:-mt-48 container mx-auto">
         <div className="flex items-center md:flex-row flex-col rounded-md gap-6 justify-between">
           {cardData.map((card, idx) => (
             <div
@@ -318,15 +350,13 @@ const AnswerQuestions = () => {
         </p>
         {currentQuestionIndex === questions.length - 1 ? (
           <div className="flex flex-col">
-            <Link href={"answer-Questions/resultOfWhy"}>
-              <Button
-                type="primary"
-                onClick={handleSubmit}
-                disabled={progressPercentage !== 100}
-              >
-                Submit
-              </Button>
-            </Link>
+            <Button
+              type="primary"
+              onClick={handleSubmit}
+              disabled={progressPercentage !== 100}
+            >
+              {isGenerateWhyLoading ? "Generating..." : "Submit"}
+            </Button>
           </div>
         ) : (
           <Button

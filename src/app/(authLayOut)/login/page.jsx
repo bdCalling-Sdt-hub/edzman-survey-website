@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePostLoginInfoMutation } from "@/app/provider/redux/services/authApis";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [form] = Form.useForm();
@@ -21,10 +22,15 @@ const Login = () => {
 
     try {
       const response = await login(data).unwrap();
+      
       if (response.success) {
-        localStorage.setItem("accessToken", response.data.accessToken);
-        toast.success("Login successful!");
-        router.push("/");
+        console.log(response?.data?.accessToken);
+        Cookies.remove("token");
+        Cookies.set("token", response?.data?.accessToken);
+        localStorage.setItem("accessToken", response?.data?.accessToken);
+        if (Cookies.get("token")) {
+          router.push("/");
+        }
       } else {
         setError(response.message || "Login failed. Please try again.");
       }
@@ -84,8 +90,7 @@ const Login = () => {
             />
           </Form.Item>
 
-          <div className="flex justify-between items-center">
-            <Checkbox className="text-sm">Remember Password</Checkbox>
+          <div className="flex justify-end items-center">
             <Link
               href="/login/email-confirm"
               className="text-sm text-[#21B6F2] hover:underline"

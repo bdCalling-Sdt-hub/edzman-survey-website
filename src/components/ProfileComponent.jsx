@@ -40,7 +40,7 @@ const InputField = ({
       </Select>
     ) : Component === DatePicker ? (
       <DatePicker
-        selected={value ? new Date(value) : null}
+        selected={value ? new Date(value || null) : null}
         onChange={(date) => onChange(date)}
         dateFormat="yyyy-MM-dd"
         className="w-full p-2 border border-gray-300 rounded"
@@ -60,21 +60,22 @@ const InputField = ({
 
 const ProfileComponent = ({ userData, isLoading }) => {
   const user = userData?.data;
+  console.log(user);
+
   const [updateProfile, { isLoading: updatingProfile }] =
     useProfileUpdateMutation();
   const [showModal, setShowModal] = useState(false);
   const [WhyHistoryShow, setWhyHistoryShow] = useState(false);
   const [image, setImage] = useState(null);
-
   const [profile, setProfile] = useState({
-    name: user?.name,
-    profession: user?.profession,
-    dateOfBirth: user?.dateOfBirth,
-    education: user?.education,
-    email: user?.email,
-    phone: user?.phone,
-    country: user?.country,
-    city: user?.city,
+    name: user?.name || "",
+    profession: user?.profession || "",
+    dateOfBirth: user?.dateOfBirth || null,
+    education: user?.education || "",
+    email: user?.email || "",
+    phone: user?.phone || "",
+    country: user?.country || "",
+    city: user?.city || "",
   });
 
   const profileFields = [
@@ -88,8 +89,6 @@ const ProfileComponent = ({ userData, isLoading }) => {
     {
       key: "education",
       label: "Education Level",
-      Component: Select,
-      options: ["High School", "Bachelor's Degree", "Master's Degree", "PhD"],
     },
     { key: "email", label: "Email", disabled: true },
     { key: "phone", label: "Phone Number", disabled: true },
@@ -238,7 +237,9 @@ const ProfileComponent = ({ userData, isLoading }) => {
                 label={field.label}
                 value={
                   field.key === "dateOfBirth"
-                    ? new Date(profile[field.key])
+                    ? profile[field.key]
+                      ? new Date(profile[field.key])
+                      : null
                     : profile[field.key]
                 }
                 onChange={(value) => handleInputChange(field.key, value)}

@@ -19,7 +19,7 @@ import {
 import { Empty } from "antd";
 import Link from "next/link";
 import { useGetAllStoryQuery } from "@/app/provider/redux/services/storyApis";
-import { imageUrl } from "@/lib/utils";
+import { imageUrl, stripHtmlTags } from "@/lib/utils";
 
 function SkeletonLoader() {
   return (
@@ -47,6 +47,7 @@ function Page() {
 
   const stories = storyData?.data?.result || [];
   const totalPages = storyData?.data?.meta?.totalPage || 1;
+  const approvedData = stories.filter((item) => item.status === "Approved");
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -63,6 +64,7 @@ function Page() {
     setDateSortOrder(dateSortOrder === "newest" ? "oldest" : "newest");
     setSortOrder(null);
   };
+  console.log(approvedData);
 
   return (
     <div className="bg-white">
@@ -140,21 +142,21 @@ function Page() {
               <SkeletonLoader key={idx} />
             ))}
           </div>
-        ) : stories.length > 0 ? (
-          stories.map((story) => (
+        ) : approvedData.length > 0 ? (
+          approvedData.map((story) => (
             <div key={story._id}>
               <div className="flex flex-col md:flex-row lg:flex-row items-start md:items-center gap-16 mb-8">
                 <img
                   src={imageUrl(story?.story_image)}
                   alt={story?.title}
-                  className="w-full md:w-[50%] lg:w-[40%] h-auto object-cover rounded-md"
+                  className="w-full md:w-96 h-[400px] object-contain md:object-cover rounded-md"
                 />
                 <div className="w-full lg:w-[50%]">
                   <h3 className="text-3xl font-semibold">{story?.title}</h3>
                   <p className="text-gray-700 mt-2">
                     {story?.description?.length > 200
-                      ? `${story?.description.slice(0, 200)}...`
-                      : story?.description}
+                      ? `${stripHtmlTags(story?.description).slice(0, 200)}...`
+                      : stripHtmlTags(story?.description)}
                   </p>
                   <div className="flex items-center mt-4">
                     <div className="flex items-center bg-[#bfe1fc] px-2 py-1 rounded-full">

@@ -27,13 +27,16 @@ body {
 }
 
 .animate-bounce {
-  animation: bounce 3s infinite;
+  animation: bounce 1s infinite;
 }
 
 @layer base {
   :root {
     --radius: 0.5rem;
   }
+}
+.area {
+  @apply max-w-screen-2xl mx-auto px-4;
 }
 
 .swiper-pagination-bullet {
@@ -105,3 +108,4 @@ body {
 .jodit-wysiwyg {
   background-color: #fff;
 }
+

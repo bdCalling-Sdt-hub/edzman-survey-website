@@ -1,13 +1,49 @@
 "use client";
 import React from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Spin } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import Link from "next/link";
+import { useResgiterPostUserMutation } from "@/app/provider/redux/services/authApis";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
-  const onFinish = (values) => {
-    console.log("Register Submitted:", values);
-    // Add register logic here
+  const [regiterUser, { isLoading }] = useResgiterPostUserMutation();
+  const router = useRouter();
+  const onFinish = async (values) => {
+    const { name, email, password, confirmPassword, phone, dateOfBirth } =
+      values;
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !phone ||
+      !dateOfBirth
+    ) {
+      return;
+    }
+    localStorage.setItem("register-email", email);
+    const formattedData = {
+      password: password,
+      confirmPassword: confirmPassword,
+      userData: {
+        name: name,
+        email: email,
+        phone: phone,
+        dateOfBirth: dateOfBirth,
+      },
+    };
+    const res = await regiterUser({ data: formattedData }).unwrap();
+    console.log("res", res);
+
+    if (res?.success) {
+      Swal.fire("User registered successfully.").then(() => {
+        router.push("/register/verify-email");
+      });
+    } else {
+      Swal.fire(res?.message || "Failed to register user.");
+    }
   };
 
   return (
@@ -32,6 +68,35 @@ const Register = () => {
           >
             <Input placeholder="John Doe" className="h-12 text-gray-700" />
           </Form.Item>
+          <div className="flex w-full md:flex-row flex-col gap-2">
+            <Form.Item
+              className="flex-1"
+              name="phone"
+              label="Phone Number"
+              rules={[
+                { required: true, message: "Please enter your phone number!" },
+                {
+                  message: "Please enter a valid phone number!",
+                },
+              ]}
+            >
+              <Input placeholder="1234567890" className="h-12 text-gray-700" />
+            </Form.Item>
+            <Form.Item
+              className="flex-1"
+              name="dateOfBirth"
+              label="Date of Birth"
+              rules={[
+                { required: true, message: "Please enter your date of birth!" },
+              ]}
+            >
+              <Input
+                type="date"
+                className="h-12 text-gray-700"
+                placeholder="Enter your date of birth"
+              />
+            </Form.Item>
+          </div>
 
           <Form.Item
             name="email"
@@ -93,7 +158,7 @@ const Register = () => {
               htmlType="submit"
               className="w-full h-12 bg-[#00b0f2] hover:bg-[#00b0f2]/70 text-white text-lg font-bold"
             >
-              Sign Up
+              {isLoading ? <Spin size="small"></Spin> : "Sign Up"}
             </Button>
           </Form.Item>
         </Form>

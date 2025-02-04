@@ -2,8 +2,8 @@
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { GiSettingsKnobs } from "react-icons/gi";
 import {
@@ -13,11 +13,17 @@ import {
 } from "@/components/ui/popover";
 import { MdOutlineQuestionMark } from "react-icons/md";
 import { VscSignOut } from "react-icons/vsc";
+import { useProfileGetQuery } from "@/app/provider/redux/services/userApis";
+import { imageUrl } from "@/lib/utils";
+import Cookies from "js-cookie";
 
 function Navbar() {
   const path = usePathname();
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [token, setToken] = useState("");
 
+  const { data: userData, isLoading } = useProfileGetQuery();
   const navlinks = [
     { title: "Home", path: "/" },
     { title: "Example Whys", path: "/example" },
@@ -28,14 +34,28 @@ function Navbar() {
     { title: "About Us", path: "/about" },
   ];
 
+  useEffect(() => {
+    setToken(localStorage.getItem("accessToken"));
+  }, []);
+
   const user = {
-    login: false,
-    photoURL: "https://randomuser.me/api/portraits/men/75.jpg",
-    displayName: "hosain Ali",
-    email: "exmple@mail.com",
+    login: !token,
+    photoURL: imageUrl(userData?.data?.profile_image),
+    displayName: userData?.data?.name,
+    email: userData?.data?.email,
   };
 
-  // Animation Variants
+  const handleSignOut = () => {
+    try {
+      localStorage.removeItem("accessToken");
+      Cookies.remove("token");
+      router.push("/login");
+    } catch (error) {
+      console.error("Error during sign-out:", error);
+      alert("An error occurred during sign-out. Please try again.");
+    }
+  };
+
   const menuVariants = {
     hidden: { opacity: 0, x: "100%" },
     visible: {
@@ -87,81 +107,84 @@ function Navbar() {
         </ul>
         <div>
           {!user.login ? (
-            <>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Avatar>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Avatar>
+                  <AvatarImage
+                    className="w-8 h-8 rounded-full object-cover cursor-pointer"
+                    src={user.photoURL}
+                  />
+                </Avatar>
+              </PopoverTrigger>
+              <PopoverContent className="p-4">
+                <Avatar>
+                  <div className="flex gap-2">
                     <AvatarImage
-                      className="w-8 h-8 rounded-full cursor-pointer"
+                      className="w-8 h-8 rounded-full object-cover cursor-pointer"
                       src={user.photoURL}
                     />
-                  </Avatar>
-                </PopoverTrigger>
-                <PopoverContent className="p-4">
-                  <Avatar>
-                    <div className="flex gap-2">
-                      <AvatarImage
-                        className="w-8 h-8 rounded-full cursor-pointer"
-                        src={user.photoURL}
-                      />
-                      <div>
-                        <h1 className="font-semibold text-base">
-                          {user?.displayName}
-                        </h1>
-                        <h1 className="font-normal opacity-75 text-base">
-                          {user?.email}
-                        </h1>
-                      </div>
+                    <div>
+                      <h1 className="font-semibold text-base">
+                        {user?.displayName}
+                      </h1>
+                      <h1 className="font-normal opacity-75 text-base">
+                        {user?.email}
+                      </h1>
                     </div>
-                  </Avatar>
-                  <div className="divider w-full h-[1px] bg-slate-400/40 my-3"></div>
-                  <ul className="mt-3 flex items-start flex-col gap-3">
-                    <Link className="w-full" href={"/user-profile"}>
-                      <li className="flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2">
-                        <GiSettingsKnobs className="text-xl" />
-                        Profile
-                      </li>
-                    </Link>
-                    <Link className="w-full" href={"/about"}>
-                      <li className=" flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2">
-                        <MdOutlineQuestionMark className="text-xl" /> About us
-                      </li>
-                    </Link>
-                    <div className="divider w-full h-[1px] bg-slate-400/40"></div>
-                    <Link className="w-full" href={"/login"}>
-                      <li className=" flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2">
-                        <VscSignOut className="text-xl" />
-                        Sign Out
-                      </li>
-                    </Link>
-                  </ul>
-                </PopoverContent>
-              </Popover>
-            </>
+                  </div>
+                </Avatar>
+                <div className="divider w-full h-[1px] bg-slate-400/40 my-3"></div>
+                <ul className="mt-3 flex items-start flex-col gap-3">
+                  <Link className="w-full" href={"/user-profile"}>
+                    <li className="flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2">
+                      <GiSettingsKnobs className="text-xl" />
+                      Profile
+                    </li>
+                  </Link>
+                  <Link className="w-full" href={"/about"}>
+                    <li className="flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2">
+                      <MdOutlineQuestionMark className="text-xl" /> About us
+                    </li>
+                  </Link>
+                  <div className="divider w-full h-[1px] bg-slate-400/40"></div>
+                  <li
+                    onClick={handleSignOut}
+                    className="flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2"
+                  >
+                    <VscSignOut className="text-xl" />
+                    Sign Out
+                  </li>
+                </ul>
+              </PopoverContent>
+            </Popover>
           ) : (
-            <>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Avatar className="">
-                    <AvatarImage
-                      className="w-8 h-8 rounded-full cursor-pointer"
-                      src="/Icon/Icon button.svg"
-                    />
-                  </Avatar>
-                </PopoverTrigger>
-                <PopoverContent className="p-4 z-[999]">
-                  <ul className="mt-3 flex items-start flex-col gap-3">
-                    <Link href={"/register"}>
-                      <li className=" flex items-center gap-2">Sign Up</li>
-                    </Link>
-                    <div className="divider w-full h-[1px] bg-slate-400/40"></div>
-                    <Link href={"/login"}>
-                      <li className=" flex items-center gap-2">Login</li>
-                    </Link>
-                  </ul>
-                </PopoverContent>
-              </Popover>
-            </>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Avatar>
+                  <AvatarImage
+                    className="w-8 h-8 rounded-full cursor-pointer"
+                    src="/Icon/Icon button.svg"
+                  />
+                </Avatar>
+              </PopoverTrigger>
+              <PopoverContent className="z-[999]">
+                <ul className="mt-3 flex items-start flex-col gap-3">
+                  <Link
+                    href={"/register"}
+                    className="hover:bg-gray-200 w-full h-full"
+                  >
+                    <li className="flex items-center gap-2">Sign Up</li>
+                  </Link>
+                  <div className="divider w-full h-[1px] bg-slate-400/40"></div>
+                  <Link
+                    href={"/login"}
+                    className="hover:bg-gray-200 w-full h-full"
+                  >
+                    <li className="flex items-center gap-2">Login</li>
+                  </Link>
+                </ul>
+              </PopoverContent>
+            </Popover>
           )}
         </div>
       </div>
@@ -175,84 +198,86 @@ function Navbar() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <>
-          <motion.div
-            variants={menuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="fixed  z-[999] top-0 right-0 w-full h-screen bg-white flex flex-col items-start pl-12  justify-center gap-4 lg:hidden"
+        <motion.div
+          variants={menuVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="fixed z-[999] top-0 right-0 w-full h-screen bg-white flex flex-col items-start pl-12 justify-center gap-4 lg:hidden"
+        >
+          <img src="/logo/FYW.png" alt="logo" />
+          <button
+            onClick={() => setIsMenuOpen(false)}
+            className="text-3xl absolute top-4 right-4"
           >
-            <img src="/logo/FYW.png" alt="logo" />
-            <button
-              onClick={() => setIsMenuOpen(false)}
-              className="text-3xl absolute top-4 right-4"
-            >
-              <FaTimes />
-            </button>
-            <ul className="flex flex-col items-start gap-3">
-              {navlinks.map((link, idx) => {
-                const isActive = path === link?.path;
-                return (
-                  <motion.li
-                    key={idx}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className={`${
-                      isActive ? "text-[#00b0f2] font-bold" : "text-gray-600"
-                    } transition`}
-                  >
-                    <Link href={link?.path}>{link?.title}</Link>
-                  </motion.li>
-                );
-              })}
-            </ul>
-            <div className="mt-6 text-lg font-semibold">
-              {!user.login ? (
-                <Avatar>
-                  <div className="flex gap-2">
+            <FaTimes />
+          </button>
+          <ul className="flex flex-col items-start gap-3">
+            {navlinks.map((link, idx) => {
+              const isActive = path === link?.path;
+              return (
+                <motion.li
+                  key={idx}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className={`${
+                    isActive ? "text-[#00b0f2] font-bold" : "text-gray-600"
+                  } transition`}
+                >
+                  <Link href={link?.path}>{link?.title}</Link>
+                </motion.li>
+              );
+            })}
+          </ul>
+          <div className="mt-6 text-lg font-semibold">
+            {!user.login ? (
+              <Avatar>
+                <div className="flex gap-2">
+                  <AvatarImage
+                    className="w-8 h-8 rounded-full object-cover cursor-pointer"
+                    src={user.photoURL}
+                  />
+                  <div>
+                    <h1 className="font-semibold text-base">
+                      {user?.displayName}
+                    </h1>
+                    <h1 className="font-normal opacity-75 text-base">
+                      {user?.email}
+                    </h1>
+                  </div>
+                </div>
+              </Avatar>
+            ) : (
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Avatar>
                     <AvatarImage
                       className="w-8 h-8 rounded-full cursor-pointer"
-                      src={user.photoURL}
+                      src="/Icon/Icon button.svg"
                     />
-                    <div>
-                      <h1 className="font-semibold text-base">
-                        {user?.displayName}
-                      </h1>
-                      <h1 className="font-normal opacity-75 text-base">
-                        {user?.email}
-                      </h1>
-                    </div>
-                  </div>
-                </Avatar>
-              ) : (
-                <>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Avatar className="">
-                        <AvatarImage
-                          className="w-8 h-8 rounded-full cursor-pointer"
-                          src="/Icon/Icon button.svg"
-                        />
-                      </Avatar>
-                    </PopoverTrigger>
-                    <PopoverContent className="p-4 z-[999]">
-                      <ul className="mt-3 flex items-start flex-col gap-3">
-                        <Link href={"/register"}>
-                          <li className=" flex items-center gap-2">Sign Up</li>
-                        </Link>
-                        <div className="divider w-full h-[1px] bg-slate-400/40"></div>
-                        <Link href={"/login"}>
-                          <li className=" flex items-center gap-2">Login</li>
-                        </Link>
-                      </ul>
-                    </PopoverContent>
-                  </Popover>
-                </>
-              )}
-            </div>
-          </motion.div>
-        </>
+                  </Avatar>
+                </PopoverTrigger>
+                <PopoverContent className="z-[999]">
+                  <ul className="mt-3 flex items-start flex-col gap-3">
+                    <Link
+                      href={"/register"}
+                      className="hover:bg-gray-200 w-full h-full"
+                    >
+                      <li className="flex items-center gap-2">Register</li>
+                    </Link>
+                    <div className="divider w-full h-[1px] bg-slate-400/40"></div>
+                    <Link
+                      href={"/login"}
+                      className="hover:bg-gray-200 w-full h-full"
+                    >
+                      <li className="flex items-center gap-2">Login</li>
+                    </Link>
+                  </ul>
+                </PopoverContent>
+              </Popover>
+            )}
+          </div>
+        </motion.div>
       )}
     </div>
   );

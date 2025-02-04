@@ -1,12 +1,13 @@
 import Examples from "@/components/Example/Examples";
 import DonateSection from "@/components/LadingPage/DonateSection";
 import PageHeader from "@/components/PageHeader/PageHeader";
+import Link from "next/link";
 import React from "react";
 
 function FindYourWhyExamples() {
   const datas = [
     {
-      image: '/ExampleImage/img1.png',
+      image: "/ExampleImage/img1.png",
       title: [
         "To Make a Positive Impact on Others",
         "To Pursue Personal Growth and Self-Actualization",
@@ -21,7 +22,7 @@ function FindYourWhyExamples() {
       ],
     },
     {
-      image: '/ExampleImage/img2.png',
+      image: "/ExampleImage/img2.png",
       title: [
         "To Inspire Others and Lead by Example",
         "To Contribute to a Greater Cause or Community",
@@ -36,7 +37,7 @@ function FindYourWhyExamples() {
       ],
     },
     {
-      image: '/ExampleImage/img3.png',
+      image: "/ExampleImage/img3.png",
       title: [
         "To Promote Health and Well-Being",
         "To Seek Spiritual Fulfillment",
@@ -52,7 +53,7 @@ function FindYourWhyExamples() {
       ],
     },
     {
-      image: '/ExampleImage/img4.png',
+      image: "/ExampleImage/img4.png",
       title: [
         "To Find and Maintain Happiness",
         "To Overcome Challenges and Grow Stronger",
@@ -68,7 +69,7 @@ function FindYourWhyExamples() {
       ],
     },
     {
-      image: '/ExampleImage/img5.png',
+      image: "/ExampleImage/img5.png",
       title: [
         "To Advocate for Change",
         "To Seek Adventure and Exploration",
@@ -87,10 +88,12 @@ function FindYourWhyExamples() {
 
   return (
     <>
-        <PageHeader
-          title={'Find Your Why Examples'}
-          subTitle={"Discover your 'Why' with our free personality WHY's and gain personalized insights and actionable steps to live a more fulfilling life."}
-        ></PageHeader>
+      <PageHeader
+        title={"Find Your Why Examples"}
+        subTitle={
+          "Discover your 'Why' with our free personality WHY's and gain personalized insights and actionable steps to live a more fulfilling life."
+        }
+      ></PageHeader>
       <div className="container mx-auto px-2 py-12">
         <Examples></Examples>
 
@@ -98,9 +101,15 @@ function FindYourWhyExamples() {
         {datas.map((data, dataIndex) => (
           <div
             key={dataIndex}
-            className={`flex flex-col ${dataIndex % 2 === 0 ? '' : 'lg:flex-row-reverse'} lg:flex-row justify-between items-start lg:items-center gap-8 mb-16`}
+            className={`flex flex-col ${
+              dataIndex % 2 === 0 ? "" : "lg:flex-row-reverse"
+            } lg:flex-row justify-between items-start lg:items-center gap-8 mb-16`}
           >
-            <img className="w-full md:w-[400px] lg:w-1/2" src={data?.image} alt="image" />
+            <img
+              className="w-full lg:w-[400px] h-[350px] sm:h-[400px] object-top md:h-[500px] rounded-xl overflow-hidden object-cover xl:w-1/2"
+              src={data?.image}
+              alt="image"
+            />
             {/* Text Section */}
             <div className="basis-2/3 flex flex-col items-start h-full gap-8 justify-between lg:basis-3/4">
               {data?.title.map((title, index) => (
@@ -108,20 +117,28 @@ function FindYourWhyExamples() {
                   key={index}
                   className="mb-2 flex md:flex-row flex-col items-start md:items-center gap-2"
                 >
-                  <img className="border-2 p-2 rounded-md  border-[#00b0f2] bg-[#00b0f2]/20" src="/Icon/solidarity.png" alt="solidarity icon" />
+                  <img
+                    className="border-2 p-2 rounded-md  border-[#00b0f2] bg-[#00b0f2]/20"
+                    src="/Icon/solidarity.png"
+                    alt="solidarity icon"
+                  />
                   <div>
                     <h2 className="text-lg font-semibold">{title}</h2>
-                    <p className="text-sm lg:text-base"><b>Example :-</b>{data?.example[index]}</p>
+                    <p className="text-sm lg:text-base">
+                      <b>Example :-</b>
+                      {data?.example[index]}
+                    </p>
                   </div>
-
                 </div>
               ))}
               <div className="flex items-center gap-3">
-                <h1 className="font-semibold">To Find Your Why –</h1><button className="bg-[#00b0f2] font-semibold  text-white px-6 py-2 rounded-md  hover:bg-[#00b0f2]/70 transition">
-                  Start Here
-                </button>
+                <h1 className="font-semibold">To Find Your Why –</h1>
+                <Link href="/find-why">
+                  <button className="bg-[#00b0f2] font-semibold  text-white px-6 py-2 rounded-md  hover:bg-[#00b0f2]/70 transition">
+                    Start Here
+                  </button>
+                </Link>
               </div>
-
             </div>
           </div>
         ))}

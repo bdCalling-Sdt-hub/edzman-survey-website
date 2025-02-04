@@ -1,7 +1,5 @@
 import baseApis from "../query/baseApis";
 
-
-
 export const whyApis = baseApis.injectEndpoints({
   endpoints: (builder) => ({
     getAllWhy: builder.query({
@@ -18,7 +16,35 @@ export const whyApis = baseApis.injectEndpoints({
       }),
       providesTags: ["personal-why"],
     }),
+    genarateWhy: builder.mutation({
+      query: (data) => ({
+        url: "/why/generate-why-overview",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["personal-why"],
+    }),
+    deleteWhy: builder.mutation({
+      query: (id) => ({
+        url: `/why/delete-why/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["personal-why"],
+    }),
+    getSingleWhy: builder.query({
+      query: ({id}) => ({
+        url: `/why/get-single-why/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["personal-why"],
+    }),
   }),
 });
 
-export const { useGetAllWhyQuery, useGetMyWhyQuery } = whyApis;
+export const {
+  useGetAllWhyQuery,
+  useGetMyWhyQuery,
+  useGenarateWhyMutation,
+  useGetSingleWhyQuery,
+  useDeleteWhyMutation,
+} = whyApis;

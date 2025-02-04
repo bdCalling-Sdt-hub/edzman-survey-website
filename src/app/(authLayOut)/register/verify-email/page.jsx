@@ -1,25 +1,31 @@
 "use client";
-import { use, useEffect, useState } from "react";
-import { Input, Button } from "antd";
+import { useEffect, useState } from "react";
+import { Input, Button, message } from "antd";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import "antd/dist/reset.css";
-import { useVerifyOtpMutation } from "@/app/provider/redux/services/authApis";
+import { useVerifyCodeMutation } from "@/app/provider/redux/services/authApis";
 
-const VerifyEmailOtp = () => {
+const VerifyEmail = () => {
   const [otp, setOtp] = useState(["", "", "", "", ""]);
-  const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
-  const [email, setEmail] = useState("");
+  const [verifycode, { isLoading }] = useVerifyCodeMutation();
+  const [verifyEmail, setEmail] = useState("");
+  const router = useRouter();
+
   useEffect(() => {
-    const email = localStorage.getItem("email");
+    const email = localStorage.getItem("register-email");
     if (!email) {
-      Swal.fire("Email not found. Please enter your email again.");
-      router.push("/login/email-confirm");
+      Swal.fire({
+        title: "Email not found!",
+        text: "Please enter your email again.",
+        icon: "error",
+      });
+      router.push("/register");
     } else {
       setEmail(email);
     }
-  }, []);
-  const router = useRouter();
+  }, [router]);
+
   const handleChange = (value, index) => {
     const newOtp = [...otp];
     newOtp[index] = value.slice(0, 1);
@@ -37,6 +43,7 @@ const VerifyEmailOtp = () => {
   };
 
   const isOtpComplete = otp.every((digit) => digit !== "");
+
   const handleVerify = async () => {
     const otpString = otp.join("");
     const otpNumberConvert = Number(otpString);
@@ -47,21 +54,31 @@ const VerifyEmailOtp = () => {
     }
 
     const data = {
-      email: email,
-      resetCode: otpNumberConvert,
+      email: verifyEmail,
+      verifyCode: otpNumberConvert,
     };
+    console.log(data);
 
     try {
-      const response = await verifyOtp(data).unwrap();
+      const response = await verifycode({ data }).unwrap();
       console.log("OTP Verified:", response);
-      Swal.fire("OTP Verified. Redirecting to reset password page.");
+      Swal.fire({
+        title: "OTP Verified!",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
       setTimeout(() => {
-        router.push("/login/email-confirm/verify-email-otp/reset-password");
+        router.push("/login");
       }, 1500);
     } catch (err) {
       console.error(err);
       message.error("Invalid OTP. Please try again.");
     }
+  };
+
+  const handleResendOtp = () => {
+    Swal.fire("OTP Resent!", "Check your email for the new OTP.", "success");
   };
 
   return (
@@ -71,8 +88,8 @@ const VerifyEmailOtp = () => {
           Check your email
         </h2>
         <p className="text-center text-gray-600 mb-6">
-          We sent a reset link to <strong>{email}</strong>. Enter the 5-digit
-          code mentioned in the email.
+          We sent a reset link to <strong>{verifyEmail}</strong>. Enter the
+          5-digit code mentioned in the email.
         </p>
         <div className="flex justify-center space-x-2 mb-6">
           {otp.map((digit, index) => (
@@ -97,7 +114,10 @@ const VerifyEmailOtp = () => {
         </Button>
         <p className="text-center text-gray-600 mt-4">
           You have not received the email?{" "}
-          <a className="text-[#00b0f2] hover:underline cursor-pointer">
+          <a
+            className="text-[#00b0f2] hover:underline cursor-pointer"
+            onClick={handleResendOtp}
+          >
             Resend
           </a>
         </p>
@@ -106,4 +126,4 @@ const VerifyEmailOtp = () => {
   );
 };
 
-export default VerifyEmailOtp;
+export default VerifyEmail;

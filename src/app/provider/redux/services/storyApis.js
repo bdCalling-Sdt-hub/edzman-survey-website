@@ -13,6 +13,14 @@ export const storyApis = baseApis.injectEndpoints({
       },
       providesTags: ["story"],
     }),
+    createNewStory: builder.mutation({
+      query: (data) => ({
+        url: "/story/create-story",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["story"],
+    }),
     singleStoryGet: builder.query({
       query: ({ id }) => ({
         url: `/story/single-story/${id}`,
@@ -42,4 +50,5 @@ export const {
   useApproveStoryMutation,
   useDeleteStoryMutation,
   useSingleStoryGetQuery,
+  useCreateNewStoryMutation
 } = storyApis;

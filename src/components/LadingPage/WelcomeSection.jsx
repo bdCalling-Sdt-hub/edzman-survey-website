@@ -1,7 +1,7 @@
 "use client";
 import PrimaryButton from "@/lib/button/PrimaryButton";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 
 const data = [
@@ -26,7 +26,11 @@ const data = [
 ];
 
 function WelcomeSection() {
-  const user = false;
+  const [token, setToken] = useState(null);
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setToken(accessToken);
+  }, [token]);
   return (
     <div className="container mx-auto flex flex-col md:flex-col lg:flex-row items-center justify-center gap-6 px-4 lg:px-16 py-8">
       <div className="flex-1 flex items-center justify-start">
@@ -68,7 +72,7 @@ function WelcomeSection() {
           </div>
         </div>
 
-        <Link href={user ? "/fwt" : "/login"}>
+        <Link href={token ? "/ftw" : "/login"}>
           <div className="mt-6">
             <PrimaryButton text={"Start Now"} />
           </div>

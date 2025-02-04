@@ -4,11 +4,38 @@ import Link from "next/link";
 import { GoArrowUpRight } from "react-icons/go";
 import { Button, Form, Input, message, Space } from "antd";
 import toast from "react-hot-toast";
+import { useProfileUpdateMutation } from "@/app/provider/redux/services/userApis";
+import Swal from "sweetalert2";
 function Footer() {
   const [form] = Form.useForm();
-  const handleSubmit = (values) => {
-    console.log(values);
-    toast.success("Thank you for subscribing");
+  const [updateSubscribe, { isLoading }] = useProfileUpdateMutation();
+  const handleSubmit = async (values) => {
+    const email = values?.email;
+
+    if (!email) {
+      return Swal.fire("Email not found!");
+    }
+    const data = {
+      subscriptionEmail: email,
+    };
+    try {
+      const response = await updateSubscribe({data}).unwrap();
+      Swal.fire({
+        title: "Subscription successful!",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      console.log("Subscription successful:", response);
+    } catch (error) {
+      Swal.fire({
+        title: "Subscription error!",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      console.error("Subscription error:", error);
+    }
   };
   const QuickLinks = [
     { title: "Home", path: "/" },
@@ -120,7 +147,7 @@ function Footer() {
                   height: "44px",
                 }}
               >
-                →
+                {isLoading ? "Subscribeing..." : "→"}
               </Button>
             </Space.Compact>
           </Form>
@@ -130,9 +157,9 @@ function Footer() {
       {/* Footer Bottom */}
       <div className="container mx-auto border-t px-4 flex lg:flex-row flex-col item-start lg:items-center justify-between border-gray-700 mt-8 pt-4 lg:text-center">
         {/* Brand Info */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <p>A product of</p>
+        <div className="flex items-center justify-center gap-3">
+          <div className="flex items-center justify-center gap-2">
+            <h1>A product of</h1>
             <img src="/brandLogo.svg" alt="brands logo" />
           </div>
         </div>

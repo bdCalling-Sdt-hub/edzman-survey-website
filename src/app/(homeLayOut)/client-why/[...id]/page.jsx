@@ -7,7 +7,7 @@ import {
 import DonateSection from "@/components/LadingPage/DonateSection";
 import PageHeader from "@/components/PageHeader/PageHeader";
 import ShareLink from "@/components/shareLink/ShareLink";
-import { imageUrl } from "@/lib/utils";
+import { imageUrl, stripHtmlTags } from "@/lib/utils";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SlCalender } from "react-icons/sl";
@@ -52,7 +52,7 @@ function StoryPage() {
       setSelectedStory(mappedStory);
       setLoading(false);
     }
-  }, [apiResponse, storyId]); 
+  }, [apiResponse, storyId]);
 
   const handleStoryClick = (story) => {
     router.push(`/client-why/${story.id}`);
@@ -82,7 +82,7 @@ function StoryPage() {
 
       <div className="container mx-auto mt-8 flex flex-col lg:flex-row items-start gap-6">
         {/* Main Story Section */}
-        <div className="w-full lg:w-3/4 px-2">
+        <div className="w-full sticky top-8 h-fit lg:w-3/4 px-2">
           <div className="flex mt-12 flex-col lg:flex-row items-center gap-4 mb-6">
             <img
               src={imageUrl(selectedStory?.bannerImage)}
@@ -116,11 +116,13 @@ function StoryPage() {
             {selectedStory?.title}
           </h1>
           <div className="text-gray-600 mb-4">
-            {selectedStory?.description.split("\n").map((paragraph, index) => (
-              <p key={index} className="mb-4">
-                {paragraph}
-              </p>
-            ))}
+            {stripHtmlTags(selectedStory?.description)
+              .split("\n")
+              .map((paragraph, index) => (
+                <p key={index} className="mb-4">
+                  {paragraph}
+                </p>
+              ))}
           </div>
 
           {/* Story Insights Section */}
@@ -165,22 +167,24 @@ function StoryPage() {
                 }
                 className="flex items-start hover:bg-gray-300 gap-4 mb-6 p-4 border-b-[1px] border-b-black transition cursor-pointer"
               >
-                <div>
-                  <h3 className="text-sm font-semibold">
-                    {story.title.substring(0, 50)}...
-                  </h3>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {story.description.substring(0, 60)}...
-                  </p>
-                  <p className="text-xs text-gray-400 mt-1">
-                    {new Date(story.createdAt).toLocaleDateString()}
-                  </p>
+                <div className="flex gap-2">
+                  <img
+                    src={imageUrl(story.story_image)}
+                    alt="Story Thumbnail"
+                    className="w-16 h-16 rounded-lg object-cover"
+                  />
+                  <div>
+                    <h3 className="text-sm font-semibold">
+                      {story.title.substring(0, 50)}...
+                    </h3>
+                    <p className="text-xs text-gray-500 mt-1">
+                      {stripHtmlTags(story.description).substring(0, 60)}...
+                    </p>
+                    <p className="text-xs text-gray-400 mt-1">
+                      {new Date(story.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
                 </div>
-                <img
-                  src={imageUrl(story.story_image)}
-                  alt="Story Thumbnail"
-                  className="w-16 h-16 rounded-lg object-cover"
-                />
               </div>
             ))}
         </div>

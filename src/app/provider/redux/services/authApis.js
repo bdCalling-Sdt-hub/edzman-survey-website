@@ -33,6 +33,13 @@ export const authApis = baseApis.injectEndpoints({
         body: data,
       }),
     }),
+    verifyCode: builder.mutation({
+      query: ({data}) => ({
+        url: "/user/verify-code",
+        method: "POST",
+        body: data,
+      }),
+    }),
     resetPassword: builder.mutation({
       query: (data) => ({
         url: "/auth/reset-password",
@@ -47,6 +54,13 @@ export const authApis = baseApis.injectEndpoints({
         body: data,
       }),
     }),
+    resgiterPostUser: builder.mutation({
+      query: ({ data }) => ({
+        url: "/user/register-user",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -57,4 +71,6 @@ export const {
   useVerifyOtpMutation,
   useResetPasswordMutation,
   useResendOtpMutation,
+  useResgiterPostUserMutation,
+  useVerifyCodeMutation,
 } = authApis;
