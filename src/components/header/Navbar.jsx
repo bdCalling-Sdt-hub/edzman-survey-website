@@ -218,7 +218,7 @@ function Navbar() {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="fixed z-[999] top-0 right-0 w-full h-screen bg-white flex flex-col items-start pl-12 justify-center gap-4 lg:hidden"
+          className="fixed z-[999] top-0 right-0 w-full h-screen bg-white flex flex-col items-start pl-12 justify-start pt-12 gap-4 lg:hidden"
         >
           <Link href={"/"}>
             <img src="/logo/FYW.png" alt="logo" />
@@ -241,7 +241,9 @@ function Navbar() {
                     isActive ? "text-[#00b0f2] font-bold" : "text-gray-600"
                   } transition`}
                 >
-                  <Link href={link?.path}>{link?.title}</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href={link?.path}>
+                    {link?.title}
+                  </Link>
                 </motion.li>
               );
             })}

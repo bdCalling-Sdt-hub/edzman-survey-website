@@ -149,7 +149,7 @@ function Page() {
                 <img
                   src={imageUrl(story?.story_image)}
                   alt={story?.title}
-                  className="w-full md:w-96 h-[400px] object-contain md:object-cover rounded-md"
+                  className="w-full md:w-96 md:h-[400px] object-contain md:object-cover rounded-md"
                 />
                 <div className="w-full lg:w-[50%]">
                   <h3 className="text-3xl font-semibold">{story?.title}</h3>

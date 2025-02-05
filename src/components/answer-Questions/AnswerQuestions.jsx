@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Button, Input, Progress, Spin } from "antd";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useRouter } from "next/navigation";
@@ -197,7 +197,7 @@ const cardData = [
 
 const AnswerQuestions = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState([{}]);
+  const [answers, setAnswers] = useState([]);
   const currentQuestion = questions[currentQuestionIndex];
   const [genarateWhy, { isLoading: isGenerateWhyLoading }] =
     useGenarateWhyMutation();
@@ -211,7 +211,21 @@ const AnswerQuestions = () => {
       },
     }));
   };
+  useEffect(() => {
+    console.log(answers);
+    if (Object.keys(answers).length > 0) {
+      localStorage.setItem("answers", JSON.stringify(answers));
+    }
+  }, [answers]);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
 
+    const storedAnswers = localStorage.getItem("answers");
+
+    if (storedAnswers) {
+      setAnswers(JSON.parse(storedAnswers));
+    }
+  }, [typeof window]);
   const totalSubQuestions = questions.reduce(
     (sum, question) => sum + question.subQuestions.length,
     0

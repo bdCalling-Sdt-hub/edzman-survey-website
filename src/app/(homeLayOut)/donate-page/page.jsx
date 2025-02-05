@@ -44,10 +44,10 @@ function page() {
                 datas.map((data, idx) => (
                   <div key={idx} className={`flex ${idx % 2 === 0 ? 'lg:flex-row flex-col' : 'flex-col lg:flex-row-reverse'} items-center gap-16 justify-center `}>
                     <img className='flex-1 w-[500px]' src={data?.img} alt={data.alt} />
-                    <div className='flex-1 gap-6 items-start flex flex-col relative z-9'>
-                      <div className={`-top-6 -left-4 -z-[999] w-12 h-12 ${idx % 2 !== 0 ? 'bg-[#1D355799]' : 'bg-[#2196F399]/50'} rounded-full  absolute`}></div>
-                      <div className="bottom-0 right-12 -z-[999] w-8 h-8  rounded-full bg-[#00B0F2] absolute"></div>
-                      <p className='text-4xl z-[999] text-[#1D3557] font-bold'>
+                    <div className='flex-1 gap-6 items-start flex flex-col relative z-8'>
+                      <div className={`-top-6 -left-4 -z-[888] w-12 h-12 ${idx % 2 !== 0 ? 'bg-[#1D355799]' : 'bg-[#2196F399]/50'} rounded-full  absolute`}></div>
+                      <div className="bottom-0 right-12 -z-[888] w-8 h-8  rounded-full bg-[#00B0F2] absolute"></div>
+                      <p className='text-4xl z-[888] text-[#1D3557] font-bold'>
                         {data.title.split(' ').map((word, index) => (
                           word?.toLowerCase() === "‘why’" || word?.toLowerCase() === "story" || word?.toLowerCase() === "your" ? (
                             <span key={index} className='text-[#00B0F2]'>{word} </span>
@@ -56,7 +56,7 @@ function page() {
                           )
                         ))}
                       </p>
-                      <p className='opacity-75 z-[999]'>{data.description}</p>
+                      <p className='opacity-75 z-[888]'>{data.description}</p>
                       <Link className="flex items-center gap-2" href={'https://www.zeffy.com/en-US/embed/donation-form/donate-to-assist-others-with-find-your-why'}>
                         <div className='flex px-6 py-3 items-center hover:bg-[#00b0f2] transition-all border-[#00B0F2] rounded-md border-2 gap-2'>
                           <button className='cursor-pointer'>Donate Now</button>
