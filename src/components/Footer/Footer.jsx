@@ -2,10 +2,10 @@
 import React from "react";
 import Link from "next/link";
 import { GoArrowUpRight } from "react-icons/go";
-import { Button, Form, Input, message, Space } from "antd";
-import toast from "react-hot-toast";
+import { Button, Form, Input, message, Space, Spin } from "antd";
 import { useProfileUpdateMutation } from "@/app/provider/redux/services/userApis";
 import Swal from "sweetalert2";
+import { toast } from "sonner";
 function Footer() {
   const [form] = Form.useForm();
   const [updateSubscribe, { isLoading }] = useProfileUpdateMutation();
@@ -13,27 +13,17 @@ function Footer() {
     const email = values?.email;
 
     if (!email) {
-      return Swal.fire("Email not found!");
+      return toast.error("Email is required!");
     }
     const data = {
       subscriptionEmail: email,
     };
     try {
-      const response = await updateSubscribe({data}).unwrap();
-      Swal.fire({
-        title: "Subscription successful!",
-        icon: "success",
-        timer: 1500,
-        showConfirmButton: false,
-      });
+      const response = await updateSubscribe({ data }).unwrap();
+      toast.success("Subscription successful!");
       console.log("Subscription successful:", response);
     } catch (error) {
-      Swal.fire({
-        title: "Subscription error!",
-        icon: "error",
-        timer: 1500,
-        showConfirmButton: false,
-      });
+      toast.error("Subscription error!");
       console.error("Subscription error:", error);
     }
   };
@@ -147,7 +137,7 @@ function Footer() {
                   height: "44px",
                 }}
               >
-                {isLoading ? "Subscribeing..." : "→"}
+                {isLoading ? <Spin size="small" className="text-white" /> : "→"}
               </Button>
             </Space.Compact>
           </Form>

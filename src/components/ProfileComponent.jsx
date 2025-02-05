@@ -3,15 +3,20 @@ import React, { useState } from "react";
 import { Input, Button, Select, Spin } from "antd";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { CameraOutlined, UploadOutlined } from "@ant-design/icons";
+import { CameraOutlined } from "@ant-design/icons";
 import PageHeader from "@/components/PageHeader/PageHeader";
 import ShareYourWhy from "@/lib/modalcard/ShareYourWhy";
 import DonateSection from "@/components/LadingPage/DonateSection";
 import WhyHistory from "@/lib/modalcard/WhyHistory";
 import Swal from "sweetalert2";
 import { imageUrl } from "@/lib/utils";
-import { useProfileUpdateMutation } from "@/app/provider/redux/services/userApis";
-import toast from "react-hot-toast";
+import {
+  useProfileDeleteMutation,
+  useProfileUpdateMutation,
+} from "@/app/provider/redux/services/userApis";
+import { toast } from "sonner";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const { Option } = Select;
 
@@ -59,11 +64,12 @@ const InputField = ({
 );
 
 const ProfileComponent = ({ userData, isLoading }) => {
+  const router = useRouter();
   const user = userData?.data;
-  console.log(user);
 
   const [updateProfile, { isLoading: updatingProfile }] =
     useProfileUpdateMutation();
+  const [profileDelete, { isLoading: deleting }] = useProfileDeleteMutation();
   const [showModal, setShowModal] = useState(false);
   const [WhyHistoryShow, setWhyHistoryShow] = useState(false);
   const [image, setImage] = useState(null);
@@ -126,19 +132,13 @@ const ProfileComponent = ({ userData, isLoading }) => {
 
     try {
       const res = await updateProfile({ data: formData }).unwrap();
-      Swal.fire({
-        icon: "success",
-        title: "Updated",
-        text: `${res?.message}`,
-        timer: 1500,
-        showConfirmButton: false,
-      });
+      toast.success(res?.message);
     } catch (error) {
-      console.error("Failed to update profile:", error);
       toast.error("An error occurred while updating the profile.");
     }
   };
 
+  //TODO : Implement delete account functionality
   const handleDelete = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -148,13 +148,53 @@ const ProfileComponent = ({ userData, isLoading }) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your Account has been deleted.",
-          icon: "success",
+        const { value: password } = await Swal.fire({
+          title: "Please enter your password to confirm",
+          input: "password",
+          inputPlaceholder: "Enter your password",
+          inputAttributes: {
+            autocapitalize: "off",
+          },
+          showCancelButton: true,
+          confirmButtonText: "Delete Account",
+          cancelButtonText: "Cancel",
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          preConfirm: (password) => {
+            if (!password) {
+              Swal.showValidationMessage("Password is required");
+              return false;
+            }
+            return password;
+          },
         });
+
+        if (password) {
+          const data = {
+            password: password,
+          };
+
+          try {
+            const response = await profileDelete({ data }).unwrap();
+            if (response.success) {
+              toast.success("Account deleted successfully.");
+              Cookies.remove("token");
+              localStorage.removeItem("accessToken");
+              localStorage.removeItem("browserInfo");
+              localStorage.removeItem("cookieConsent");
+              router.push("/login");
+            } else {
+              toast.error(response.message || "An error occurred.");
+            }
+          } catch (error) {
+            console.error("Error deleting account:", error);
+            toast.error(
+              error.message || "An error occurred while deleting the account."
+            );
+          }
+        }
       }
     });
   };
@@ -203,13 +243,16 @@ const ProfileComponent = ({ userData, isLoading }) => {
               />
             </div>
             <div className="flex-grow text-[#083a50]">
-              <h1 className="text-3xl font-bold">
-                {profile.name} {profile.surname}
-              </h1>
-              <p className="text-[#083a50] mt-2">
-                "Unlock Your Potential: Discover, Embrace, and Share Your 'Why'"
-              </p>
-              <div className="flex gap-4 mt-4">
+              <div className="text-center lg:text-start">
+                <h1 className="text-3xl font-bold">
+                  {profile.name} {profile.surname}
+                </h1>
+                <p className="text-[#083a50] mt-2">
+                  "Unlock Your Potential: Discover, Embrace, and Share Your
+                  'Why'"
+                </p>
+              </div>
+              <div className="flex w-full items-center justify-center lg:items-start lg:justify-start gap-4 mt-4">
                 <Button
                   onClick={() => setWhyHistoryShow(!WhyHistoryShow)}
                   className="bg-[#00b0f2] rounded-md text-white hover:bg-[#00b0f2]"
@@ -257,7 +300,7 @@ const ProfileComponent = ({ userData, isLoading }) => {
               onClick={handleDelete}
               className="bg-red-500 hover:bg-red-600 text-[#083a50] px-6 py-2 rounded-md"
             >
-              Delete Account
+              {deleting ? "Deleting..." : "Delete Account"}
             </Button>
             <Button
               onClick={handleUpdate}

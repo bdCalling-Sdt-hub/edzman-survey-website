@@ -5,8 +5,8 @@ import { Button, Upload, Modal, Input, Form, message, Image } from "antd";
 import "antd/dist/reset.css";
 import JoditEditor from "jodit-react";
 import { useCreateNewStoryMutation } from "@/app/provider/redux/services/storyApis";
-import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import { toast } from "sonner";
 
 export default function ShareYourWhy() {
   const [fileList, setFileList] = useState([]);
@@ -47,11 +47,7 @@ export default function ShareYourWhy() {
 
       if (response?.data?.success) {
         setIsModalOpen(false);
-        Swal.fire({
-          title: `${response?.data?.message}`,
-          icon: "success",
-          draggable: true,
-        });
+        toast.success("Story created successfully.");
       } else {
         message.error("Failed to create story");
       }

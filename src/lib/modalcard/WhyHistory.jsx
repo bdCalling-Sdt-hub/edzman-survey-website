@@ -8,6 +8,7 @@ import {
   useGetMyWhyQuery,
 } from "@/app/provider/redux/services/whyApis";
 import Swal from "sweetalert2";
+import { toast } from "sonner";
 
 export default function WhyLogsHistory() {
   const { data, isLoading } = useGetMyWhyQuery();
@@ -20,8 +21,6 @@ export default function WhyLogsHistory() {
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       )
     : [];
-
-  console.log(data?.data);
 
   const formatTitle = (index) => `Why Response Version ${index + 1}`;
 
@@ -47,6 +46,7 @@ export default function WhyLogsHistory() {
     if (result.isConfirmed) {
       try {
         await deleteWhy(id).unwrap();
+        toast.success("Your why response has been deleted.");
         await Swal.fire(
           "Deleted!",
           "Your why response has been deleted.",
@@ -54,7 +54,7 @@ export default function WhyLogsHistory() {
         );
       } catch (error) {
         console.error("Failed to delete the why response:", error);
-        Swal.fire("Error", "Failed to delete the why response.", "error");
+        toast.error("Failed to delete the why response.");
       }
     }
   };
@@ -148,6 +148,7 @@ export default function WhyLogsHistory() {
               <h4 className="font-semibold text-[#1d3557]">Initial Summary:</h4>
               <p className="text-gray-700">{selectedWhy.initialSummary}</p>
             </div>
+
             <div>
               <h4 className="font-semibold text-[#1d3557]">Key Points:</h4>
               <ul className="list-disc list-inside text-gray-700">

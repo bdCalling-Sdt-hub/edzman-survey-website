@@ -1,3 +1,4 @@
+"use client";
 import Banner from "@/components/LadingPage/Banner";
 import CookiesModal from "@/components/cookie-modal/CookiesModal.jsx";
 import CreatePersonalWhy from "@/components/LadingPage/CreatePersonalWhy";

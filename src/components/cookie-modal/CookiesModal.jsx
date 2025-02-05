@@ -1,32 +1,69 @@
 "use client";
 import { useState, useEffect } from "react";
+import Cookies from "js-cookie"; // Import js-cookie for easier cookie management
 
 export default function CookieModal() {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem("cookieConsent");
+    const consent = Cookies.get("cookieConsent");
     if (!consent) {
       setIsModalVisible(true);
     }
   }, []);
-
+  // TODO: Implement the following functions
   const saveConsent = () => {
+    // Store browser information in cookies
     const browserInfo = {
       userAgent: navigator.userAgent,
       platform: navigator.platform,
       language: navigator.language,
     };
 
-    // Save consent and browser info in localStorage
-    localStorage.setItem("cookieConsent", "true");
-    localStorage.setItem("browserInfo", JSON.stringify(browserInfo));
+    // Set cookie consent and browser info
+    Cookies.set("cookieConsent", "true", { expires: 365 }); // Expires in 1 year
+    Cookies.set("browserInfo", JSON.stringify(browserInfo), { expires: 365 });
+
+    // Collect and store navigation data
+    trackNavigation();
+
+    // Collect and store form submissions
+    trackFormSubmissions();
 
     setIsModalVisible(false);
   };
 
   const rejectConsent = () => {
     setIsModalVisible(false);
+  };
+
+  const trackNavigation = () => {
+    // Store the current URL in cookies
+    Cookies.set("lastVisitedPage", window.location.href, { expires: 365 });
+
+    // Track future navigation
+    window.addEventListener("beforeunload", () => {
+      Cookies.set("lastVisitedPage", window.location.href, { expires: 365 });
+    });
+  };
+
+  const trackFormSubmissions = () => {
+    // Track all form submissions on the page
+    document.querySelectorAll("form").forEach((form) => {
+      form.addEventListener("submit", (event) => {
+        const formData = new FormData(form);
+        const formDataObject = Object.fromEntries(formData.entries());
+
+        // Store form data in cookies
+        Cookies.set(
+          `formSubmission_${form.id}`,
+          JSON.stringify(formDataObject),
+          {
+            expires: 365,
+          }
+        );
+      });
+    });
   };
 
   return (

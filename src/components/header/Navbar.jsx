@@ -45,9 +45,24 @@ function Navbar() {
     email: userData?.data?.email,
   };
 
+  const buttonVariants = {
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+    hidden: {
+      opacity: 0,
+    },
+  };
+
   const handleSignOut = () => {
     try {
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("email");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("register-email");
       Cookies.remove("token");
       router.push("/login");
     } catch (error) {
@@ -127,7 +142,7 @@ function Navbar() {
                       <h1 className="font-semibold text-base">
                         {user?.displayName}
                       </h1>
-                      <h1 className="font-normal opacity-75 text-base">
+                      <h1 className="font-normal opacity-75 text-sm">
                         {user?.email}
                       </h1>
                     </div>
@@ -167,20 +182,20 @@ function Navbar() {
                   />
                 </Avatar>
               </PopoverTrigger>
-              <PopoverContent className="z-[999]">
-                <ul className="mt-3 flex items-start flex-col gap-3">
+              <PopoverContent className="z-[999] w-48 flex items-center justify-center">
+                <ul className="mt-3 flex items-start flex-col gap-3 w-full">
                   <Link
                     href={"/register"}
-                    className="hover:bg-gray-200 w-full h-full"
+                    className="hover:text-[#00B0F2] transition-all w-full h-full"
                   >
                     <li className="flex items-center gap-2">Sign Up</li>
                   </Link>
                   <div className="divider w-full h-[1px] bg-slate-400/40"></div>
                   <Link
                     href={"/login"}
-                    className="hover:bg-gray-200 w-full h-full"
+                    className="hover:text-[#00B0F2] transition-all w-full h-full"
                   >
-                    <li className="flex items-center gap-2">Login</li>
+                    <li className="flex items-center gap-2">Sign In</li>
                   </Link>
                 </ul>
               </PopoverContent>
@@ -205,7 +220,9 @@ function Navbar() {
           exit="exit"
           className="fixed z-[999] top-0 right-0 w-full h-screen bg-white flex flex-col items-start pl-12 justify-center gap-4 lg:hidden"
         >
-          <img src="/logo/FYW.png" alt="logo" />
+          <Link href={"/"}>
+            <img src="/logo/FYW.png" alt="logo" />
+          </Link>
           <button
             onClick={() => setIsMenuOpen(false)}
             className="text-3xl absolute top-4 right-4"
@@ -232,49 +249,68 @@ function Navbar() {
           <div className="mt-6 text-lg font-semibold">
             {!user.login ? (
               <Avatar>
-                <div className="flex gap-2">
-                  <AvatarImage
-                    className="w-8 h-8 rounded-full object-cover cursor-pointer"
-                    src={user.photoURL}
-                  />
+                <div className="flex flex-col gap-2">
                   <div>
-                    <h1 className="font-semibold text-base">
-                      {user?.displayName}
-                    </h1>
-                    <h1 className="font-normal opacity-75 text-base">
-                      {user?.email}
-                    </h1>
+                    <AvatarImage
+                      className="w-8 h-8 rounded-full object-cover cursor-pointer"
+                      src={user?.photoURL}
+                    />
+                    <div>
+                      <h1 className="font-semibold text-base">
+                        {user?.displayName}
+                      </h1>
+                      <h1 className="font-normal opacity-75 text-sm">
+                        {user?.email}
+                      </h1>
+                    </div>
                   </div>
+                  <motion.div
+                    variants={buttonVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    className="flex w-full gap-2"
+                  >
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      className="bg-[#00B0F2] text-nowrap text-sm text-white px-4 py-2 rounded-md w-full"
+                    >
+                      <Link href={"/user-profile"}>Profiles</Link>
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      className="bg-[#16344F] text-sm text-nowrap text-white px-4 py-2 rounded-md w-full"
+                    >
+                      <p onClick={handleSignOut}>Sign Out</p>
+                    </motion.button>
+                  </motion.div>
                 </div>
               </Avatar>
             ) : (
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Avatar>
-                    <AvatarImage
-                      className="w-8 h-8 rounded-full cursor-pointer"
-                      src="/Icon/Icon button.svg"
-                    />
-                  </Avatar>
-                </PopoverTrigger>
-                <PopoverContent className="z-[999]">
-                  <ul className="mt-3 flex items-start flex-col gap-3">
-                    <Link
-                      href={"/register"}
-                      className="hover:bg-gray-200 w-full h-full"
-                    >
-                      <li className="flex items-center gap-2">Register</li>
-                    </Link>
-                    <div className="divider w-full h-[1px] bg-slate-400/40"></div>
-                    <Link
-                      href={"/login"}
-                      className="hover:bg-gray-200 w-full h-full"
-                    >
-                      <li className="flex items-center gap-2">Login</li>
-                    </Link>
-                  </ul>
-                </PopoverContent>
-              </Popover>
+              <motion.div
+                variants={buttonVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="flex w-full gap-2"
+              >
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="bg-[#00B0F2] text-nowrap text-sm text-white px-4 py-2 rounded-md w-full"
+                >
+                  <Link href={"/register"}>Sign Up</Link>
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="bg-[#16344F] text-sm text-nowrap text-white px-4 py-2 rounded-md w-full"
+                >
+                  <Link href={"/login"}>Sign In</Link>
+                </motion.button>
+              </motion.div>
             )}
           </div>
         </motion.div>

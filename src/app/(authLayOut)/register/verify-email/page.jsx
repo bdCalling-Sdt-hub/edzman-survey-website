@@ -1,25 +1,24 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Input, Button, message } from "antd";
+import { Input, Button } from "antd";
 import { useRouter } from "next/navigation";
-import Swal from "sweetalert2";
 import "antd/dist/reset.css";
-import { useVerifyCodeMutation } from "@/app/provider/redux/services/authApis";
+import {
+  useResendOtpMutation,
+  useVerifyCodeMutation,
+} from "@/app/provider/redux/services/authApis";
+import { toast } from "sonner";
 
 const VerifyEmail = () => {
   const [otp, setOtp] = useState(["", "", "", "", ""]);
   const [verifycode, { isLoading }] = useVerifyCodeMutation();
   const [verifyEmail, setEmail] = useState("");
   const router = useRouter();
-
+  const [resentOtp, { isLoading: isLoadingResend }] = useResendOtpMutation();
   useEffect(() => {
     const email = localStorage.getItem("register-email");
     if (!email) {
-      Swal.fire({
-        title: "Email not found!",
-        text: "Please enter your email again.",
-        icon: "error",
-      });
+      toast.error("Email not found! Please enter your email again.");
       router.push("/register");
     } else {
       setEmail(email);
@@ -49,7 +48,7 @@ const VerifyEmail = () => {
     const otpNumberConvert = Number(otpString);
 
     if (!otpString || otpString.length !== 5) {
-      Swal.fire("Please enter a valid 5-digit OTP.");
+      toast.error("Please enter a valid 5-digit OTP.");
       return;
     }
 
@@ -61,24 +60,43 @@ const VerifyEmail = () => {
 
     try {
       const response = await verifycode({ data }).unwrap();
-      console.log("OTP Verified:", response);
-      Swal.fire({
-        title: "OTP Verified!",
-        icon: "success",
-        timer: 1500,
-        showConfirmButton: false,
-      });
-      setTimeout(() => {
-        router.push("/login");
-      }, 1500);
+      toast.success("OTP Verified! Redirecting to login page.");
+      router.push("/login");
     } catch (err) {
       console.error(err);
-      message.error("Invalid OTP. Please try again.");
+      toast.error("Invalid OTP. Please try again.");
     }
   };
 
-  const handleResendOtp = () => {
-    Swal.fire("OTP Resent!", "Check your email for the new OTP.", "success");
+  //TODO: Implement resend OTP functionality
+  const handleResendOtp = async () => {
+    console.log(email);
+    const email = localStorage.getItem("email");
+
+    if (!email) {
+      toast.error("No email found. Please try again.");
+      return;
+    }
+    const data = { email };
+    try {
+      const response = await resentOtp(data).unwrap();
+
+      if (response?.success) {
+        toast.success("OTP has been resent successfully. Check your email.");
+      } else {
+        const errorMessage =
+          response?.message || "Failed to resend OTP. Please try again.";
+        toast.error(errorMessage);
+      }
+    } catch (err) {
+      console.error("Failed to resend OTP:", err);
+      const errorMessage =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Something went wrong. Please try again later.";
+
+      toast.error(errorMessage);
+    }
   };
 
   return (
@@ -116,9 +134,9 @@ const VerifyEmail = () => {
           You have not received the email?{" "}
           <a
             className="text-[#00b0f2] hover:underline cursor-pointer"
-            onClick={handleResendOtp}
+            onClick={() => handleResendOtp()}
           >
-            Resend
+            {isLoadingResend ? "Resending OTP..." : "Resend"}
           </a>
         </p>
       </div>

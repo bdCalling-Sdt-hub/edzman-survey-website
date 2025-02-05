@@ -4,16 +4,21 @@ import { Input, Button } from "antd";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import "antd/dist/reset.css";
-import { useVerifyOtpMutation } from "@/app/provider/redux/services/authApis";
+import {
+  useResendOtpMutation,
+  useVerifyOtpMutation,
+} from "@/app/provider/redux/services/authApis";
+import { toast } from "sonner";
 
 const VerifyEmailOtp = () => {
   const [otp, setOtp] = useState(["", "", "", "", ""]);
+  const [resentOtp, { isLoading: isLoadingResend }] = useResendOtpMutation();
   const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
   const [email, setEmail] = useState("");
   useEffect(() => {
     const email = localStorage.getItem("email");
     if (!email) {
-      Swal.fire("Email not found. Please enter your email again.");
+      toast.error("Email not found. Please enter your email again.");
       router.push("/login/email-confirm");
     } else {
       setEmail(email);
@@ -42,7 +47,7 @@ const VerifyEmailOtp = () => {
     const otpNumberConvert = Number(otpString);
 
     if (!otpString || otpString.length !== 5) {
-      Swal.fire("Please enter a valid 5-digit OTP.");
+      toast.error("Please enter a valid 5-digit OTP.");
       return;
     }
 
@@ -54,7 +59,7 @@ const VerifyEmailOtp = () => {
     try {
       const response = await verifyOtp(data).unwrap();
       console.log("OTP Verified:", response);
-      Swal.fire("OTP Verified. Redirecting to reset password page.");
+      toast.success("OTP Verified. Redirecting to reset password page.");
       setTimeout(() => {
         router.push("/login/email-confirm/verify-email-otp/reset-password");
       }, 1500);
@@ -64,6 +69,35 @@ const VerifyEmailOtp = () => {
     }
   };
 
+  const handleResendOtp = async () => {
+    const email = localStorage.getItem("email");
+    console.log(email);
+
+    if (!email) {
+      toast.error("No email found. Please try again.");
+      return;
+    }
+    const data = { email };
+    try {
+      const response = await resentOtp(data).unwrap();
+
+      if (response?.success) {
+        toast.success("OTP has been resent successfully. Check your email.");
+      } else {
+        const errorMessage =
+          response?.message || "Failed to resend OTP. Please try again.";
+        toast.error(errorMessage);
+      }
+    } catch (err) {
+      console.error("Failed to resend OTP:", err);
+      const errorMessage =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Something went wrong. Please try again later.";
+
+      toast.error(errorMessage);
+    }
+  };
   return (
     <div className="flex flex-col items-center min-h-screen justify-center">
       <div className="bg-white p-6 flex flex-col md:gap-12 py-12 rounded-xl max-w-md w-full">
@@ -97,8 +131,11 @@ const VerifyEmailOtp = () => {
         </Button>
         <p className="text-center text-gray-600 mt-4">
           You have not received the email?{" "}
-          <a className="text-[#00b0f2] hover:underline cursor-pointer">
-            Resend
+          <a
+            onClick={() => handleResendOtp()}
+            className="text-[#00b0f2] hover:underline cursor-pointer"
+          >
+            {isLoadingResend ? "Resending OTP..." : "Resend"}
           </a>
         </p>
       </div>

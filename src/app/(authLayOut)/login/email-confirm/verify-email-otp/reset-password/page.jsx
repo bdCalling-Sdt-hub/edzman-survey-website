@@ -5,6 +5,7 @@ import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { useResetPasswordMutation } from "@/app/provider/redux/services/authApis";
+import toast from "react-hot-toast";
 
 const ResetPassword = () => {
   const [form] = Form.useForm();
@@ -31,22 +32,12 @@ const ResetPassword = () => {
 
     try {
       const response = await resetPassword(resetData).unwrap();
-      if (response.success) {
-        Swal.fire({
-          title: response.message || "Password reset successfully.",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+      if (response?.success) {
+        toast.success("Password reset successfully.");
         router.push("/login");
       } else {
-        Swal.fire({
-          title: response.message || "Failed to reset password.",
-          icon: "error",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setError(response.message || "Failed to reset password.");
+        toast.error(response?.message || "Failed to reset password.");
+        setError(response?.message || "Failed to reset password.");
       }
     } catch (err) {
       setError("An error occurred. Please try again later.");

@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ReduxWrapper from "./provider/redux/ReduxWrapper";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,9 +25,8 @@ export default function RootLayout({ children }) {
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <div>
-            {children}
-          </div>
+          <div>{children}</div>
+          <Toaster />
         </body>
       </html>
     </ReduxWrapper>

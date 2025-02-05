@@ -2,10 +2,9 @@
 import React, { useState } from "react";
 import { Button, Input, Progress, Spin } from "antd";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import Link from "next/link";
-import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { useGenarateWhyMutation } from "@/app/provider/redux/services/whyApis";
+import { toast } from "sonner";
 
 const questions = [
   {
@@ -261,13 +260,10 @@ const AnswerQuestions = () => {
     const response = await genarateWhy(result).unwrap();
     const responseId = response?.data?._id;
     if (response?.success) {
+      toast.success("Your why has been generated.");
       router.push(`/find-why/answer-Questions/resultOfWhy?id=${responseId}`);
     } else {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong! Please try again.",
-      });
+      toast.error(response?.message || "Failed to generate Why.");
     }
 
     return result;

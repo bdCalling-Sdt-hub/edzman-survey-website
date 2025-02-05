@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useResgiterPostUserMutation } from "@/app/provider/redux/services/authApis";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const Register = () => {
   const [regiterUser, { isLoading }] = useResgiterPostUserMutation();
@@ -38,11 +39,10 @@ const Register = () => {
     console.log("res", res);
 
     if (res?.success) {
-      Swal.fire("User registered successfully.").then(() => {
+      toast.success("User registered successfully.");
         router.push("/register/verify-email");
-      });
     } else {
-      Swal.fire(res?.message || "Failed to register user.");
+      toast.error(res?.message || "Failed to register user.");
     }
   };
 

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export function middleware(request) {
   const token = request.cookies.get("token")?.value || "";
-  const protectedRoutes = ["/find-why"];
+  const protectedRoutes = ["/find-why", "/user-profile"];
   if (protectedRoutes.includes(request.nextUrl.pathname)) {
     if (!token) {
       return NextResponse.redirect(new URL("/login", request.url));
@@ -13,5 +13,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/find-why"],
+  matcher: ["/find-why", "/user-profile"],
 };
