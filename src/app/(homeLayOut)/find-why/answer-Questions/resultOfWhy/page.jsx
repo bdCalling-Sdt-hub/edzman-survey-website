@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import { CiCircleCheck } from "react-icons/ci";
 import { PiWarningCircleThin } from "react-icons/pi";
@@ -25,7 +25,7 @@ import Image from "next/image";
 import DonateSection from "@/components/LadingPage/DonateSection";
 import CourseSuggestions from "@/components/answer-Questions/CourseSuggestions";
 
-function Page() {
+function PageContent() {
   const searchParams = useSearchParams();
   const responseId = searchParams.get("id");
   const { data: user } = useProfileGetQuery();
@@ -295,4 +295,10 @@ function Page() {
   );
 }
 
-export default Page;
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PageContent />
+    </Suspense>
+  );
+}
