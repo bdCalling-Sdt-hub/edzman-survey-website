@@ -109,3 +109,8 @@ body {
   background-color: #fff;
 }
 
+.responsive-width {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}
