@@ -1,12 +1,11 @@
 "use client";
-import {
-  useSingleBlogGetQuery,
-} from "@/app/provider/redux/services/blogApis";
+import { useSingleBlogGetQuery } from "@/app/provider/redux/services/blogApis";
 import DonateSection from "@/components/LadingPage/DonateSection";
 import PageHeader from "@/components/PageHeader/PageHeader";
 import ShareLink from "@/components/shareLink/ShareLink";
 import { imageUrl } from "@/lib/utils";
 import { Spin } from "antd";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 
 function BlogPage() {
@@ -46,7 +45,9 @@ function BlogPage() {
             {new Date(blog.createdAt).toLocaleDateString()}
           </p>
 
-          <img
+          <Image
+            width={500}
+            height={400}
             src={imageUrl(blog.blog_image)}
             alt={blog.title}
             className="w-full max-h-[400px] sm:max-h-[600px] object-contain rounded-lg"

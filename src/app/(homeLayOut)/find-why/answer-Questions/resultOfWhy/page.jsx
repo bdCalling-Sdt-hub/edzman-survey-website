@@ -252,7 +252,9 @@ function PageContent() {
         </div>
         <div className="flex my-4 md:my-12 justify-between flex-col p-4 rounded-lg text-center">
           <div className="flex items-end">
-            <img
+            <Image
+              width={30}
+              height={30}
               className="w-12 mt-12 sm:w-10 md:w-14 lg:w-16"
               src="/bullet-point 1.svg"
               alt="bullet-point icon"

@@ -1,6 +1,7 @@
 import Examples from "@/components/Example/Examples";
 import DonateSection from "@/components/LadingPage/DonateSection";
 import PageHeader from "@/components/PageHeader/PageHeader";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -105,7 +106,9 @@ function FindYourWhyExamples() {
               dataIndex % 2 === 0 ? "" : "lg:flex-row-reverse"
             } lg:flex-row justify-between items-start lg:items-center gap-8 mb-16`}
           >
-            <img
+            <Image
+              width={400}
+              height={400}
               className="w-full lg:w-[400px] h-[350px] sm:h-[400px] object-top md:h-[500px] rounded-xl overflow-hidden object-cover xl:w-1/2"
               src={data?.image}
               alt="image"
@@ -117,8 +120,10 @@ function FindYourWhyExamples() {
                   key={index}
                   className="mb-2 flex md:flex-row flex-col items-start md:items-center gap-2"
                 >
-                  <img
-                    className="border-2 p-2 rounded-md  border-[#00b0f2] bg-[#00b0f2]/20"
+                  <Image
+                    width={80}
+                    height={80}
+                    className="border-2 w-12 p-2 rounded-md  border-[#00b0f2] bg-[#00b0f2]/20"
                     src="/Icon/solidarity.png"
                     alt="solidarity icon"
                   />

@@ -19,7 +19,8 @@ import {
 import { Empty } from "antd";
 import Link from "next/link";
 import { useGetAllStoryQuery } from "@/app/provider/redux/services/storyApis";
-import { imageUrl, stripHtmlTags } from "@/lib/utils";
+import { imageUrl } from "@/lib/utils";
+import Image from "next/image";
 
 function SkeletonLoader() {
   return (
@@ -146,21 +147,29 @@ function Page() {
           approvedData.map((story) => (
             <div key={story._id}>
               <div className="flex flex-col md:flex-row lg:flex-row items-start md:items-center gap-16 mb-8">
-                <img
+                <Image
+                  width={400}
+                  height={400}
                   src={imageUrl(story?.story_image)}
                   alt={story?.title}
                   className="w-full md:w-96 md:h-[400px] object-contain md:object-cover rounded-md"
                 />
                 <div className="w-full lg:w-[50%]">
                   <h3 className="text-3xl font-semibold">{story?.title}</h3>
-                  <p className="text-gray-700 mt-2">
-                    {story?.description?.length > 200
-                      ? `${stripHtmlTags(story?.description).slice(0, 200)}...`
-                      : stripHtmlTags(story?.description)}
-                  </p>
+                  <p
+                    className="text-gray-700 mt-2"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        story?.description?.length > 200
+                          ? `${story?.description.slice(0, 200)}...`
+                          : story?.description,
+                    }}
+                  />
                   <div className="flex items-center mt-4">
                     <div className="flex items-center bg-[#bfe1fc] px-2 py-1 rounded-full">
-                      <img
+                      <Image
+                        width={200}
+                        height={200}
                         src={
                           imageUrl(story?.author?.profile_image) ||
                           "/default.png"

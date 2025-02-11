@@ -7,7 +7,8 @@ import {
 import DonateSection from "@/components/LadingPage/DonateSection";
 import PageHeader from "@/components/PageHeader/PageHeader";
 import ShareLink from "@/components/shareLink/ShareLink";
-import { imageUrl, stripHtmlTags } from "@/lib/utils";
+import { imageUrl } from "@/lib/utils";
+import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { SlCalender } from "react-icons/sl";
@@ -84,7 +85,9 @@ function StoryPage() {
         {/* Main Story Section */}
         <div className="w-full sticky top-8 h-fit lg:w-3/4 px-2">
           <div className="flex mt-12 flex-col lg:flex-row items-center gap-4 mb-6">
-            <img
+            <Image
+              width={400}
+              height={400}
               src={imageUrl(selectedStory?.bannerImage)}
               alt={selectedStory?.title}
               className="w-96 h-48 rounded-md object-cover"
@@ -93,7 +96,9 @@ function StoryPage() {
               <h3 className="text-3xl font-semibold">{selectedStory?.title}</h3>
               <div className="flex items-center mt-4">
                 <div className="flex items-center bg-[#bfe1fc] px-2 py-1 rounded-full">
-                  <img
+                  <Image
+                    width={400}
+                    height={400}
                     src={
                       imageUrl(selectedStory?.author?.image) ||
                       "https://via.placeholder.com/40"
@@ -116,13 +121,13 @@ function StoryPage() {
             {selectedStory?.title}
           </h1>
           <div className="text-gray-600 mb-4">
-            {stripHtmlTags(selectedStory?.description)
-              .split("\n")
-              .map((paragraph, index) => (
-                <p key={index} className="mb-4">
-                  {paragraph}
-                </p>
-              ))}
+            {selectedStory?.description.split("\n").map((paragraph, index) => (
+              <div
+                key={index}
+                className="mb-4"
+                dangerouslySetInnerHTML={{ __html: paragraph }}
+              />
+            ))}
           </div>
 
           {/* Story Insights Section */}
@@ -168,7 +173,9 @@ function StoryPage() {
                 className="flex items-start hover:bg-gray-300 gap-4 mb-6 p-4 border-b-[1px] border-b-black transition cursor-pointer"
               >
                 <div className="flex gap-2">
-                  <img
+                  <Image
+                    width={400}
+                    height={400}
                     src={imageUrl(story.story_image)}
                     alt="Story Thumbnail"
                     className="w-16 h-16 rounded-lg object-cover"
@@ -177,9 +184,11 @@ function StoryPage() {
                     <h3 className="text-sm font-semibold">
                       {story.title.substring(0, 50)}...
                     </h3>
-                    <p className="text-xs text-gray-500 mt-1">
-                      {stripHtmlTags(story.description).substring(0, 60)}...
-                    </p>
+                    <div className="text-xs text-gray-500 mt-1">
+                      <div
+                        dangerouslySetInnerHTML={{ __html: story.description }}
+                      />
+                    </div>
                     <p className="text-xs text-gray-400 mt-1">
                       {new Date(story.createdAt).toLocaleDateString()}
                     </p>

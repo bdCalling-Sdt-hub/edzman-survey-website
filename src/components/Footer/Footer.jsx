@@ -6,6 +6,7 @@ import { Button, Form, Input, message, Space, Spin } from "antd";
 import { useProfileUpdateMutation } from "@/app/provider/redux/services/userApis";
 import Swal from "sweetalert2";
 import { toast } from "sonner";
+import Image from "next/image";
 function Footer() {
   const [form] = Form.useForm();
   const [updateSubscribe, { isLoading }] = useProfileUpdateMutation();
@@ -55,7 +56,13 @@ function Footer() {
       <div className="container mx-auto px-4 flex lg:flex-row flex-col justify-between gap-8">
         {/* Important Links */}
         <div>
-          <img src="/brandLogo.svg" alt="brand logo" />
+          <Image
+            width={80}
+            height={80}
+            src="/brandLogo.svg"
+            alt="brand logo"
+            className="w-48"
+          />
           <ul>
             {importantLinks.map((link, index) => (
               <li

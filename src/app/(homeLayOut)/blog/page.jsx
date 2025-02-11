@@ -19,6 +19,7 @@ import { Button, Empty } from "antd";
 import Link from "next/link";
 import { useGetAllBlogQuery } from "@/app/provider/redux/services/blogApis";
 import { imageUrl } from "@/lib/utils";
+import Image from "next/image";
 
 function BlogPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -128,9 +129,11 @@ function BlogPage() {
                 key={blog._id}
                 className="bg-white rounded-lg shadow-lg overflow-hidden"
               >
-                <img
+                <Image
+                  width={500}
+                  height={400}
                   src={imageUrl(blog?.blog_image)}
-                  alt={blog.title}
+                  alt={blog.title || 'blog Image'}
                   className="h-64 w-full object-cover"
                 />
                 <div className="p-4">

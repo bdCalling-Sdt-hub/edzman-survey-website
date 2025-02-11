@@ -5,6 +5,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { useGenarateWhyMutation } from "@/app/provider/redux/services/whyApis";
 import { toast } from "sonner";
+import Image from "next/image";
 
 const questions = [
   {
@@ -316,7 +317,13 @@ const AnswerQuestions = () => {
               className={`flex flex-col p-12 rounded-md bg-gradient-to-bl  ${card.styling} text-center z-[888]  items-center justify-center`}
               key={idx}
             >
-              <img className="w-24" src={card.icon} alt={`icon${idx + 1}`} />
+              <Image
+                width={100}
+                height={100}
+                className="w-24"
+                src={card.icon}
+                alt={`icon${idx + 1}`}
+              />
               <h1>{card?.title}</h1>
               <p>{card?.subTitle}</p>
             </div>

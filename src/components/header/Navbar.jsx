@@ -131,7 +131,7 @@ function Navbar() {
                   />
                 </Avatar>
               </PopoverTrigger>
-              <PopoverContent className="p-4">
+              <PopoverContent align="end" className="p-4">
                 <Avatar>
                   <div className="flex gap-2">
                     <AvatarImage
