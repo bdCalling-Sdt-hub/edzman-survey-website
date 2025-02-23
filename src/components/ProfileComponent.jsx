@@ -138,7 +138,6 @@ const ProfileComponent = ({ userData, isLoading }) => {
     }
   };
 
-  //TODO : Implement delete account functionality
   const handleDelete = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -206,7 +205,7 @@ const ProfileComponent = ({ userData, isLoading }) => {
   };
 
   const profileImages = image
-    ? URL.creatOebjectURL(image)
+    ? URL.createObjectURL(image)
     : user?.profile_image
     ? imageUrl(user?.profile_image)
     : "/path/to/default-image.jpg";
