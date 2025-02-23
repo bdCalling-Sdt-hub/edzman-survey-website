@@ -310,7 +310,7 @@ const ProfileComponent = ({ userData, isLoading }) => {
           </div>
         </div>
         {showModal && <ShareYourWhy></ShareYourWhy>}
-        {WhyHistoryShow && <WhyHistory></WhyHistory>}
+        {WhyHistoryShow && <WhyHistory></WhyHistory>} 
         <DonateSection></DonateSection>
       </div>
     </>

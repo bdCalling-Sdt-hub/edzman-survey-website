@@ -60,7 +60,7 @@ export default function ShareYourWhy() {
       <JoditEditor
         value={description}
         onBlur={setDescription}
-        config={{ readonly: false, height: 600, width: "100%" }}
+        config={{ readonly: false, height:400, width: "100%" }}
       />
     );
   }, []);
