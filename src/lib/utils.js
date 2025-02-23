@@ -5,7 +5,7 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-export const url = `http://10.0.60.137:4000`;
+export const url = `http://209.97.150.2:5000`;
 
 export const imageUrl = (image) => {
   return image

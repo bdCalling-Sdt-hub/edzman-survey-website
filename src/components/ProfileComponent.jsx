@@ -206,7 +206,7 @@ const ProfileComponent = ({ userData, isLoading }) => {
   };
 
   const profileImages = image
-    ? URL.createObjectURL(image)
+    ? URL.creatOebjectURL(image)
     : user?.profile_image
     ? imageUrl(user?.profile_image)
     : "/path/to/default-image.jpg";
