@@ -1,24 +1,24 @@
-"use client";
-import React, { useMemo, useState } from "react";
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, Upload, Modal, Input, Form, message, Image } from "antd";
-import "antd/dist/reset.css";
-import JoditEditor from "jodit-react";
-import { useCreateNewStoryMutation } from "@/app/provider/redux/services/storyApis";
-import Swal from "sweetalert2";
-import { toast } from "sonner";
+'use client';
+import React, { useMemo, useState } from 'react';
+import { UploadOutlined } from '@ant-design/icons';
+import { Button, Upload, Modal, Input, Form, message, Image } from 'antd';
+import 'antd/dist/reset.css';
+import JoditEditor from 'jodit-react';
+import { useCreateNewStoryMutation } from '@/app/provider/redux/services/storyApis';
+import Swal from 'sweetalert2';
+import { toast } from 'sonner';
 
 export default function ShareYourWhy() {
   const [fileList, setFileList] = useState([]);
   const [previewImage, setPreviewImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [form] = Form.useForm();
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState('');
   const [createStory, { isLoading: isCreating }] = useCreateNewStoryMutation();
 
   const handleUpload = ({ file }) => {
-    if (!file.type.startsWith("image/")) {
-      message.error("Only image files are allowed!");
+    if (!file.type.startsWith('image/')) {
+      message.error('Only image files are allowed!');
       return;
     }
     setFileList([file]);
@@ -37,33 +37,54 @@ export default function ShareYourWhy() {
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
-      const formData = new FormData();
-      formData.append("title", values.title);
-      formData.append("description", description);
-      if (fileList.length > 0) {
-        formData.append("story_image", fileList[0]);
+      if (!description) {
+        message.error('Please enter a description');
+        return;
       }
+      console.log('formData');
+      const formData = new FormData();
+      formData.append('title', values.title);
+      formData.append('description', description);
+      if (fileList.length > 0) {
+        formData.append('story_image', fileList[0]);
+      }
+      console.log('formData', formData);
+
       const response = await createStory(formData);
 
       if (response?.data?.success) {
         setIsModalOpen(false);
-        toast.success("Story created successfully.");
+        toast.success('Story created successfully.');
       } else {
-        message.error("Failed to create story");
+        const errorMessage =
+          response?.data?.message || 'Failed to create story';
+        toast.error(errorMessage);
       }
     } catch (error) {
-      message.error("Please fill out all fields correctly.");
+      if (error?.response) {
+        const serverErrorMessage =
+          error.response.data?.message ||
+          'Server error, please try again later';
+        toast.error(serverErrorMessage);
+      } else if (error?.request) {
+        toast.error(
+          'Network error, please check your internet connection and try again'
+        );
+      } else {
+        toast.error(error.message || 'An unexpected error occurred');
+      }
     }
   };
+
   const content = useMemo(() => {
     return (
       <JoditEditor
         value={description}
-        onBlur={setDescription}
-        config={{ readonly: false, height:400, width: "100%" }}
+        onChange={setDescription}
+        config={{ readonly: false, height: 400, width: '100%' }}
       />
     );
-  }, []);
+  }, [description]);
 
   return (
     <Modal
@@ -80,7 +101,20 @@ export default function ShareYourWhy() {
       <Form form={form} layout="vertical">
         <div className="space-y-6">
           {/* Upload Section */}
-          <Form.Item label="Story Image" name="story_image">
+          <Form.Item
+            label="Story Image"
+            name="story_image"
+            rules={[
+              {
+                validator: (_, value) => {
+                  if (fileList.length === 0) {
+                    return Promise.reject('Please upload an image');
+                  }
+                  return Promise.resolve();
+                },
+              },
+            ]}
+          >
             <Upload
               fileList={fileList}
               beforeUpload={(file) => {
@@ -112,14 +146,28 @@ export default function ShareYourWhy() {
             label="Story Title"
             name="title"
             rules={[
-              { required: true, message: "Please enter the story title" },
+              { required: true, message: 'Please enter the story title' },
             ]}
           >
             <Input placeholder="Enter your story title" />
           </Form.Item>
 
           {/* Story Description */}
-          <div>{content}</div>
+          <Form.Item
+            label="Story Description"
+            rules={[
+              {
+                validator: (_, value) => {
+                  if (!description) {
+                    return Promise.reject('Please enter a description');
+                  }
+                  return Promise.resolve();
+                },
+              },
+            ]}
+          >
+            <div>{content}</div>
+          </Form.Item>
 
           {/* Buttons */}
           <div className="flex justify-end gap-4">

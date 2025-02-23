@@ -1,30 +1,30 @@
-"use client";
-import React, { useState } from "react";
+'use client';
+import React, { useState } from 'react';
 import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
-} from "react-icons/md";
-import { IoMdSearch } from "react-icons/io";
-import { FaSortAlphaDown, FaSortAlphaDownAlt } from "react-icons/fa";
+} from 'react-icons/md';
+import { IoMdSearch } from 'react-icons/io';
+import { FaFilter, FaSortAlphaDown, FaSortAlphaDownAlt } from 'react-icons/fa';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { BsSortNumericUp } from "react-icons/bs";
-import { ImSortNumbericDesc } from "react-icons/im";
-import { GoArrowUpRight } from "react-icons/go";
-import PageHeader from "@/components/PageHeader/PageHeader";
-import { Button, Empty } from "antd";
-import Link from "next/link";
-import { useGetAllBlogQuery } from "@/app/provider/redux/services/blogApis";
-import { imageUrl } from "@/lib/utils";
-import Image from "next/image";
+} from '@/components/ui/popover';
+import { BsSortNumericUp } from 'react-icons/bs';
+import { ImSortNumbericDesc } from 'react-icons/im';
+import { GoArrowUpRight } from 'react-icons/go';
+import PageHeader from '@/components/PageHeader/PageHeader';
+import { Button, Empty } from 'antd';
+import Link from 'next/link';
+import { useGetAllBlogQuery } from '@/app/provider/redux/services/blogApis';
+import { imageUrl } from '@/lib/utils';
+import Image from 'next/image';
 
 function BlogPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortOrder, setSortOrder] = useState("title");
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOrder, setSortOrder] = useState('title');
   const [dateSortOrder, setDateSortOrder] = useState(null);
 
   const { data: blogsData, isLoading } = useGetAllBlogQuery({
@@ -45,12 +45,12 @@ function BlogPage() {
   };
 
   const toggleSortOrder = () => {
-    setSortOrder(sortOrder === "title" ? "-title" : "title");
+    setSortOrder(sortOrder === 'title' ? '-title' : 'title');
     setDateSortOrder(null);
   };
 
   const toggleDateSortOrder = () => {
-    setDateSortOrder(dateSortOrder === "newest" ? "oldest" : "newest");
+    setDateSortOrder(dateSortOrder === 'newest' ? 'oldest' : 'newest');
     setSortOrder(null);
   };
 
@@ -62,7 +62,7 @@ function BlogPage() {
       />
       <div className="container mx-auto py-8 px-4">
         {/* Search and Sort */}
-        <div className="mb-4 w-full bg-[#e6f3fe] flex items-center rounded-full">
+        {/* <div className="mb-4 w-full bg-[#e6f3fe] flex items-center rounded-full">
           <div className="w-full border-2 rounded-full">
             <div className="flex pl-4 px-2 rounded-full items-center gap-2 w-full">
               <IoMdSearch />
@@ -119,8 +119,67 @@ function BlogPage() {
               </div>
             </PopoverContent>
           </Popover>
+        </div> */}
+        <div className="mb-4 w-full  flex items-center justify-between rounded-full">
+          <div className="w-1/2 border-2 rounded-full">
+            <div className="flex pl-4 px-2 rounded-full items-center gap-2 w-full">
+              <IoMdSearch />
+              <input
+                type="text"
+                placeholder="Search for Blog"
+                className="p-2 w-full outline-none bg-transparent"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          </div>
+          <Popover>
+            <PopoverTrigger asChild>
+              <div className="flex items-center gap-2 ml p-2 text-nowrap text-black rounded-lg cursor-pointer">
+                <div className="flex items-center gap-2 ml p-2 text-nowrap  rounded-lg cursor-pointer">
+                  <button
+                    aria-label="Sort options"
+                    className="!border-2 p-2 rounded-full hover:bg-slate-100"
+                  >
+                    <FaFilter className="text-xl" />
+                  </button>
+                </div>
+              </div>
+            </PopoverTrigger>
+            <PopoverContent align="end" className="p-4">
+              <div className="space-y-4">
+                <div
+                  className="flex items-center gap-2 cursor-pointer"
+                  onClick={toggleSortOrder}
+                >
+                  {sortOrder === 'title' ? (
+                    <FaSortAlphaDown className="text-xl" />
+                  ) : (
+                    <FaSortAlphaDownAlt className="text-xl" />
+                  )}
+                  <h1 className="text-black">
+                    {sortOrder === 'title' ? 'Sort A to Z' : 'Sort Z to A'}
+                  </h1>
+                </div>
+                <div
+                  className="flex items-center gap-2 cursor-pointer"
+                  onClick={toggleDateSortOrder}
+                >
+                  {dateSortOrder === 'newest' ? (
+                    <ImSortNumbericDesc className="text-xl" />
+                  ) : (
+                    <BsSortNumericUp className="text-xl" />
+                  )}
+                  <h1 className="text-black">
+                    {dateSortOrder === 'newest'
+                      ? 'Newest to Oldest'
+                      : 'Oldest to Newest'}
+                  </h1>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
-
         {/* Blog Items */}
         {blogs.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -50,7 +50,7 @@ function BlogPage() {
             height={400}
             src={imageUrl(blog.blog_image)}
             alt={blog.title}
-            className="w-full max-h-[400px] sm:max-h-[600px] object-contain rounded-lg"
+            className="w-full md:w-1/2 max-h-[200px] sm:max-h-[300px] object-cover rounded-lg"
           />
 
           <div

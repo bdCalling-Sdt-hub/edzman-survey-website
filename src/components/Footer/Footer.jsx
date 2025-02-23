@@ -4,7 +4,6 @@ import Link from "next/link";
 import { GoArrowUpRight } from "react-icons/go";
 import { Button, Form, Input, message, Space, Spin } from "antd";
 import { useProfileUpdateMutation } from "@/app/provider/redux/services/userApis";
-import Swal from "sweetalert2";
 import { toast } from "sonner";
 import Image from "next/image";
 function Footer() {

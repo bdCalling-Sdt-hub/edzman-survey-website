@@ -1,3 +1,4 @@
+import { Card } from 'antd';
 import Link from 'next/link';
 import React from 'react';
 import {
@@ -11,22 +12,28 @@ import {
 
 function ShareLink() {
   const socialLinks = {
-    facebook: "https://www.facebook.com/sharer/sharer.php?u=https://example.com",
-    linkedin: "https://www.linkedin.com/sharing/share-offsite/?url=https://example.com",
-    twitter: "https://twitter.com/intent/tweet?url=https://example.com&text=Check%20this%20out!",
-    whatsapp: "https://api.whatsapp.com/send?text=Check%20this%20out!%20https://example.com",
-    telegram: "https://t.me/share/url?url=https://example.com&text=Check%20this%20out!",
-    instagram: "https://www.instagram.com/",
+    facebook:
+      'https://www.facebook.com/sharer/sharer.php?u=https://example.com',
+    linkedin:
+      'https://www.linkedin.com/sharing/share-offsite/?url=https://example.com',
+    twitter:
+      'https://twitter.com/intent/tweet?url=https://example.com&text=Check%20this%20out!',
+    whatsapp:
+      'https://api.whatsapp.com/send?text=Check%20this%20out!%20https://example.com',
+    telegram:
+      'https://t.me/share/url?url=https://example.com&text=Check%20this%20out!',
+    instagram: 'https://www.instagram.com/',
   };
 
   return (
     <div className="max-w-screen-2xl mt-12 mx-auto px-4">
       {/* Quote Section */}
-      <div className="bg-[#f6f6f7] p-6 sm:p-12 text-lg sm:text-3xl italic rounded-md shadow-md text-center">
-        <h1>
-          “ Traveling can expose you to new environments and potential health risks, so it's crucial to take precautions to stay safe and healthy. ”
+      <Card>
+        <h1 className="text-[#1D3557] text-center italic font-semibold text-md md:text-2xl">
+          “ Traveling can expose you to new environments and potential health
+          risks, so it's crucial to take precautions to stay safe and healthy. ”
         </h1>
-      </div>
+      </Card>
 
       {/* Share Section */}
       <div className="max-w-screen-md mt-12 mx-auto flex items-center justify-center flex-col text-center">
