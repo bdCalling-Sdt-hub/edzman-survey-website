@@ -1,12 +1,12 @@
-"use client";
-import React from "react";
-import { Form, Input, Button, Spin } from "antd";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import Link from "next/link";
-import { useResgiterPostUserMutation } from "@/app/provider/redux/services/authApis";
-import Swal from "sweetalert2";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+'use client';
+import React from 'react';
+import { Form, Input, Button, Spin } from 'antd';
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import Link from 'next/link';
+import { useResgiterPostUserMutation } from '@/app/provider/redux/services/authApis';
+import Swal from 'sweetalert2';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 const Register = () => {
   const [regiterUser, { isLoading }] = useResgiterPostUserMutation();
@@ -24,7 +24,7 @@ const Register = () => {
     ) {
       return;
     }
-    localStorage.setItem("register-email", email);
+    localStorage.setItem('register-email', email);
     const formattedData = {
       password: password,
       confirmPassword: confirmPassword,
@@ -38,10 +38,10 @@ const Register = () => {
     const res = await regiterUser({ data: formattedData }).unwrap();
 
     if (res?.success) {
-      toast.success("User registered successfully.");
-        router.push("/register/verify-email");
+      toast.success('For user verification please check your email.');
+      router.push('/register/verify-email');
     } else {
-      toast.error(res?.message || "Failed to register user.");
+      toast.error(res?.message || 'Failed to register user.');
     }
   };
 
@@ -63,7 +63,7 @@ const Register = () => {
           <Form.Item
             name="name"
             label="Name"
-            rules={[{ required: true, message: "Please enter your name!" }]}
+            rules={[{ required: true, message: 'Please enter your name!' }]}
           >
             <Input placeholder="John Doe" className="h-12 text-gray-700" />
           </Form.Item>
@@ -73,9 +73,9 @@ const Register = () => {
               name="phone"
               label="Phone Number"
               rules={[
-                { required: true, message: "Please enter your phone number!" },
+                { required: true, message: 'Please enter your phone number!' },
                 {
-                  message: "Please enter a valid phone number!",
+                  message: 'Please enter a valid phone number!',
                 },
               ]}
             >
@@ -86,7 +86,7 @@ const Register = () => {
               name="dateOfBirth"
               label="Date of Birth"
               rules={[
-                { required: true, message: "Please enter your date of birth!" },
+                { required: true, message: 'Please enter your date of birth!' },
               ]}
             >
               <Input
@@ -101,8 +101,8 @@ const Register = () => {
             name="email"
             label="Email address"
             rules={[
-              { required: true, message: "Please enter your email!" },
-              { type: "email", message: "Please enter a valid email!" },
+              { required: true, message: 'Please enter your email!' },
+              { type: 'email', message: 'Please enter a valid email!' },
             ]}
           >
             <Input
@@ -114,7 +114,7 @@ const Register = () => {
           <Form.Item
             name="password"
             label="Password"
-            rules={[{ required: true, message: "Please enter your password!" }]}
+            rules={[{ required: true, message: 'Please enter your password!' }]}
           >
             <Input.Password
               className="h-12"
@@ -128,16 +128,16 @@ const Register = () => {
           <Form.Item
             name="confirmPassword"
             label="Re-Type Password"
-            dependencies={["password"]}
+            dependencies={['password']}
             rules={[
-              { required: true, message: "Please confirm your password!" },
+              { required: true, message: 'Please confirm your password!' },
               ({ getFieldValue }) => ({
                 validator(_, value) {
-                  if (!value || getFieldValue("password") === value) {
+                  if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
                   return Promise.reject(
-                    new Error("The two passwords do not match!")
+                    new Error('The two passwords do not match!')
                   );
                 },
               }),
@@ -157,12 +157,12 @@ const Register = () => {
               htmlType="submit"
               className="w-full h-12 bg-[#00b0f2] hover:bg-[#00b0f2]/70 text-white text-lg font-bold"
             >
-              {isLoading ? <Spin size="small"></Spin> : "Sign Up"}
+              {isLoading ? <Spin size="small"></Spin> : 'Sign Up'}
             </Button>
           </Form.Item>
         </Form>
         <h1 className="text-black text-sm md:text-base mt-6">
-          Already have an account?{" "}
+          Already have an account?{' '}
           <Link href="/login" className="text-[#00B0F2] underline">
             Go to login
           </Link>

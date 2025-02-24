@@ -330,13 +330,14 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { FaBars, FaQuestion, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import {
   UserOutlined,
   LogoutOutlined,
   LoginOutlined,
   UserAddOutlined,
 } from '@ant-design/icons';
+import './navBtn.css';
 import { useProfileGetQuery } from '@/app/provider/redux/services/userApis';
 import { imageUrl } from '@/lib/utils';
 import Cookies from 'js-cookie';
@@ -348,16 +349,7 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [token, setToken] = useState('');
 
-  const { data: userData, isLoading } = useProfileGetQuery();
-  const navlinks = [
-    { title: 'Home', path: '/' },
-    { title: 'Example Whys', path: '/example' },
-    { title: 'How to FTW', path: '/ftw' },
-    { title: 'Client Why', path: '/client-why' },
-    { title: 'Blog', path: '/blog' },
-    { title: 'Donate', path: '/donate-page' },
-    { title: 'About Us', path: '/about' },
-  ];
+  const { data: userData, isError, error } = useProfileGetQuery();
 
   useEffect(() => {
     setToken(localStorage.getItem('accessToken'));
@@ -369,6 +361,27 @@ function Navbar() {
     displayName: userData?.data?.name,
     email: userData?.data?.email,
   };
+
+  useEffect(() => {
+    if (error?.data?.success === false) {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('email');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('register-email');
+      Cookies.remove('token');
+      toast.error('Your account has been blocked.');
+    }
+  }, [isError]);
+
+  const navlinks = [
+    { title: 'Home', path: '/' },
+    { title: 'Example Whys', path: '/example' },
+    { title: 'How to FTW', path: '/ftw' },
+    { title: 'Client Why', path: '/client-why' },
+    { title: 'Blog', path: '/blog' },
+    { title: 'Donate', path: '/donate-page' },
+    { title: 'About Us', path: '/about' },
+  ];
 
   const handleSignOut = () => {
     try {
@@ -387,7 +400,7 @@ function Navbar() {
 
   const renderUserMenu = () => (
     <Menu className="w-44 min-w-fit rounded-xl shadow-lg">
-      {user.login ? (
+      {user.login && !error ? (
         <>
           <div className="p-4 flex items-center gap-3">
             <Avatar size={40} src={user?.photoURL} className="cursor-pointer" />
@@ -399,10 +412,6 @@ function Navbar() {
           <Menu.Divider />
           <Menu.Item key="1" icon={<UserOutlined />}>
             <Link href="/user-profile">Profile</Link>
-          </Menu.Item>
-
-          <Menu.Item key="2" icon={<FaQuestion />}>
-            <Link href="/about">About us</Link>
           </Menu.Item>
           <Menu.Item key="4" icon={<LogoutOutlined />} onClick={handleSignOut}>
             Log out
@@ -471,13 +480,19 @@ function Navbar() {
             );
           })}
         </ul>
-        <Dropdown
-          overlay={renderUserMenu()}
-          trigger={['click']}
-          placement="bottomRight"
-        >
-          <Avatar size={40} src={user?.photoURL} className="cursor-pointer" />
-        </Dropdown>
+        {user.login && !error ? (
+          <Dropdown
+            overlay={renderUserMenu()}
+            trigger={['click']}
+            placement="bottomRight"
+          >
+            <Avatar size={40} src={user?.photoURL} className="cursor-pointer" />
+          </Dropdown>
+        ) : (
+          <Link href={'/login'}>
+            <button className="primary-button-styling">Sign In</button>
+          </Link>
+        )}
       </div>
 
       {/* Hamburger Menu Icon for Mobile */}

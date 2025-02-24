@@ -37,8 +37,6 @@ function Footer() {
 
   const impactLinks = [
     { title: "Donate", path: "/donate-page" },
-    { title: "Create Your WHY", path: "/create-why" },
-    { title: "Share Your WHY", path: "/share-why" },
   ];
 
   const importantLinks = [

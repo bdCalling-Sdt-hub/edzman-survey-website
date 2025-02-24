@@ -11,7 +11,7 @@ export default function CookieModal() {
       setIsModalVisible(true);
     }
   }, []);
-// TODO: Implement the saveConsent and rejectConsent functions
+
   const saveConsent = () => {
     const browserInfo = {
       userAgent: navigator.userAgent,

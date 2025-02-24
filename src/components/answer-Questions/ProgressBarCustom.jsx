@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Flex, Progress } from "antd";
+import React, { useState, useEffect, useMemo } from 'react';
+import { Flex, Progress } from 'antd';
 
 function ProgressBarCustom({ data }) {
   const processedData = useMemo(() => data || [], [data]);

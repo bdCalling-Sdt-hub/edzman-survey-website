@@ -17,7 +17,7 @@ import {
 import { toast } from 'sonner';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
-
+import defultImage from '../../public/defultUser.jpg';
 const { Option } = Select;
 
 const InputField = ({
@@ -70,6 +70,7 @@ const ProfileComponent = ({ userData, isLoading }) => {
   const [updateProfile, { isLoading: updatingProfile }] =
     useProfileUpdateMutation();
   const [profileDelete, { isLoading: deleting }] = useProfileDeleteMutation();
+
   const [showModal, setShowModal] = useState(false);
   const [WhyHistoryShow, setWhyHistoryShow] = useState(false);
   const [image, setImage] = useState(null);
@@ -208,7 +209,7 @@ const ProfileComponent = ({ userData, isLoading }) => {
     ? URL.createObjectURL(image)
     : user?.profile_image
     ? imageUrl(user?.profile_image)
-    : '/path/to/default-image.jpg';
+    : defultImage;
 
   return (
     <>
@@ -247,8 +248,7 @@ const ProfileComponent = ({ userData, isLoading }) => {
                   {profile.name} {profile.surname}
                 </h1>
                 <p className="text-[#083a50] mt-2">
-                  Unlock Your Potential: Discover, Embrace, and Share Your
-                  'Why'
+                  Unlock Your Potential: Discover, Embrace, and Share Your 'Why'
                 </p>
               </div>
               <div className="flex w-full items-center justify-center lg:items-start lg:justify-start gap-4 mt-4">

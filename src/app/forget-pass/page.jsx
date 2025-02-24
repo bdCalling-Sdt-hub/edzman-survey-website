@@ -1,9 +1,9 @@
-"use client";
-import React from "react";
-import { Form, Input, Button, message } from "antd";
-import { useForgetEmailPostMutation } from "../provider/redux/services/authApis";
-import { useRouter } from "next/navigation"; 
-import { toast } from "sonner";
+'use client';
+import React from 'react';
+import { Form, Input, Button, message } from 'antd';
+import { useForgetEmailPostMutation } from '../provider/redux/services/authApis';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 const ForgetPassword = () => {
   const router = useRouter();
@@ -14,17 +14,16 @@ const ForgetPassword = () => {
     try {
       const response = await emailSet(values).unwrap();
       if (response?.success) {
-        localStorage.setItem("email", values.email);
-        router.push("/login/email-confirm/verify-email-otp"); 
+        localStorage.setItem('email', values.email);
+        router.push('/login/email-confirm/verify-email-otp');
       } else {
-        toast.error(response?.message || "An unexpected error occurred.");
+        toast.error(response?.message || 'An unexpected error occurred.');
       }
     } catch (err) {
-      console.error("Request failed:", err);
       toast.error(
         err?.response?.data?.message ||
           err?.message ||
-          "Something went wrong. Please try again later."
+          'Something went wrong. Please try again later.'
       );
     }
   };
@@ -50,8 +49,8 @@ const ForgetPassword = () => {
             name="email"
             label="Email Address"
             rules={[
-              { required: true, message: "Please enter your email!" },
-              { type: "email", message: "Please enter a valid email!" },
+              { required: true, message: 'Please enter your email!' },
+              { type: 'email', message: 'Please enter a valid email!' },
             ]}
           >
             <Input

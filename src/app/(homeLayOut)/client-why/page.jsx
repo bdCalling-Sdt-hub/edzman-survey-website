@@ -211,7 +211,7 @@ function Page() {
         )}
 
         {/* Pagination */}
-        <div className="flex justify-between mb-4 mt-8">
+        <div className="flex justify-between pb-12 mt-8">
           <h1 className="font-semibold">
             Showing {currentPage} of {totalPages}
           </h1>
