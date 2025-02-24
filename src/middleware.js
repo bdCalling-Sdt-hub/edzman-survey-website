@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
-export function middleware(request) {
-  const token = request.cookies.get('token')?.value || '';
-
+export async function middleware(request) {
+  const cookieStore = cookies();
+  const token = (await cookieStore.get('token')?.value) || '';
   const protectedRoutes = ['/find-why', '/user-profile'];
   if (protectedRoutes.includes(request.nextUrl.pathname) && !token) {
     return NextResponse.redirect(new URL('/login', request.url));
@@ -12,5 +13,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/find-why', '/user-profile'], 
+  matcher: ['/find-why', '/user-profile'],
 };

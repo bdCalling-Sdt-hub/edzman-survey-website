@@ -26,9 +26,10 @@ function StoryPage() {
     isError: isApiError,
     error: apiError,
   } = useSingleStoryGetQuery({ id: storyId });
-
   const { data: storyData, isLoading: isAllStoriesLoading } =
     useGetAllStoryQuery({});
+  const stories = storyData?.data?.result || [];
+  const approvedData = stories.filter((item) => item.status === 'Approved');
 
   // Update story when API response changes
   useEffect(() => {
@@ -134,8 +135,7 @@ function StoryPage() {
         {/* Sticky Sidebar Section */}
         <div className="w-full lg:w-1/4 sticky top-8 h-fit">
           <h2 className="text-xl font-semibold mb-4">More Stories</h2>
-          {storyData?.data?.result
-            ?.filter((story) => story._id !== storyId)
+          {approvedData?.filter((story) => story._id !== storyId)
             .map((story) => (
               <div
                 key={story._id}

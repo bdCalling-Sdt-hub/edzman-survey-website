@@ -5,8 +5,8 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import Link from 'next/link';
 import { usePostLoginInfoMutation } from '@/app/provider/redux/services/authApis';
 import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
 import Cookies from 'js-cookie';
+import { toast } from 'sonner';
 
 const Login = () => {
   const [form] = Form.useForm();
@@ -29,7 +29,7 @@ const Login = () => {
         localStorage.setItem('accessToken', response?.data?.accessToken);
         if (Cookies.get('token')) {
           toast.success('Login successful!');
-          router.push('/');
+          window.location.href = '/';
         }
       } else {
         setError(response.message || 'Login failed. Please try again.');

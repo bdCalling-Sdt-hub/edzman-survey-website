@@ -247,8 +247,8 @@ const ProfileComponent = ({ userData, isLoading }) => {
                   {profile.name} {profile.surname}
                 </h1>
                 <p className="text-[#083a50] mt-2">
-                  "Unlock Your Potential: Discover, Embrace, and Share Your
-                  'Why'"
+                  Unlock Your Potential: Discover, Embrace, and Share Your
+                  'Why'
                 </p>
               </div>
               <div className="flex w-full items-center justify-center lg:items-start lg:justify-start gap-4 mt-4">

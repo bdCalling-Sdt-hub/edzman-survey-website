@@ -3,7 +3,7 @@ import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { useForgetEmailPostMutation } from "../provider/redux/services/authApis";
 import { useRouter } from "next/navigation"; 
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const ForgetPassword = () => {
   const router = useRouter();

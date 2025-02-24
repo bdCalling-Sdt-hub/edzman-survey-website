@@ -2,10 +2,9 @@
 import React, { useState } from "react";
 import { Form, Input, Button } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { useResetPasswordMutation } from "@/app/provider/redux/services/authApis";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const ResetPassword = () => {
   const [form] = Form.useForm();

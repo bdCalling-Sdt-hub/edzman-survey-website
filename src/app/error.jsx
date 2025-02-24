@@ -16,13 +16,24 @@ function ErrorPage() {
         Oops! Something Went Wrong
       </h1>
       <p className="text-gray-600 text-lg mb-6 sm:text-xl md:text-2xl">
-        We're sorry, but an unexpected error occurred. Please try again or go back to the homepage.
+        We're sorry, but an unexpected error occurred. Please try again or go
+        back to the homepage.
       </p>
       <div className="flex flex-col sm:flex-row gap-4">
-        <Button type="primary" size="large" onClick={refreshPage} className="w-full sm:w-auto">
+        <Button
+          type="primary"
+          size="large"
+          onClick={refreshPage}
+          className="w-full sm:w-auto"
+        >
           Refresh Page
         </Button>
-        <Button type="default" size="large" href="/" className="w-full sm:w-auto">
+        <Button
+          type="default"
+          size="large"
+          href="/"
+          className="w-full sm:w-auto"
+        >
           Go to Homepage
         </Button>
       </div>

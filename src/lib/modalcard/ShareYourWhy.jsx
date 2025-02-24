@@ -203,7 +203,6 @@ import { Button, Upload, Modal, Input, Form, message, Image } from 'antd';
 import 'antd/dist/reset.css';
 import JoditEditor from 'jodit-react';
 import { useCreateNewStoryMutation } from '@/app/provider/redux/services/storyApis';
-import Swal from 'sweetalert2';
 import { toast } from 'sonner';
 
 export default function ShareYourWhy() {
