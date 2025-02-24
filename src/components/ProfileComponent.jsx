@@ -1,22 +1,22 @@
-"use client";
-import React, { useState } from "react";
-import { Input, Button, Select, Spin } from "antd";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { CameraOutlined } from "@ant-design/icons";
-import PageHeader from "@/components/PageHeader/PageHeader";
-import ShareYourWhy from "@/lib/modalcard/ShareYourWhy";
-import DonateSection from "@/components/LadingPage/DonateSection";
-import WhyHistory from "@/lib/modalcard/WhyHistory";
-import Swal from "sweetalert2";
-import { imageUrl } from "@/lib/utils";
+'use client';
+import React, { useState } from 'react';
+import { Input, Button, Select, Spin } from 'antd';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { CameraOutlined } from '@ant-design/icons';
+import PageHeader from '@/components/PageHeader/PageHeader';
+import ShareYourWhy from '@/lib/modalcard/ShareYourWhy';
+import DonateSection from '@/components/LadingPage/DonateSection';
+import WhyHistory from '@/lib/modalcard/WhyHistory';
+import Swal from 'sweetalert2';
+import { imageUrl } from '@/lib/utils';
 import {
   useProfileDeleteMutation,
   useProfileUpdateMutation,
-} from "@/app/provider/redux/services/userApis";
-import { toast } from "sonner";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
+} from '@/app/provider/redux/services/userApis';
+import { toast } from 'sonner';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 const { Option } = Select;
 
@@ -55,7 +55,7 @@ const InputField = ({
     ) : (
       <Component
         value={value}
-        onChange={(e) => onChange(e.target.value || "")}
+        onChange={(e) => onChange(e.target.value || '')}
         className="w-full"
         disabled={disabled}
       />
@@ -74,40 +74,40 @@ const ProfileComponent = ({ userData, isLoading }) => {
   const [WhyHistoryShow, setWhyHistoryShow] = useState(false);
   const [image, setImage] = useState(null);
   const [profile, setProfile] = useState({
-    name: user?.name || "",
-    profession: user?.profession || "",
+    name: user?.name || '',
+    profession: user?.profession || '',
     dateOfBirth: user?.dateOfBirth || null,
-    education: user?.education || "",
-    email: user?.email || "",
-    phone: user?.phone || "",
-    country: user?.country || "",
-    city: user?.city || "",
+    education: user?.education || '',
+    email: user?.email || '',
+    phone: user?.phone || '',
+    country: user?.country || '',
+    city: user?.city || '',
   });
 
   const profileFields = [
-    { key: "name", label: "Full Name" },
-    { key: "profession", label: "Profession" },
+    { key: 'name', label: 'Full Name' },
+    { key: 'profession', label: 'Profession' },
     {
-      key: "dateOfBirth",
-      label: "Date of Birth",
+      key: 'dateOfBirth',
+      label: 'Date of Birth',
       Component: DatePicker,
     },
     {
-      key: "education",
-      label: "Education Level",
+      key: 'education',
+      label: 'Education Level',
     },
-    { key: "email", label: "Email", disabled: true },
-    { key: "phone", label: "Phone Number", disabled: true },
-    { key: "country", label: "Country" },
-    { key: "city", label: "City" },
+    { key: 'email', label: 'Email', disabled: true },
+    { key: 'phone', label: 'Phone Number', disabled: true },
+    { key: 'country', label: 'Country' },
+    { key: 'city', label: 'City' },
   ];
 
   const handleInputChange = (key, value) => {
     setProfile((prev) => ({
       ...prev,
       [key]:
-        key === "dateOfBirth" && value
-          ? value.toISOString().split("T")[0]
+        key === 'dateOfBirth' && value
+          ? value.toISOString().split('T')[0]
           : value,
     }));
   };
@@ -127,43 +127,43 @@ const ProfileComponent = ({ userData, isLoading }) => {
     });
 
     if (image) {
-      formData.append("profile_image", image);
+      formData.append('profile_image', image);
     }
 
     try {
       const res = await updateProfile({ data: formData }).unwrap();
       toast.success(res?.message);
     } catch (error) {
-      toast.error("An error occurred while updating the profile.");
+      toast.error('An error occurred while updating the profile.');
     }
   };
 
   const handleDelete = () => {
     Swal.fire({
-      title: "Are you sure?",
+      title: 'Are you sure?',
       text: "You won't be able to revert this!",
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
     }).then(async (result) => {
       if (result.isConfirmed) {
         const { value: password } = await Swal.fire({
-          title: "Please enter your password to confirm",
-          input: "password",
-          inputPlaceholder: "Enter your password",
+          title: 'Please enter your password to confirm',
+          input: 'password',
+          inputPlaceholder: 'Enter your password',
           inputAttributes: {
-            autocapitalize: "off",
+            autocapitalize: 'off',
           },
           showCancelButton: true,
-          confirmButtonText: "Delete Account",
-          cancelButtonText: "Cancel",
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
+          confirmButtonText: 'Delete Account',
+          cancelButtonText: 'Cancel',
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
           preConfirm: (password) => {
             if (!password) {
-              Swal.showValidationMessage("Password is required");
+              Swal.showValidationMessage('Password is required');
               return false;
             }
             return password;
@@ -178,19 +178,19 @@ const ProfileComponent = ({ userData, isLoading }) => {
           try {
             const response = await profileDelete({ data }).unwrap();
             if (response.success) {
-              toast.success("Account deleted successfully.");
-              Cookies.remove("token");
-              localStorage.removeItem("accessToken");
-              localStorage.removeItem("browserInfo");
-              localStorage.removeItem("cookieConsent");
-              router.push("/login");
+              toast.success('Account deleted successfully.');
+              Cookies.remove('token');
+              localStorage.removeItem('accessToken');
+              localStorage.removeItem('browserInfo');
+              localStorage.removeItem('cookieConsent');
+              router.push('/login');
             } else {
-              toast.error(response.message || "An error occurred.");
+              toast.error(response.message || 'An error occurred.');
             }
           } catch (error) {
-            console.error("Error deleting account:", error);
+            console.error('Error deleting account:', error);
             toast.error(
-              error.message || "An error occurred while deleting the account."
+              error.message || 'An error occurred while deleting the account.'
             );
           }
         }
@@ -208,7 +208,7 @@ const ProfileComponent = ({ userData, isLoading }) => {
     ? URL.createObjectURL(image)
     : user?.profile_image
     ? imageUrl(user?.profile_image)
-    : "/path/to/default-image.jpg";
+    : '/path/to/default-image.jpg';
 
   return (
     <>
@@ -228,7 +228,7 @@ const ProfileComponent = ({ userData, isLoading }) => {
               />
               <div
                 className="absolute bottom-2 right-2 bg-[#00b0f2] text-[#083a50] rounded-full p-1 cursor-pointer"
-                onClick={() => document.getElementById("fileInput")?.click()}
+                onClick={() => document.getElementById('fileInput')?.click()}
               >
                 <CameraOutlined className="text-white" />
               </div>
@@ -238,7 +238,7 @@ const ProfileComponent = ({ userData, isLoading }) => {
                 type="file"
                 accept="image/*"
                 onChange={handleImageUpload}
-                style={{ display: "none" }}
+                style={{ display: 'none' }}
               />
             </div>
             <div className="flex-grow text-[#083a50]">
@@ -278,7 +278,7 @@ const ProfileComponent = ({ userData, isLoading }) => {
                 key={field.key}
                 label={field.label}
                 value={
-                  field.key === "dateOfBirth"
+                  field.key === 'dateOfBirth'
                     ? profile[field.key]
                       ? new Date(profile[field.key])
                       : null
@@ -299,18 +299,18 @@ const ProfileComponent = ({ userData, isLoading }) => {
               onClick={handleDelete}
               className="bg-red-500 hover:bg-red-600 text-[#083a50] px-6 py-2 rounded-md"
             >
-              {deleting ? "Deleting..." : "Delete Account"}
+              {deleting ? 'Deleting...' : 'Delete Account'}
             </Button>
             <Button
               onClick={handleUpdate}
               className="bg-[#00b0f2] rounded-md text-white hover:bg-[#00b0f2]"
             >
-              {updatingProfile ? <Spin size="small"></Spin> : "Update"}
+              {updatingProfile ? <Spin size="small"></Spin> : 'Update'}
             </Button>
           </div>
         </div>
         {showModal && <ShareYourWhy></ShareYourWhy>}
-        {WhyHistoryShow && <WhyHistory></WhyHistory>} 
+        {WhyHistoryShow && <WhyHistory></WhyHistory>}
         <DonateSection></DonateSection>
       </div>
     </>

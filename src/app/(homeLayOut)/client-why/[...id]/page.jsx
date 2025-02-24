@@ -100,10 +100,7 @@ function StoryPage() {
                 <div className="flex items-center bg-[#bfe1fc] px-2 py-1 rounded-full">
                   <div className="w-6 h-6 relative mr-2">
                     <Image
-                      src={
-                        imageUrl(selectedStory?.author?.image) ||
-                        'https://via.placeholder.com/40'
-                      }
+                      src={imageUrl(selectedStory?.author?.image)}
                       alt={selectedStory?.author?.name || 'Author'}
                       fill
                       className="rounded-full object-cover"

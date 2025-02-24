@@ -53,7 +53,6 @@ function Page() {
   const stories = storyData?.data?.result || [];
   const totalPages = storyData?.data?.meta?.totalPage || 1;
   const approvedData = stories.filter((item) => item.status === 'Approved');
-  console.log(approvedData);
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);

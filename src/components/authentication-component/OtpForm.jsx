@@ -35,7 +35,7 @@ const OtpForm = () => {
     const otpNumberConvert = Number(otpString);
 
     if (!otpString || otpString.length !== 5) {
-      message.error("Please enter a valid 6-digit OTP.");
+      toast.error("Please enter a valid 6-digit OTP.");
       return;
     }
 
@@ -54,7 +54,7 @@ const OtpForm = () => {
       }
     } catch (err) {
       console.error(err);
-      message.error("Invalid OTP. Please try again.");
+      toast.error("Invalid OTP. Please try again.");
     }
   };
 

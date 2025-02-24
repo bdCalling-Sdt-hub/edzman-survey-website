@@ -40,7 +40,6 @@ const countryCodes = [
 const UserInformationForm = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const onFinish = (values) => {
-        console.log("Form Values:", values);
         setIsModalOpen(true)
     };
 

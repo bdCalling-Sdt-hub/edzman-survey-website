@@ -58,20 +58,18 @@ const VerifyEmailOtp = () => {
 
     try {
       const response = await verifyOtp(data).unwrap();
-      console.log("OTP Verified:", response);
       toast.success("OTP Verified. Redirecting to reset password page.");
       setTimeout(() => {
         router.push("/login/email-confirm/verify-email-otp/reset-password");
       }, 1500);
     } catch (err) {
       console.error(err);
-      message.error("Invalid OTP. Please try again.");
+      toast.error("Invalid OTP. Please try again.");
     }
   };
 
   const handleResendOtp = async () => {
     const email = localStorage.getItem("email");
-    console.log(email);
 
     if (!email) {
       toast.error("No email found. Please try again.");

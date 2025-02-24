@@ -1,198 +1,198 @@
-"use client";
-import React, { use, useEffect, useState } from "react";
-import { Button, Input, Progress, Spin } from "antd";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { useRouter } from "next/navigation";
-import { useGenarateWhyMutation } from "@/app/provider/redux/services/whyApis";
-import { toast } from "sonner";
-import Image from "next/image";
+'use client';
+import React, { use, useEffect, useState } from 'react';
+import { Button, Input, Progress, Spin } from 'antd';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { useRouter } from 'next/navigation';
+import { useGenarateWhyMutation } from '@/app/provider/redux/services/whyApis';
+import { toast } from 'sonner';
+import Image from 'next/image';
 
 const questions = [
   {
     id: 1,
-    title: "What am I passionate about?",
+    title: 'What am I passionate about?',
     subQuestions: [
-      "What activities make me feel alive or energized?",
-      "When do I lose track of time because I’m so engrossed in what I’m doing?",
-      "What topics or issues do I feel compelled to learn more about?",
+      'What activities make me feel alive or energized?',
+      'When do I lose track of time because I’m so engrossed in what I’m doing?',
+      'What topics or issues do I feel compelled to learn more about?',
     ],
   },
   {
     id: 2,
-    title: "What do I value most in life?",
+    title: 'What do I value most in life?',
     subQuestions: [
-      "What principles or beliefs do I hold most dear?",
-      "What would I fight for or stand up for, no matter the consequences?",
-      "Which qualities in others do I admire the most?",
+      'What principles or beliefs do I hold most dear?',
+      'What would I fight for or stand up for, no matter the consequences?',
+      'Which qualities in others do I admire the most?',
     ],
   },
   {
     id: 3,
-    title: "What do I want my legacy to be?",
+    title: 'What do I want my legacy to be?',
     subQuestions: [
-      "How do I want to be remembered by others?",
-      "What kind of impact do I want to leave on my community or the world?",
-      "If I could accomplish just one thing in my life, what would it be?",
+      'How do I want to be remembered by others?',
+      'What kind of impact do I want to leave on my community or the world?',
+      'If I could accomplish just one thing in my life, what would it be?',
     ],
   },
   {
     id: 4,
-    title: "What makes me feel fulfilled or content?",
+    title: 'What makes me feel fulfilled or content?',
     subQuestions: [
-      "What experiences or achievements have made me feel truly proud?",
-      "What gives me a sense of purpose or deep satisfaction?",
-      "How do I define personal success?",
+      'What experiences or achievements have made me feel truly proud?',
+      'What gives me a sense of purpose or deep satisfaction?',
+      'How do I define personal success?',
     ],
   },
   {
     id: 5,
-    title: "What strengths do I possess?",
+    title: 'What strengths do I possess?',
     subQuestions: [
-      "What talents or skills come naturally to me?",
-      "How do my unique abilities contribute to the world around me?",
-      "What do others often ask for my help with?",
+      'What talents or skills come naturally to me?',
+      'How do my unique abilities contribute to the world around me?',
+      'What do others often ask for my help with?',
     ],
   },
   {
     id: 6,
-    title: "What struggles or challenges have shaped me?",
+    title: 'What struggles or challenges have shaped me?',
     subQuestions: [
-      "How have past hardships or difficult experiences shaped my perspective on life?",
-      "What have I learned from overcoming adversity?",
-      "How do I want to use my struggles to help others?",
+      'How have past hardships or difficult experiences shaped my perspective on life?',
+      'What have I learned from overcoming adversity?',
+      'How do I want to use my struggles to help others?',
     ],
   },
   {
     id: 7,
-    title: "What kind of relationships do I want to cultivate?",
+    title: 'What kind of relationships do I want to cultivate?',
     subQuestions: [
-      "What types of people do I want in my life?",
-      "How do I want to show up for others, and how do I want them to show up for me?",
-      "What role do I want to play in my family, friendships, and community?",
+      'What types of people do I want in my life?',
+      'How do I want to show up for others, and how do I want them to show up for me?',
+      'What role do I want to play in my family, friendships, and community?',
     ],
   },
   {
     id: 8,
-    title: "How do I want to feel on a daily basis?",
+    title: 'How do I want to feel on a daily basis?',
     subQuestions: [
-      "What emotions or states of being do I want to experience regularly?",
-      "How do I want to feel when I wake up in the morning and when I go to bed at night?",
-      "What does a sense of balance, peace, or joy look like for me?",
+      'What emotions or states of being do I want to experience regularly?',
+      'How do I want to feel when I wake up in the morning and when I go to bed at night?',
+      'What does a sense of balance, peace, or joy look like for me?',
     ],
   },
   {
     id: 9,
-    title: "What impact do I want to make on others?",
+    title: 'What impact do I want to make on others?',
     subQuestions: [
-      "How do I want to make people feel when they interact with me?",
-      "What role do I want to play in helping others grow, learn, or heal?",
-      "In what way do I want to contribute to the well-being of others?",
+      'How do I want to make people feel when they interact with me?',
+      'What role do I want to play in helping others grow, learn, or heal?',
+      'In what way do I want to contribute to the well-being of others?',
     ],
   },
   {
     id: 10,
-    title: "What would I do if money, time, and fear were no object?",
+    title: 'What would I do if money, time, and fear were no object?',
     subQuestions: [
-      "If there were no limitations, how would I spend my time?",
-      "What kind of work or creative projects would I pursue if I wasn’t worried about making a living?",
-      "What risks would I take if I knew I couldn’t fail?",
+      'If there were no limitations, how would I spend my time?',
+      'What kind of work or creative projects would I pursue if I wasn’t worried about making a living?',
+      'What risks would I take if I knew I couldn’t fail?',
     ],
   },
   {
     id: 11,
-    title: "What does true happiness look like for me?",
+    title: 'What does true happiness look like for me?',
     subQuestions: [
-      "What does a truly fulfilling life look like for me?",
-      "What needs to change in my life to make me feel more aligned with my values and passions?",
-      "How do I define happiness in a way that’s meaningful to me?",
+      'What does a truly fulfilling life look like for me?',
+      'What needs to change in my life to make me feel more aligned with my values and passions?',
+      'How do I define happiness in a way that’s meaningful to me?',
     ],
   },
   {
     id: 12,
-    title: "What is my greatest fear, and how does it relate to my purpose?",
+    title: 'What is my greatest fear, and how does it relate to my purpose?',
     subQuestions: [
-      "What am I most afraid of, and how does that fear shape my decisions and actions?",
-      "Does my fear stem from a desire to protect myself, or is it a call to grow beyond my comfort zone?",
-      "What would happen if I faced this fear head-on?",
+      'What am I most afraid of, and how does that fear shape my decisions and actions?',
+      'Does my fear stem from a desire to protect myself, or is it a call to grow beyond my comfort zone?',
+      'What would happen if I faced this fear head-on?',
     ],
   },
   {
     id: 13,
-    title: "What makes me feel most connected to the world?",
+    title: 'What makes me feel most connected to the world?',
     subQuestions: [
-      "When do I feel most at peace with myself and the world around me?",
-      "What experiences make me feel like I’m part of something bigger than myself?",
-      "How do I connect with nature, other people, or my spiritual beliefs?",
+      'When do I feel most at peace with myself and the world around me?',
+      'What experiences make me feel like I’m part of something bigger than myself?',
+      'How do I connect with nature, other people, or my spiritual beliefs?',
     ],
   },
   {
     id: 14,
-    title: "What do I want to learn or experience in my lifetime?",
+    title: 'What do I want to learn or experience in my lifetime?',
     subQuestions: [
-      "What experiences or places are on my bucket list?",
-      "What knowledge or skills do I want to acquire before I die?",
-      "How can these desires shape my broader purpose?",
+      'What experiences or places are on my bucket list?',
+      'What knowledge or skills do I want to acquire before I die?',
+      'How can these desires shape my broader purpose?',
     ],
   },
   {
     id: 15,
-    title: "What would I regret not pursuing?",
+    title: 'What would I regret not pursuing?',
     subQuestions: [
-      "What would I deeply regret never trying or achieving in my life?",
-      "What dreams or aspirations have I put aside, and why?",
-      "If I only had a limited amount of time left, what would I make sure to do?",
+      'What would I deeply regret never trying or achieving in my life?',
+      'What dreams or aspirations have I put aside, and why?',
+      'If I only had a limited amount of time left, what would I make sure to do?',
     ],
   },
   {
     id: 16,
-    title: "What does personal growth mean to me?",
+    title: 'What does personal growth mean to me?',
     subQuestions: [
-      "How do I define growth, and what does it look like in my life?",
-      "What areas of my life do I want to improve or evolve?",
-      "What lessons have I learned, and how do I want to continue learning?",
+      'How do I define growth, and what does it look like in my life?',
+      'What areas of my life do I want to improve or evolve?',
+      'What lessons have I learned, and how do I want to continue learning?',
     ],
   },
   {
     id: 17,
-    title: "Who are my role models, and why?",
+    title: 'Who are my role models, and why?',
     subQuestions: [
-      "Who do I admire and look up to, and what qualities do they embody?",
-      "What aspects of their life or journey resonate with my own aspirations?",
-      "How can I emulate the best traits of those I admire in my own life?",
+      'Who do I admire and look up to, and what qualities do they embody?',
+      'What aspects of their life or journey resonate with my own aspirations?',
+      'How can I emulate the best traits of those I admire in my own life?',
     ],
   },
   {
     id: 18,
-    title: "What would I do if I had to start over from scratch?",
+    title: 'What would I do if I had to start over from scratch?',
     subQuestions: [
-      "If I lost everything today, what would I pursue next?",
-      "What parts of my current life would I rebuild, and what would I leave behind?",
-      "How would I go about creating a life that feels meaningful and true to me?",
+      'If I lost everything today, what would I pursue next?',
+      'What parts of my current life would I rebuild, and what would I leave behind?',
+      'How would I go about creating a life that feels meaningful and true to me?',
     ],
   },
 ];
 
 const cardData = [
   {
-    icon: "/Icon/answer1.png",
+    icon: '/Icon/answer1.png',
     title: `Copmleate The WHY's`,
     subTitle:
-      "Be yourself and answer honestly to find out your personality type.",
-    styling: "from-[#17b4ec] to-[#fff]",
+      'Be yourself and answer honestly to find out your personality type.',
+    styling: 'from-[#17b4ec] to-[#fff]',
   },
   {
-    icon: "/Icon/answer2.png",
+    icon: '/Icon/answer2.png',
     title: `View The Detail Result`,
     subTitle:
-      "Learn how your personality type influences many areas of your life.",
-    styling: "from-[#2397f3] to-[#ced7f6]",
+      'Learn how your personality type influences many areas of your life.',
+    styling: 'from-[#2397f3] to-[#ced7f6]',
   },
   {
-    icon: "/Icon/answer3.png",
+    icon: '/Icon/answer3.png',
     title: `Unlock Your Potential`,
     subTitle:
-      "Grow into the person you want to be with your optional Premium Suite.",
-    styling: "from-[#2397f3] to-[#ced7f6]",
+      'Grow into the person you want to be with your optional Premium Suite.',
+    styling: 'from-[#2397f3] to-[#ced7f6]',
   },
 ];
 
@@ -213,15 +213,14 @@ const AnswerQuestions = () => {
     }));
   };
   useEffect(() => {
-    console.log(answers);
     if (Object.keys(answers).length > 0) {
-      localStorage.setItem("answers", JSON.stringify(answers));
+      localStorage.setItem('answers', JSON.stringify(answers));
     }
   }, [answers]);
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === 'undefined') return;
 
-    const storedAnswers = localStorage.getItem("answers");
+    const storedAnswers = localStorage.getItem('answers');
 
     if (storedAnswers) {
       setAnswers(JSON.parse(storedAnswers));
@@ -235,7 +234,7 @@ const AnswerQuestions = () => {
     (sum, questionAnswers) =>
       sum +
       Object.values(questionAnswers || {}).filter(
-        (answer) => answer.trim() !== ""
+        (answer) => answer.trim() !== ''
       ).length,
     0
   );
@@ -265,7 +264,7 @@ const AnswerQuestions = () => {
       const questionAnswers = answers[question.id] || {};
       return question.subQuestions.map((subQuestion, subQuestionIndex) => ({
         question: subQuestion,
-        answer: questionAnswers[subQuestionIndex] || "",
+        answer: questionAnswers[subQuestionIndex] || '',
       }));
     });
 
@@ -275,10 +274,11 @@ const AnswerQuestions = () => {
     const response = await genarateWhy(result).unwrap();
     const responseId = response?.data?._id;
     if (response?.success) {
-      toast.success("Your why has been generated.");
+      toast.success('Your why has been generated.');
       router.push(`/find-why/answer-Questions/resultOfWhy?id=${responseId}`);
+      localStorage.removeItem('answers');
     } else {
-      toast.error(response?.message || "Failed to generate Why.");
+      toast.error(response?.message || 'Failed to generate Why.');
     }
 
     return result;
@@ -346,7 +346,7 @@ const AnswerQuestions = () => {
             <Input.TextArea
               rows={3}
               placeholder="Your Answer"
-              value={answers[currentQuestion.id]?.[index] || ""}
+              value={answers[currentQuestion.id]?.[index] || ''}
               onChange={(e) =>
                 handleInputChange(e.target.value, currentQuestion.id, index)
               }
@@ -372,7 +372,7 @@ const AnswerQuestions = () => {
               onClick={handleSubmit}
               disabled={progressPercentage !== 100}
             >
-              {isGenerateWhyLoading ? "Generating..." : "Submit"}
+              {isGenerateWhyLoading ? 'Generating...' : 'Submit'}
             </Button>
           </div>
         ) : (

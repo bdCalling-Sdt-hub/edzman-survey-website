@@ -3,6 +3,7 @@ import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { useForgetEmailPostMutation } from "../provider/redux/services/authApis";
 import { useRouter } from "next/navigation"; 
+import toast from "react-hot-toast";
 
 const ForgetPassword = () => {
   const router = useRouter();
@@ -16,11 +17,11 @@ const ForgetPassword = () => {
         localStorage.setItem("email", values.email);
         router.push("/login/email-confirm/verify-email-otp"); 
       } else {
-        message.error(response?.message || "An unexpected error occurred.");
+        toast.error(response?.message || "An unexpected error occurred.");
       }
     } catch (err) {
       console.error("Request failed:", err);
-      message.error(
+      toast.error(
         err?.response?.data?.message ||
           err?.message ||
           "Something went wrong. Please try again later."

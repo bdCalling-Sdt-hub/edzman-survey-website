@@ -56,7 +56,6 @@ const VerifyEmail = () => {
       email: verifyEmail,
       verifyCode: otpNumberConvert,
     };
-    console.log(data);
 
     try {
       const response = await verifycode({ data }).unwrap();
@@ -70,7 +69,6 @@ const VerifyEmail = () => {
 
   //TODO: Implement resend OTP functionality
   const handleResendOtp = async () => {
-    console.log(email);
     const email = localStorage.getItem("email");
 
     if (!email) {

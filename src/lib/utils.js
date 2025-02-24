@@ -14,6 +14,6 @@ export const imageUrl = (image) => {
       : image?.startsWith("/")
       ? `${url}${image}`
       : `${url}/${image}`
-    : `https://placehold.co/400`;
+    : `https://placehold.co/800`;
 };
 

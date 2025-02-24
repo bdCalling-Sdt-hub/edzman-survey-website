@@ -21,7 +21,6 @@ function Footer() {
     try {
       const response = await updateSubscribe({ data }).unwrap();
       toast.success("Subscription successful!");
-      console.log("Subscription successful:", response);
     } catch (error) {
       toast.error("Subscription error!");
       console.error("Subscription error:", error);

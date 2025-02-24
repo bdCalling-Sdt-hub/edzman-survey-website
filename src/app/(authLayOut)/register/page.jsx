@@ -36,7 +36,6 @@ const Register = () => {
       },
     };
     const res = await regiterUser({ data: formattedData }).unwrap();
-    console.log("res", res);
 
     if (res?.success) {
       toast.success("User registered successfully.");

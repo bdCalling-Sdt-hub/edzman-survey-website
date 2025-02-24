@@ -1,17 +1,17 @@
-"use client";
-import React, { useState } from "react";
-import { Form, Input, Button, Checkbox, message, Spin } from "antd";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import Link from "next/link";
-import { usePostLoginInfoMutation } from "@/app/provider/redux/services/authApis";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import Cookies from "js-cookie";
+'use client';
+import React, { useState } from 'react';
+import { Form, Input, Button, Spin } from 'antd';
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import Link from 'next/link';
+import { usePostLoginInfoMutation } from '@/app/provider/redux/services/authApis';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import Cookies from 'js-cookie';
 
 const Login = () => {
   const [form] = Form.useForm();
   const [login, { isLoading }] = usePostLoginInfoMutation();
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const router = useRouter();
 
   const onFinish = async (values) => {
@@ -22,21 +22,21 @@ const Login = () => {
 
     try {
       const response = await login(data).unwrap();
-      
+
       if (response.success) {
-        console.log(response?.data?.accessToken);
-        Cookies.remove("token");
-        Cookies.set("token", response?.data?.accessToken);
-        localStorage.setItem("accessToken", response?.data?.accessToken);
-        if (Cookies.get("token")) {
-          router.push("/");
+        Cookies.remove('token');
+        Cookies.set('token', response?.data?.accessToken);
+        localStorage.setItem('accessToken', response?.data?.accessToken);
+        if (Cookies.get('token')) {
+          toast.success('Login successful!');
+          router.push('/');
         }
       } else {
-        setError(response.message || "Login failed. Please try again.");
+        setError(response.message || 'Login failed. Please try again.');
       }
     } catch (err) {
-      setError(err?.data?.message || "Login failed. Please try again.");
-      message.error("Login failed. Please try again.");
+      setError(err?.data?.message || 'Login failed. Please try again.');
+      toast.error('Login failed. Please try again.');
     }
   };
 
@@ -62,8 +62,8 @@ const Login = () => {
             name="email"
             label="Email address"
             rules={[
-              { required: true, message: "Please enter your email!" },
-              { type: "email", message: "Please enter a valid email!" },
+              { required: true, message: 'Please enter your email!' },
+              { type: 'email', message: 'Please enter a valid email!' },
             ]}
           >
             <Input
@@ -77,7 +77,7 @@ const Login = () => {
           <Form.Item
             name="password"
             label="Password"
-            rules={[{ required: true, message: "Please enter your password!" }]}
+            rules={[{ required: true, message: 'Please enter your password!' }]}
           >
             <Input.Password
               className="h-12"
@@ -106,7 +106,7 @@ const Login = () => {
               disabled={isLoading}
               aria-label="Sign In"
             >
-              {isLoading ? <Spin size="small" /> : "Sign In"}
+              {isLoading ? <Spin size="small" /> : 'Sign In'}
             </Button>
           </Form.Item>
         </Form>

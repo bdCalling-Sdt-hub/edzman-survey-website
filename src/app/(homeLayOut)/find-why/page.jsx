@@ -1,18 +1,17 @@
-"use client";
-import DonateSection from "@/components/LadingPage/DonateSection";
-import PageHeader from "@/components/PageHeader/PageHeader";
-import { Spin } from "antd";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { IoIosCheckmarkCircle } from "react-icons/io";
+'use client';
+import DonateSection from '@/components/LadingPage/DonateSection';
+import PageHeader from '@/components/PageHeader/PageHeader';
+import { Spin } from 'antd';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { IoIosCheckmarkCircle } from 'react-icons/io';
 
 function Page() {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem('accessToken');
     setToken(accessToken);
     setLoading(false);
   }, []);
@@ -20,7 +19,7 @@ function Page() {
   return (
     <>
       <PageHeader
-        title={"Discover Your WHY"}
+        title={'Discover Your WHY'}
         subTitle={
           "Take our free personality WHY's to uncover your 'Why' and receive personalized guidance and actionable steps to help you live a fulfilling life."
         }
@@ -90,7 +89,7 @@ function Page() {
               <p className="mt-2 text-sm">
                 Start creating and explore your purpose.
               </p>
-              <Link href={"/find-why/answer-Questions"}>
+              <Link href={'/find-why/answer-Questions'}>
                 <button className="mt-4 bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition">
                   Get Started
                 </button>
@@ -103,7 +102,7 @@ function Page() {
               <p className="mt-2 text-sm">
                 To generate your why, you need to sign in first.
               </p>
-              <Link href={"/login"}>
+              <Link href={'/login'}>
                 <button className="mt-4 bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition">
                   Sign In
                 </button>

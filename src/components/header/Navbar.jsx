@@ -1,41 +1,42 @@
-"use client";
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
-import { GiSettingsKnobs } from "react-icons/gi";
+'use client';
+import { Avatar, AvatarImage } from '@radix-ui/react-avatar';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { FaBars, FaTimes } from 'react-icons/fa';
+import { GiSettingsKnobs } from 'react-icons/gi';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { MdOutlineQuestionMark } from "react-icons/md";
-import { VscSignOut } from "react-icons/vsc";
-import { useProfileGetQuery } from "@/app/provider/redux/services/userApis";
-import { imageUrl } from "@/lib/utils";
-import Cookies from "js-cookie";
+} from '@/components/ui/popover';
+import { MdOutlineQuestionMark } from 'react-icons/md';
+import { VscSignOut } from 'react-icons/vsc';
+import { useProfileGetQuery } from '@/app/provider/redux/services/userApis';
+import { imageUrl } from '@/lib/utils';
+import Cookies from 'js-cookie';
+import toast from 'react-hot-toast';
 
 function Navbar() {
   const path = usePathname();
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState('');
 
   const { data: userData, isLoading } = useProfileGetQuery();
   const navlinks = [
-    { title: "Home", path: "/" },
-    { title: "Example Whys", path: "/example" },
-    { title: "How to FTW", path: "/ftw" },
-    { title: "Client Why", path: "/client-why" },
-    { title: "Blog", path: "/blog" },
-    { title: "Donate", path: "/donate-page" },
-    { title: "About Us", path: "/about" },
+    { title: 'Home', path: '/' },
+    { title: 'Example Whys', path: '/example' },
+    { title: 'How to FTW', path: '/ftw' },
+    { title: 'Client Why', path: '/client-why' },
+    { title: 'Blog', path: '/blog' },
+    { title: 'Donate', path: '/donate-page' },
+    { title: 'About Us', path: '/about' },
   ];
 
   useEffect(() => {
-    setToken(localStorage.getItem("accessToken"));
+    setToken(localStorage.getItem('accessToken'));
   }, []);
 
   const user = {
@@ -59,36 +60,37 @@ function Navbar() {
 
   const handleSignOut = () => {
     try {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("email");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("register-email");
-      Cookies.remove("token");
-      router.push("/login");
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('email');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('register-email');
+      Cookies.remove('token');
+      toast.success('Signed out successfully.');
+      router.push('/');
     } catch (error) {
-      console.error("Error during sign-out:", error);
-      alert("An error occurred during sign-out. Please try again.");
+      console.error('Error during sign-out:', error);
+      alert('An error occurred during sign-out. Please try again.');
     }
   };
 
   const menuVariants = {
-    hidden: { opacity: 0, x: "100%" },
+    hidden: { opacity: 0, x: '100%' },
     visible: {
       opacity: 1,
       x: 0,
-      transition: { type: "spring", stiffness: 300, damping: 30 },
+      transition: { type: 'spring', stiffness: 300, damping: 30 },
     },
     exit: {
       opacity: 0,
-      x: "100%",
-      transition: { type: "spring", stiffness: 300, damping: 30 },
+      x: '100%',
+      transition: { type: 'spring', stiffness: 300, damping: 30 },
     },
   };
 
   return (
     <div className="container mx-auto flex items-center justify-between p-4">
       <div>
-        <Link href={"/"}>
+        <Link href={'/'}>
           <img src="/brandLogo.svg" alt="brandLogo" className="h-10" />
         </Link>
       </div>
@@ -104,7 +106,7 @@ function Navbar() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 className={`${
-                  isActive ? "text-[#00b0f2] font-bold" : "text-gray-600"
+                  isActive ? 'text-[#00b0f2] font-bold' : 'text-gray-600'
                 } transition`}
               >
                 <Link href={link?.path} className="px-2">
@@ -150,13 +152,13 @@ function Navbar() {
                 </Avatar>
                 <div className="divider w-full h-[1px] bg-slate-400/40 my-3"></div>
                 <ul className="mt-3 flex items-start flex-col gap-3">
-                  <Link className="w-full" href={"/user-profile"}>
+                  <Link className="w-full" href={'/user-profile'}>
                     <li className="flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2">
                       <GiSettingsKnobs className="text-xl" />
                       Profile
                     </li>
                   </Link>
-                  <Link className="w-full" href={"/about"}>
+                  <Link className="w-full" href={'/about'}>
                     <li className="flex items-center cursor-pointer hover:bg-[#00b0f2]/40 w-full p-2 rounded-md gap-2">
                       <MdOutlineQuestionMark className="text-xl" /> About us
                     </li>
@@ -182,17 +184,20 @@ function Navbar() {
                   />
                 </Avatar>
               </PopoverTrigger>
-              <PopoverContent className="z-[999] w-48 flex items-center justify-center">
+              <PopoverContent
+                align="end"
+                className="z-[999] w-48 flex items-center justify-center"
+              >
                 <ul className="mt-3 flex items-start flex-col gap-3 w-full">
                   <Link
-                    href={"/register"}
+                    href={'/register'}
                     className="hover:text-[#00B0F2] transition-all w-full h-full"
                   >
                     <li className="flex items-center gap-2">Sign Up</li>
                   </Link>
                   <div className="divider w-full h-[1px] bg-slate-400/40"></div>
                   <Link
-                    href={"/login"}
+                    href={'/login'}
                     className="hover:text-[#00B0F2] transition-all w-full h-full"
                   >
                     <li className="flex items-center gap-2">Sign In</li>
@@ -220,7 +225,7 @@ function Navbar() {
           exit="exit"
           className="fixed z-[999] top-0 right-0 w-full h-screen bg-white flex flex-col items-start pl-12 justify-start pt-12 gap-4 lg:hidden"
         >
-          <Link href={"/"}>
+          <Link href={'/'}>
             <img src="/logo/FYW.png" alt="logo" />
           </Link>
           <button
@@ -238,7 +243,7 @@ function Navbar() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   className={`${
-                    isActive ? "text-[#00b0f2] font-bold" : "text-gray-600"
+                    isActive ? 'text-[#00b0f2] font-bold' : 'text-gray-600'
                   } transition`}
                 >
                   <Link onClick={() => setIsMenuOpen(false)} href={link?.path}>
@@ -278,7 +283,7 @@ function Navbar() {
                       whileTap={{ scale: 0.9 }}
                       className="bg-[#00B0F2] text-nowrap text-sm text-white px-4 py-2 rounded-md w-full"
                     >
-                      <Link href={"/user-profile"}>Profiles</Link>
+                      <Link href={'/user-profile'}>Profiles</Link>
                     </motion.button>
                     <motion.button
                       whileHover={{ scale: 1.1 }}
@@ -303,14 +308,14 @@ function Navbar() {
                   whileTap={{ scale: 0.9 }}
                   className="bg-[#00B0F2] text-nowrap text-sm text-white px-4 py-2 rounded-md w-full"
                 >
-                  <Link href={"/register"}>Sign Up</Link>
+                  <Link href={'/register'}>Sign Up</Link>
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   className="bg-[#16344F] text-sm text-nowrap text-white px-4 py-2 rounded-md w-full"
                 >
-                  <Link href={"/login"}>Sign In</Link>
+                  <Link href={'/login'}>Sign In</Link>
                 </motion.button>
               </motion.div>
             )}
