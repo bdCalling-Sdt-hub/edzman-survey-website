@@ -351,11 +351,9 @@ function Navbar() {
   const [token, setToken] = useState('');
 
   const { data: userData, isError, error } = useProfileGetQuery();
-  console.log(error);
   useEffect(() => {
     setToken(localStorage.getItem('accessToken'));
   }, []);
-  console.log(userData);
   const user = {
     login: !!token,
     photoURL: imageUrl(userData?.data?.profile_image),
