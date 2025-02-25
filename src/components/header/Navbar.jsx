@@ -343,6 +343,7 @@ import { imageUrl } from '@/lib/utils';
 import Cookies from 'js-cookie';
 import { toast } from 'sonner';
 import { Avatar, Dropdown, Menu } from 'antd';
+import Swal from 'sweetalert2';
 
 function Navbar() {
   const path = usePathname();
@@ -350,11 +351,11 @@ function Navbar() {
   const [token, setToken] = useState('');
 
   const { data: userData, isError, error } = useProfileGetQuery();
-
+  console.log(error);
   useEffect(() => {
     setToken(localStorage.getItem('accessToken'));
   }, []);
-
+  console.log(userData);
   const user = {
     login: !!token,
     photoURL: imageUrl(userData?.data?.profile_image),
@@ -364,12 +365,19 @@ function Navbar() {
 
   useEffect(() => {
     if (error?.data?.success === false) {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('email');
-      localStorage.removeItem('refreshToken');
-      localStorage.removeItem('register-email');
-      Cookies.remove('token');
-      toast.error('Your account has been blocked.');
+      if (error?.data?.message == 'This user is blocked') {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Your account has been blocked. Contact with admin',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('email');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('register-email');
+        Cookies.remove('token');
+      }
     }
   }, [isError]);
 
