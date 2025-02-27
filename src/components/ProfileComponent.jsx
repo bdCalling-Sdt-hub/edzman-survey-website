@@ -18,6 +18,8 @@ import { toast } from 'sonner';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import defultImage from '../../public/defultUser.jpg';
+import { useGetMyWhyQuery } from '@/app/provider/redux/services/whyApis';
+import Modal from 'antd/es/modal/Modal';
 const { Option } = Select;
 
 const InputField = ({
@@ -70,7 +72,7 @@ const ProfileComponent = ({ userData, isLoading }) => {
   const [updateProfile, { isLoading: updatingProfile }] =
     useProfileUpdateMutation();
   const [profileDelete, { isLoading: deleting }] = useProfileDeleteMutation();
-
+  const { data: whyData, isLoading: whyLoading } = useGetMyWhyQuery();
   const [showModal, setShowModal] = useState(false);
   const [WhyHistoryShow, setWhyHistoryShow] = useState(false);
   const [image, setImage] = useState(null);
@@ -309,8 +311,24 @@ const ProfileComponent = ({ userData, isLoading }) => {
             </Button>
           </div>
         </div>
-        {showModal && <ShareYourWhy></ShareYourWhy>}
-        {WhyHistoryShow && <WhyHistory></WhyHistory>}
+        <Modal
+          open={WhyHistoryShow}
+          onCancel={() => setWhyHistoryShow(false)}
+          footer={null}
+          width={1000}
+          style={{ top: 20 }}
+        >
+          <WhyHistory data={whyData} isLoading={whyLoading}></WhyHistory>
+        </Modal>
+        <Modal
+          open={showModal}
+          onCancel={() => setShowModal(false)}
+          footer={null}
+          width={1000}
+          style={{ top: 20 }}
+        >
+          <ShareYourWhy></ShareYourWhy>
+        </Modal>
         <DonateSection></DonateSection>
       </div>
     </>
