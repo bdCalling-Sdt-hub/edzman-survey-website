@@ -72,7 +72,6 @@ const ProfileComponent = ({ userData, isLoading }) => {
   const [updateProfile, { isLoading: updatingProfile }] =
     useProfileUpdateMutation();
   const [profileDelete, { isLoading: deleting }] = useProfileDeleteMutation();
-  const { data: whyData, isLoading: whyLoading } = useGetMyWhyQuery();
   const [showModal, setShowModal] = useState(false);
   const [WhyHistoryShow, setWhyHistoryShow] = useState(false);
   const [image, setImage] = useState(null);
@@ -318,7 +317,7 @@ const ProfileComponent = ({ userData, isLoading }) => {
           width={1000}
           style={{ top: 20 }}
         >
-          <WhyHistory data={whyData} isLoading={whyLoading}></WhyHistory>
+          <WhyHistory ></WhyHistory>
         </Modal>
         <Modal
           open={showModal}

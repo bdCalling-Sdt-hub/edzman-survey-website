@@ -17,11 +17,18 @@ import energy from '../../../public/result.svg';
 import Image from 'next/image';
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A28EF6'];
 
-export default function WhyLogsHistory({ data, isLoading }) {
+export default function WhyLogsHistory() {
+  const { data, isLoading: whyLoading } = useGetMyWhyQuery();
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [selectedWhy, setSelectedWhy] = useState(null);
   const [deleteWhy, { isLoading: deleteLoading }] = useDeleteWhyMutation();
-
+  if (whyLoading) {
+    return (
+      <div className="w-full flex items-center justify-center">
+        <Spin />
+      </div>
+    );
+  }
   const sortedData = data?.data
     ? [...data.data].sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -69,9 +76,6 @@ export default function WhyLogsHistory({ data, isLoading }) {
     setIsModalOpen(false);
   };
 
-  if (isLoading) {
-    return <Spin size="small" />;
-  }
 
   return (
     <>
