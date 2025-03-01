@@ -387,6 +387,7 @@ function Navbar() {
     { title: 'Blog', path: '/blog' },
     { title: 'Donate', path: '/donate-page' },
     { title: 'About Us', path: '/about' },
+    { title: 'Profile', path: '/user-profile' },
   ];
 
   const handleSignOut = () => {
@@ -461,7 +462,7 @@ function Navbar() {
 
       {/* Desktop Menu */}
       <div className="hidden lg:flex lg:text-sm items-center gap-4">
-        <ul className="flex items-center gap-4">
+        <ul className="flex items-center mt-[10px] gap-4">
           {navlinks.map((link, idx) => {
             const isActive = path === link?.path;
             return (

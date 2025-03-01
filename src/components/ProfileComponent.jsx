@@ -18,7 +18,6 @@ import { toast } from 'sonner';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import defultImage from '../../public/defultUser.jpg';
-import { useGetMyWhyQuery } from '@/app/provider/redux/services/whyApis';
 import Modal from 'antd/es/modal/Modal';
 const { Option } = Select;
 
