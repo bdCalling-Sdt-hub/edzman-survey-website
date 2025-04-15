@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import { imageUrl } from '@/lib/utils';
 import {
   useProfileDeleteMutation,
+  useProfileGetQuery,
   useProfileUpdateMutation,
 } from '@/app/provider/redux/services/userApis';
 import { toast } from 'sonner';
@@ -64,10 +65,11 @@ const InputField = ({
   </div>
 );
 
-const ProfileComponent = ({ userData, isLoading }) => {
+const ProfileComponent = () => {
+  const { data: userData, isLoading } = useProfileGetQuery();
   const router = useRouter();
   const user = userData?.data;
-
+  console.log('profile page loading...');
   const [updateProfile, { isLoading: updatingProfile }] =
     useProfileUpdateMutation();
   const [profileDelete, { isLoading: deleting }] = useProfileDeleteMutation();
@@ -208,8 +210,10 @@ const ProfileComponent = ({ userData, isLoading }) => {
   const profileImages = image
     ? URL.createObjectURL(image)
     : user?.profile_image
-    ? imageUrl(user?.profile_image)
-    : defultImage;
+    ? imageUrl(
+        user?.profile_image || 'https://i.ibb.co.com/PsxKbMWH/defult-Image.jpg'
+      )
+    : 'https://i.ibb.co.com/PsxKbMWH/defult-Image.jpg';
 
   return (
     <>
@@ -316,7 +320,7 @@ const ProfileComponent = ({ userData, isLoading }) => {
           width={1000}
           style={{ top: 20 }}
         >
-          <WhyHistory ></WhyHistory>
+          <WhyHistory></WhyHistory>
         </Modal>
         <Modal
           open={showModal}

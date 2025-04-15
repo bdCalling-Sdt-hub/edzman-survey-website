@@ -356,7 +356,10 @@ function Navbar() {
   }, []);
   const user = {
     login: !!token,
-    photoURL: imageUrl(userData?.data?.profile_image),
+    photoURL: imageUrl(
+      userData?.data?.profile_image ||
+        'https://i.ibb.co.com/PsxKbMWH/defult-Image.jpg'
+    ),
     displayName: userData?.data?.name,
     email: userData?.data?.email,
   };
@@ -464,7 +467,7 @@ function Navbar() {
       <div className="hidden lg:flex lg:text-sm items-center gap-4">
         <ul className="flex items-center mt-[10px] gap-4">
           {navlinks.map((link, idx) => {
-            const isActive = path === link?.path;
+            const isActive = path === link?.path && link?.path !== '/user-profile';
             return (
               <motion.li
                 key={idx}
@@ -475,7 +478,7 @@ function Navbar() {
                 } transition`}
               >
                 <Link href={link?.path} className="px-2">
-                  {link?.title}
+                  {link?.path !== '/user-profile' && link?.title}
                 </Link>
                 {isActive && (
                   <motion.div
@@ -487,19 +490,28 @@ function Navbar() {
             );
           })}
         </ul>
-        {user.login && !error ? (
-          <Dropdown
-            overlay={renderUserMenu()}
-            trigger={['click']}
-            placement="bottomRight"
-          >
-            <Avatar size={40} src={user?.photoURL} className="cursor-pointer" />
-          </Dropdown>
-        ) : (
-          <Link href={'/login'}>
-            <button className="primary-button-styling">Sign In</button>
-          </Link>
-        )}
+        <div className="mt-2">
+          {user.login && !error ? (
+            <Dropdown
+              overlay={renderUserMenu()}
+              trigger={['click']}
+              placement="bottomRight"
+            >
+              <Avatar
+                size={40}
+                src={
+                  user?.photoURL ||
+                  'https://i.ibb.co.com/PsxKbMWH/defult-Image.jpg'
+                }
+                className="cursor-pointer"
+              />
+            </Dropdown>
+          ) : (
+            <Link href={'/login'}>
+              <button className="primary-button-styling">Sign In</button>
+            </Link>
+          )}
+        </div>
       </div>
 
       {/* Hamburger Menu Icon for Mobile */}

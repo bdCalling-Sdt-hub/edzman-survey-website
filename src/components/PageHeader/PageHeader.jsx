@@ -1,16 +1,16 @@
-"use client";
-import React from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
+'use client';
+import React, { memo } from 'react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 function PageHeader({ title, subTitle }) {
   // Define animation variants for text slicing
   const textVariant = {
-    hidden: { y: "100%", opacity: 0 },
+    hidden: { y: '100%', opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: "easeOut" },
+      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
@@ -50,4 +50,4 @@ function PageHeader({ title, subTitle }) {
   );
 }
 
-export default PageHeader;
+export default memo(PageHeader);

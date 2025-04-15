@@ -1,25 +1,25 @@
-"use client";
-import PrimaryButton from "@/lib/button/PrimaryButton";
-import React from "react";
-import { motion } from "framer-motion";
-import Link from "next/link";
+'use client';
+import PrimaryButton from '@/lib/button/PrimaryButton';
+import React from 'react';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 function Banner() {
   // Animation variants for slice reveal
   const sliceReveal = {
-    hidden: { y: "100%", opacity: 0 },
+    hidden: { y: '100%', opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
         duration: 0.8,
-        ease: "easeOut",
+        ease: 'easeOut',
       },
     },
   };
 
   return (
-    <div className="container mx-auto flex flex-col lg:flex-row items-center justify-center py-8 px-2 lg:py-16 gap-2 md:gap-8">
+    <div className="container mx-auto flex flex-col lg:flex-row items-center justify-center py-8 px-2 lg:py-24 gap-2 md:gap-8">
       {/* Left Content */}
       <div className="flex-1 flex flex-col gap-8 text-center lg:text-start">
         <motion.h1
@@ -70,8 +70,8 @@ function Banner() {
           animate="visible"
           variants={sliceReveal}
         >
-          <Link href={"/ftw"}>
-            <PrimaryButton text={"How to Find Your Why"} />
+          <Link href={'/ftw'}>
+            <PrimaryButton text={'How to Find Your Why'} />
           </Link>
         </motion.div>
       </div>
@@ -81,7 +81,7 @@ function Banner() {
         className="flex-1 flex animate-bounce justify-center items-center"
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
       >
         <img
           src="/image/landing.png"

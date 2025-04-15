@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Button, Modal, Spin } from 'antd';
+import { Button, Empty, Modal, Spin } from 'antd';
 import { DeleteOutlined, EyeOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import {
@@ -76,7 +76,6 @@ export default function WhyLogsHistory() {
     setIsModalOpen(false);
   };
 
-
   return (
     <>
       {/* <Modal
@@ -140,51 +139,60 @@ export default function WhyLogsHistory() {
         </div>
       </Modal> */}
       <div className="space-y-4">
-        {sortedData.map((why, index) => (
-          <div
-            key={why._id}
-            className="flex items-center  justify-between bg-gray-100 p-4 rounded-lg shadow-sm"
-          >
-            <div className="flex md:items-center w-full md:flex-row flex-col justify-center md:justify-between gap-3">
-              <img className="w-12" src="/show.png" alt="" />
-              <div className="flex md:items-center gap-2 md:flex-row flex-col items-start justify-between w-full ">
-                <div>
-                  <h3 className="font-medium text-xl text-[#1d3557]">
-                    {formatTitle(index)}
-                  </h3>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {new Date(why.createdAt).toLocaleString()}
-                  </p>
-                </div>
-                <div className="flex gap-2">
-                  <Button
-                    className="bg-[#60B7FF] hover:bg-blue-600 text-white px-4 py-2 rounded-md"
-                    type="text"
-                    icon={<EyeOutlined className="text-white" />}
-                    onClick={() => handleView(why)}
-                  />
-                  <Button
-                    className="bg-red-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
-                    type="text"
-                    icon={<DeleteOutlined className="text-white" />}
-                    onClick={() => handleDelete(why._id)}
-                  />
+        {sortedData?.length > 0 ? (
+          sortedData.map((why, index) => (
+            <div
+              key={why._id}
+              className="flex items-center  justify-between bg-gray-100 p-4 rounded-lg shadow-sm"
+            >
+              <div className="flex md:items-center w-full md:flex-row flex-col justify-center md:justify-between gap-3">
+                <img className="w-12" src="/show.png" alt="" />
+                <div className="flex md:items-center gap-2 md:flex-row flex-col items-start justify-between w-full ">
+                  <div>
+                    <h3 className="font-medium text-xl text-[#1d3557]">
+                      {formatTitle(index)}
+                    </h3>
+                    <p className="text-xs text-gray-500 mt-1">
+                      {new Date(why.createdAt).toLocaleString()}
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      className="bg-[#60B7FF] hover:bg-blue-600 text-white px-4 py-2 rounded-md"
+                      type="text"
+                      icon={<EyeOutlined className="text-white" />}
+                      onClick={() => handleView(why)}
+                    />
+                    <Button
+                      className="bg-red-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
+                      type="text"
+                      icon={<DeleteOutlined className="text-white" />}
+                      onClick={() => handleDelete(why._id)}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
+          ))
+        ) : (
+          <div>
+            <div className="flex flex-col md:flex-row gap-2 items-center justify-between mt-4">
+              <span>Click Here to Create New WHY –</span>
+              <Link href={`/ftw`}>
+                <Button
+                  type="primary"
+                  className="bg-[#21B6F2] hover:bg-blue-600 text-white px-6 py-2 rounded-md"
+                >
+                  Find Your Why
+                </Button>
+              </Link>
+            </div>
+
+            <div>
+              <Empty description="No Why Found" />
+            </div>
           </div>
-        ))}
-        <div className="flex flex-col md:flex-row gap-2 items-center justify-between mt-4">
-          <span>Click Here to Create New WHY –</span>
-          <Link href={`/ftw`}>
-            <Button
-              type="primary"
-              className="bg-[#21B6F2] hover:bg-blue-600 text-white px-6 py-2 rounded-md"
-            >
-              Find Your Why
-            </Button>
-          </Link>
-        </div>
+        )}
       </div>
       {selectedWhy && (
         <Modal
