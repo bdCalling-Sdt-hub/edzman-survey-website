@@ -88,14 +88,13 @@ const TestimonialData = [
 
 const contentStyle = {
   maxWidth: '320px',
-  color: 'red',
   lineHeight: '320px',
   textAlign: 'center',
   background: 'red !important',
 };
 
 const Testimonial = () => (
-  <div className="responsive-width ">
+  <div className="responsive-width">
     <div className="testimonial-carousel mt-40 mb-20">
       <SectionHeader
         title={'What Our Clients Are Saying'}
@@ -136,21 +135,21 @@ const Testimonial = () => (
       >
         {TestimonialData.map((data) => (
           <div key={data.id} style={contentStyle}>
-            <div className="md:ml-5 bg-[white] rounded-md  shadow-black p-4 testimonial-item ">
+            <div className="md:ml-5 bg-gradient-to-t from-[#279af23f] to-[#1d355700] rounded-md  shadow-black p-4 testimonial-item ">
               <Image
                 src={data.img}
                 alt={data.name}
-                className="rounded-full w-24 h-24 mx-auto mb-4 object-cover"
+                className="rounded-full !select-none w-24 h-24 mx-auto mb-4 object-cover"
                 width={1000}
                 height={1000}
               />
-              <h3 className="text-xl font-bold text-center">{data.name}</h3>
-              <p className="text-sm text-gray-600 text-inherit text-center">
+              <h3 className="text-xl font-bold text-center !select-none">{data.name}</h3>
+              <p className="text-sm !select-none text-gray-600 text-inherit text-center">
                 {data.description}
               </p>
               <div className="flex justify-center text-yellow-500 mt-2 mb-10">
                 {Array.from({ length: 5 }, (_, index) => (
-                  <span key={index} className="text-2xl">
+                  <span key={index} className="text-2xl !select-none">
                     {index < data.rating ? '★' : '☆'}
                   </span>
                 ))}
