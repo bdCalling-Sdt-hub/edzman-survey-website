@@ -1,26 +1,29 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input, Button, Select, Spin } from 'antd';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CameraOutlined } from '@ant-design/icons';
 import PageHeader from '@/components/PageHeader/PageHeader';
-import ShareYourWhy from '@/lib/modalcard/ShareYourWhy';
 import DonateSection from '@/components/LadingPage/DonateSection';
-import WhyHistory from '@/lib/modalcard/WhyHistory';
 import Swal from 'sweetalert2';
 import { imageUrl } from '@/lib/utils';
 import {
   useProfileDeleteMutation,
-  useProfileGetQuery,
   useProfileUpdateMutation,
 } from '@/app/provider/redux/services/userApis';
 import { toast } from 'sonner';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
-import defultImage from '../../public/defultUser.jpg';
 import Modal from 'antd/es/modal/Modal';
+import dynamic from 'next/dynamic';
 const { Option } = Select;
+const ShareYourWhy = dynamic(() => import('@/lib/modalcard/ShareYourWhy'), {
+  ssr: false,
+});
+const WhyHistory = dynamic(() => import('@/lib/modalcard/WhyHistory'), {
+  ssr: false,
+});
 
 const InputField = ({
   label,
@@ -65,11 +68,9 @@ const InputField = ({
   </div>
 );
 
-const ProfileComponent = () => {
-  const { data: userData, isLoading } = useProfileGetQuery();
+const ProfileComponent = ({ userData }) => {
   const router = useRouter();
-  const user = userData?.data;
-  console.log('profile page loading...');
+  const user = userData && userData?.data ? userData?.data : null;
   const [updateProfile, { isLoading: updatingProfile }] =
     useProfileUpdateMutation();
   const [profileDelete, { isLoading: deleting }] = useProfileDeleteMutation();
@@ -86,6 +87,20 @@ const ProfileComponent = () => {
     country: user?.country || '',
     city: user?.city || '',
   });
+  useEffect(() => {
+    if (user) {
+      setProfile({
+        name: user.name || '',
+        profession: user.profession || '',
+        dateOfBirth: user.dateOfBirth || null,
+        education: user.education || '',
+        email: user.email || '',
+        phone: user.phone || '',
+        country: user.country || '',
+        city: user.city || '',
+      });
+    }
+  }, [user]);
 
   const profileFields = [
     { key: 'name', label: 'Full Name' },
@@ -210,9 +225,7 @@ const ProfileComponent = () => {
   const profileImages = image
     ? URL.createObjectURL(image)
     : user?.profile_image
-    ? imageUrl(
-        user?.profile_image || 'https://i.ibb.co.com/PsxKbMWH/defult-Image.jpg'
-      )
+    ? imageUrl(user?.profile_image)
     : 'https://i.ibb.co.com/PsxKbMWH/defult-Image.jpg';
 
   return (

@@ -85,7 +85,7 @@ function page() {
                         "https://www.zeffy.com/en-US/embed/donation-form/donate-to-assist-others-with-find-your-why"
                       }
                     >
-                      <div className="flex px-6 py-3 items-center hover:bg-[#00b0f2] transition-all border-[#00B0F2] rounded-md border-2 gap-2">
+                      <div className="flex px-6 py-3 items-center hover:bg-[#00b0f2] hover:!text-white transition-all border-[#00B0F2] rounded-md border-2 gap-2">
                         <button className="cursor-pointer">Donate Now</button>
                         <MdOutlineKeyboardArrowRight />
                       </div>

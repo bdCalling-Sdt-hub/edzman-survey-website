@@ -104,16 +104,19 @@ body {
   margin: 0 auto;
 }
 
-.slick-active button{
-  background-color: #1D3557 !important;
+.slick-active button {
+  background-color: #1d3557 !important;
   width: 10px !important;
   height: 10px !important;
   border-radius: 50% !important;
 }
 
-.slick-dots li{
+.slick-dots li {
   width: 10px !important;
   height: 10px !important;
   border-radius: 50% !important;
-  background-color: #00B0F2 !important;
+  background-color: #00b0f2 !important;
+}
+.ant-skeleton-image svg {
+  display: none;
 }

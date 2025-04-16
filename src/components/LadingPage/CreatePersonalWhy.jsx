@@ -52,7 +52,6 @@ function CreatePersonalWhy() {
               } items-center gap-16 justify-center z-[888] `}
             >
               <Image
-                blurData
                 width={1500}
                 height={1500}
                 className="flex-1 lg:!w-1/2 h-full"

@@ -199,7 +199,7 @@
 'use client';
 import React, { useMemo, useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, Upload, Modal, Input, Form, message, Image } from 'antd';
+import { Button, Upload, Input, Form, Image } from 'antd';
 import 'antd/dist/reset.css';
 import JoditEditor from 'jodit-react';
 import { useCreateNewStoryMutation } from '@/app/provider/redux/services/storyApis';

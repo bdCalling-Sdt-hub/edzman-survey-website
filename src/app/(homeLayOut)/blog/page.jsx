@@ -15,7 +15,7 @@ import { BsSortNumericUp } from 'react-icons/bs';
 import { ImSortNumbericDesc } from 'react-icons/im';
 import { GoArrowUpRight } from 'react-icons/go';
 import PageHeader from '@/components/PageHeader/PageHeader';
-import { Button, Empty } from 'antd';
+import { Button, Card, Empty, Skeleton } from 'antd';
 import Link from 'next/link';
 import { useGetAllBlogQuery } from '@/app/provider/redux/services/blogApis';
 import { imageUrl } from '@/lib/utils';
@@ -54,6 +54,48 @@ function BlogPage() {
     setSortOrder(null);
   };
 
+  // Skeleton component for blog card
+  const BlogCardSkeleton = () => (
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+      <Skeleton.Image
+        active
+        className="h-64 !w-full"
+        style={{ height: '256px' }}
+      />
+      <div className="p-4">
+        <Skeleton.Button
+          active
+          size="small"
+          style={{ width: '80px', marginBottom: '12px' }}
+        />
+        <Skeleton.Input
+          active
+          style={{ height: '24px', width: '100%', marginBottom: '8px' }}
+        />
+        <div className="flex items-center justify-between mt-4">
+          <Skeleton.Button active size="small" style={{ width: '100px' }} />
+          <div className="flex items-center">
+            <Skeleton.Button
+              active
+              size="small"
+              style={{ width: '60px', marginRight: '4px' }}
+            />
+            <Skeleton.Avatar active size="small" shape="circle" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Render skeleton grid when loading
+  const renderSkeletonGrid = () => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {Array.from({ length: 9 }).map((_, index) => (
+        <BlogCardSkeleton key={`skeleton-${index}`} />
+      ))}
+    </div>
+  );
+
   return (
     <div className="bg-gray-50 min-h-screen">
       <PageHeader
@@ -61,66 +103,7 @@ function BlogPage() {
         subTitle="Explore our articles to uncover your 'Why' and receive actionable guidance."
       />
       <div className="container mx-auto py-8 px-4">
-        {/* Search and Sort */}
-        {/* <div className="mb-4 w-full bg-[#e6f3fe] flex items-center rounded-full">
-          <div className="w-full border-2 rounded-full">
-            <div className="flex pl-4 px-2 rounded-full items-center gap-2 w-full">
-              <IoMdSearch />
-              <input
-                type="text"
-                placeholder="Search for Story"
-                className="p-2 w-full outline-none bg-transparent"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-          </div>
-          <Popover>
-            <PopoverTrigger asChild>
-              <div className="flex items-center gap-2 ml p-2 text-nowrap text-black rounded-lg cursor-pointer">
-                <button
-                  aria-label="Sort options"
-                  className="text-black font-bold"
-                >
-                  Sort By
-                </button>
-              </div>
-            </PopoverTrigger>
-            <PopoverContent className="p-4">
-              <div className="space-y-4">
-                <div
-                  className="flex items-center gap-2 cursor-pointer"
-                  onClick={toggleSortOrder}
-                >
-                  {sortOrder === "title" ? (
-                    <FaSortAlphaDown className="text-xl" />
-                  ) : (
-                    <FaSortAlphaDownAlt className="text-xl" />
-                  )}
-                  <Button className="text-black w-full border-none ">
-                    {sortOrder === "title" ? "Sort A to Z" : "Sort Z to A"}
-                  </Button>
-                </div>
-                <div
-                  className="flex items-center gap-2 cursor-pointer"
-                  onClick={toggleDateSortOrder}
-                >
-                  {dateSortOrder === "newest" ? (
-                    <ImSortNumbericDesc className="text-xl" />
-                  ) : (
-                    <BsSortNumericUp className="text-xl" />
-                  )}
-                  <Button className="text-black w-full border-none ">
-                    {dateSortOrder === "newest"
-                      ? "Newest to Oldest"
-                      : "Oldest to Newest"}
-                  </Button>
-                </div>
-              </div>
-            </PopoverContent>
-          </Popover>
-        </div> */}
-        <div className="mb-4 w-full  flex items-center justify-between rounded-full">
+        <div className="mb-4 w-full flex items-center justify-between rounded-full">
           <div className="w-1/2 border-2 rounded-full">
             <div className="flex pl-4 px-2 rounded-full items-center gap-2 w-full">
               <IoMdSearch />
@@ -136,7 +119,7 @@ function BlogPage() {
           <Popover>
             <PopoverTrigger asChild>
               <div className="flex items-center gap-2 ml p-2 text-nowrap text-black rounded-lg cursor-pointer">
-                <div className="flex items-center gap-2 ml p-2 text-nowrap  rounded-lg cursor-pointer">
+                <div className="flex items-center gap-2 ml p-2 text-nowrap rounded-lg cursor-pointer">
                   <button
                     aria-label="Sort options"
                     className="!border-2 p-2 rounded-full hover:bg-slate-100"
@@ -180,8 +163,11 @@ function BlogPage() {
             </PopoverContent>
           </Popover>
         </div>
-        {/* Blog Items */}
-        {blogs.length > 0 ? (
+
+        {/* Blog Items with improved skeleton loading */}
+        {isLoading ? (
+          renderSkeletonGrid()
+        ) : blogs.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogs.map((blog) => (
               <div
@@ -226,31 +212,33 @@ function BlogPage() {
           </div>
         )}
 
-        {/* Pagination */}
-        <div className="flex justify-between mb-4 mt-8">
-          <h1 className="font-semibold">
-            Showing {currentPage} of {totalPages}
-          </h1>
-          <div className="flex items-center">
-            <button
-              className="p-3 mx-2 border-[1px] border-black text-black rounded-lg"
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              <MdOutlineKeyboardArrowLeft />
-            </button>
-            <span className="px-4 py-2 bg-[#407899] text-white rounded-lg">
-              {currentPage}
-            </span>
-            <button
-              className="p-3 mx-2 border-[1px] border-black text-black rounded-lg"
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              <MdOutlineKeyboardArrowRight />
-            </button>
+        {/* Pagination - Only show when not loading and results exist */}
+        {!isLoading && blogs.length > 0 && (
+          <div className="flex justify-between mb-4 mt-8">
+            <h1 className="font-semibold">
+              Showing {currentPage} of {totalPages}
+            </h1>
+            <div className="flex items-center">
+              <button
+                className="p-3 mx-2 border-[1px] border-black text-black rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                <MdOutlineKeyboardArrowLeft />
+              </button>
+              <span className="px-4 py-2 bg-[#407899] text-white rounded-lg">
+                {currentPage}
+              </span>
+              <button
+                className="p-3 mx-2 border-[1px] border-black text-black rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                <MdOutlineKeyboardArrowRight />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
