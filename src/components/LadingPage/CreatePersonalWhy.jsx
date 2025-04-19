@@ -15,7 +15,7 @@ const datas = [
     buttonText: 'Learn More',
   },
   {
-    img: '/image/Group.svg',
+    img: '/image/Group1.png',
     alt: 'Create Your Why',
     title: 'Personalize Your ‘WHY’',
     description:
