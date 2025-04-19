@@ -152,6 +152,7 @@ import {
   useVerifyCodeMutation,
 } from '@/app/provider/redux/services/authApis';
 import { toast } from 'sonner';
+import Cookies from 'js-cookie';
 
 const { Text } = Typography;
 
@@ -186,8 +187,18 @@ const VerifyEmail = () => {
 
     try {
       const response = await verifycode({ data }).unwrap();
-      toast.success('User registered successfully.');
-      window.location.href = '/';
+      console.log(response);
+      if (response?.success) {
+        Cookies.remove('token');
+        Cookies.set('token', response?.data?.accessToken);
+        localStorage.setItem('accessToken', response?.data?.accessToken);
+        toast.success('User registered successfully.');
+        const accToken = localStorage.getItem('accessToken');
+        const condition = accToken !== null;
+        if (condition) {
+          window.location.href = '/';
+        }
+      }
     } catch (err) {
       console.error(err);
       toast.error('Invalid OTP. Please try again.');
